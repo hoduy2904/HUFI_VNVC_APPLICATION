@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/Auth/create_password.dart';
 import 'package:flutter_application_1/widgets/otp_form_widget.dart';
 
 class VerifyCodeScreen extends StatefulWidget {
@@ -32,8 +33,8 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
   @override
   Widget build(BuildContext context) {
     startTime();
-    return MaterialApp(
-      home: Container(
+    return Scaffold(
+      body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
@@ -96,7 +97,14 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                   child: Column(
                     children: [
                       OTPFormWidget(
-                        onChanged: (value) => {print(value)},
+                        onChanged: (value) => {
+                          timer?.cancel(),
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const CreatePasswordScreen()))
+                        },
                       ),
                       const SizedBox(
                         height: 15,

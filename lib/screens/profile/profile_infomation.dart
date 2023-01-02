@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/main.dart';
 import 'package:flutter_application_1/models/province_model.dart';
 import 'package:flutter_application_1/network/address_request.dart';
 import 'package:flutter_application_1/utils/FormControlWidget/form_control.dart';
@@ -379,6 +380,18 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                               ))
                           .toList(),
                       onChanged: ((value) {})))),
+          ElevatedButton(
+              onPressed: (() {
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context) => MyApp()));
+              }),
+              style: ElevatedButton.styleFrom(
+                  disabledForegroundColor: Colors.white,
+                  disabledBackgroundColor:
+                      const Color.fromARGB(255, 127, 151, 213),
+                  backgroundColor: Colors.blue.shade800,
+                  minimumSize: Size.fromHeight(40)),
+              child: const Text("Tiếp tục"))
         ],
       ),
     );

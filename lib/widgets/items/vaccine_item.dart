@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../models/vaccine_model.dart';
+import '../../models/vaccine_model.dart';
 
 class VaccineItem extends StatelessWidget {
-  final Vaccine vaccine;
+  final VaccineModel vaccine;
   const VaccineItem(this.vaccine, {super.key});
 
   @override

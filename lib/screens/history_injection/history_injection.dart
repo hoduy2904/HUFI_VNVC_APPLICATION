@@ -5,7 +5,8 @@ import 'package:flutter_application_1/utils/SearchBarWidget/search_bar.dart';
 import 'package:flutter_application_1/widgets/history_injection_widget.dart';
 
 class HistoryInjectionScreen extends StatefulWidget {
-  const HistoryInjectionScreen({super.key});
+  final bool isShowAppBar;
+  const HistoryInjectionScreen({this.isShowAppBar = true, super.key});
 
   @override
   State<HistoryInjectionScreen> createState() => _HistoryInjectionScreenState();
@@ -16,6 +17,7 @@ class _HistoryInjectionScreenState extends State<HistoryInjectionScreen> {
   @override
   Widget build(BuildContext context) {
     return FormWithSearchWidget(
+        isShowAppBar: widget.isShowAppBar,
         titleBar: "Lịch sử tiêm",
         searchChange: (value) => {
               setState((() {

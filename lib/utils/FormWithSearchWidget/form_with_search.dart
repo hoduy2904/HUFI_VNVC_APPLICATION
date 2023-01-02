@@ -5,8 +5,10 @@ class FormWithSearchWidget extends StatelessWidget {
   final Widget child;
   final Function searchChange;
   final String titleBar;
+  final bool isShowAppBar;
   const FormWithSearchWidget(
-      {required this.titleBar,
+      {this.isShowAppBar = true,
+      required this.titleBar,
       required this.searchChange,
       required this.child,
       super.key});
@@ -15,15 +17,17 @@ class FormWithSearchWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.blue.shade800,
-        title: Text(
-          titleBar,
-          style: const TextStyle(fontSize: 16),
-        ),
-        centerTitle: true,
-      ),
+      appBar: isShowAppBar
+          ? AppBar(
+              elevation: 0,
+              backgroundColor: Colors.blue.shade800,
+              title: Text(
+                titleBar,
+                style: const TextStyle(fontSize: 16),
+              ),
+              centerTitle: true,
+            )
+          : null,
       body: Center(
           child: Column(
         children: [

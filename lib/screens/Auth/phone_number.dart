@@ -17,8 +17,7 @@ class _PhoneNumberViewState extends State<PhoneNumberView> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Container(
+    return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
@@ -100,18 +99,20 @@ class _PhoneNumberViewState extends State<PhoneNumberView> {
                     ElevatedButton(
                         onPressed: phoneNumber.isEmpty
                             ? null
-                            : (() => {
-                                  Navigator.pushNamed(
-                                      context, VerifyCodeScreen.route,
-                                      arguments: {phoneNumber}),
-                                }),
-                        child: Text("Tiếp tục"),
+                            : (() {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const VerifyCodeScreen()));
+                              }),
                         style: ElevatedButton.styleFrom(
                             disabledForegroundColor: Colors.white,
                             disabledBackgroundColor:
-                                Color.fromARGB(255, 127, 151, 213),
+                                const Color.fromARGB(255, 127, 151, 213),
                             backgroundColor: Colors.blue.shade800,
-                            minimumSize: Size.fromHeight(40)))
+                            minimumSize: Size.fromHeight(40)),
+                        child: const Text("Tiếp tục"))
                   ],
                 ),
               ),
@@ -119,6 +120,6 @@ class _PhoneNumberViewState extends State<PhoneNumberView> {
           ],
         ),
       ),
-    ));
+    );
   }
 }
