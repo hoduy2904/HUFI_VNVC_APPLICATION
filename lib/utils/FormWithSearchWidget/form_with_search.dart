@@ -15,8 +15,7 @@ class FormWithSearchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
+    return Scaffold(
       appBar: isShowAppBar
           ? AppBar(
               elevation: 0,
@@ -42,6 +41,6 @@ class FormWithSearchWidget extends StatelessWidget {
           child
         ],
       )),
-    ));
+    );
   }
 }

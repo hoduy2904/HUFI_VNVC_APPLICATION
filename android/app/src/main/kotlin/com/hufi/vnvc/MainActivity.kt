@@ -1,4 +1,4 @@
-package com.vnvc.hufi
+package com.hufi.vnvc
 
 import io.flutter.embedding.android.FlutterActivity
 
