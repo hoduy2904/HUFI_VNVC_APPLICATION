@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/vaccine_category_model.dart';
-import 'package:flutter_application_1/models/vaccine_model.dart';
-import 'package:flutter_application_1/widgets/category_horization_widget.dart';
-import 'package:flutter_application_1/widgets/items/category_item.dart';
-import 'package:flutter_application_1/widgets/items/vaccine_item.dart';
+import 'package:hufi_vnvc_application/models/vaccine_category_model.dart';
+import 'package:hufi_vnvc_application/models/vaccine_model.dart';
+import 'package:hufi_vnvc_application/widgets/category_horization_widget.dart';
+import 'package:hufi_vnvc_application/widgets/items/vaccine_item.dart';
 
 class VaccineListWidget extends StatelessWidget {
   final int categoryId;

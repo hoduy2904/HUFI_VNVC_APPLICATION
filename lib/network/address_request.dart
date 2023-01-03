@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter_application_1/models/province_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:hufi_vnvc_application/models/province_model.dart';
 
 class AddressRequest {
   static List<ProvinceModel> parseProvince(Uint8List resbody) {

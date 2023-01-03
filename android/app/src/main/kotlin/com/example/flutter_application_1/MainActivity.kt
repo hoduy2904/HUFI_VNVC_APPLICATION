@@ -1,4 +1,4 @@
-package com.example.flutter_application_1
+package com.vnvc.hufi
 
 import io.flutter.embedding.android.FlutterActivity
 

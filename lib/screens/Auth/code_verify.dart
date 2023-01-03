@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/Auth/create_password.dart';
-import 'package:flutter_application_1/widgets/otp_form_widget.dart';
+import 'package:hufi_vnvc_application/screens/Auth/create_password.dart';
+import 'package:hufi_vnvc_application/widgets/otp_form_widget.dart';
 
 class VerifyCodeScreen extends StatefulWidget {
   const VerifyCodeScreen({super.key});

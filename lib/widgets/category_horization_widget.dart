@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/vaccine_category_model.dart';
-import 'package:flutter_application_1/utils/RadioButtonWidget/radio_button.dart';
+import 'package:hufi_vnvc_application/models/vaccine_category_model.dart';
+import 'package:hufi_vnvc_application/utils/RadioButtonWidget/radio_button.dart';
 
 class CategoryHorizationWidget extends StatelessWidget {
   final List<VaccineCategoryModel> items;

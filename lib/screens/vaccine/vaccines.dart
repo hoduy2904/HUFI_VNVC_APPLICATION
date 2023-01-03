@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/vaccine_category_model.dart';
-import 'package:flutter_application_1/models/vaccine_model.dart';
-import 'package:flutter_application_1/utils/FormWithSearchWidget/form_with_search.dart';
-import 'package:flutter_application_1/widgets/list_vaccine_widget.dart';
+import 'package:hufi_vnvc_application/models/vaccine_category_model.dart';
+import 'package:hufi_vnvc_application/models/vaccine_model.dart';
+import 'package:hufi_vnvc_application/utils/FormWithSearchWidget/form_with_search.dart';
+import 'package:hufi_vnvc_application/widgets/list_vaccine_widget.dart';
 
 class VaccinesScreen extends StatefulWidget {
   final bool isShowAppBar;

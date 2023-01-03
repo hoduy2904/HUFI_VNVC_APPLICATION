@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_application_1/models/category_model.dart';
+import 'package:hufi_vnvc_application/models/category_model.dart';
 
 class CategoryItem extends StatelessWidget {
   final CategoryModel categoryModel;

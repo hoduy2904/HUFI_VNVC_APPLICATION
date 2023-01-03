@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/main.dart';
-import 'package:flutter_application_1/models/province_model.dart';
-import 'package:flutter_application_1/network/address_request.dart';
-import 'package:flutter_application_1/utils/FormControlWidget/form_control.dart';
-import 'package:flutter_application_1/utils/RadioButtonWidget/radio_button.dart';
+import 'package:hufi_vnvc_application/main.dart';
+import 'package:hufi_vnvc_application/models/province_model.dart';
+import 'package:hufi_vnvc_application/network/address_request.dart';
+import 'package:hufi_vnvc_application/utils/FormControlWidget/form_control.dart';
+import 'package:hufi_vnvc_application/utils/RadioButtonWidget/radio_button.dart';
 
 class ProfileInfomationScreen extends StatefulWidget {
   const ProfileInfomationScreen({super.key});

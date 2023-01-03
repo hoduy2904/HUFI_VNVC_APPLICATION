@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/vaccine_category_model.dart';
-import 'package:flutter_application_1/models/vaccine_model.dart';
-import 'package:flutter_application_1/widgets/carousel_cateogry_widget.dart';
-import 'package:flutter_application_1/widgets/carousel_image_widget.dart';
-import 'package:flutter_application_1/widgets/category_horization_widget.dart';
-import 'package:flutter_application_1/widgets/items/vaccine_item.dart';
-import 'package:flutter_application_1/widgets/list_vaccine_widget.dart';
+import 'package:hufi_vnvc_application/models/vaccine_category_model.dart';
+import 'package:hufi_vnvc_application/models/vaccine_model.dart';
+import 'package:hufi_vnvc_application/widgets/carousel_cateogry_widget.dart';
+import 'package:hufi_vnvc_application/widgets/carousel_image_widget.dart';
+import 'package:hufi_vnvc_application/widgets/category_horization_widget.dart';
+import 'package:hufi_vnvc_application/widgets/items/vaccine_item.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

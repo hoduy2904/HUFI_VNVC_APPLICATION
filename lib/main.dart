@@ -1,16 +1,11 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/routes/routes.dart';
-import 'package:flutter_application_1/screens/Auth/code_verify.dart';
-import 'package:flutter_application_1/screens/Auth/create_password.dart';
-import 'package:flutter_application_1/screens/Auth/phone_number.dart';
-import 'package:flutter_application_1/screens/history_injection/history_injection.dart';
-import 'package:flutter_application_1/screens/home/home_page.dart';
-import 'package:flutter_application_1/screens/profile/profile_infomation.dart';
-import 'package:flutter_application_1/screens/vaccine/vaccines.dart';
-import 'package:flutter_application_1/widgets/items/history_injection_item.dart';
-import 'package:flutter_application_1/widgets/layout/bottom_navigation_bar.dart';
-import 'package:flutter_application_1/widgets/layout/top_bar.dart';
+import 'package:hufi_vnvc_application/screens/Auth/phone_number.dart';
+import 'package:hufi_vnvc_application/screens/history_injection/history_injection.dart';
+import 'package:hufi_vnvc_application/screens/home/home_page.dart';
+import 'package:hufi_vnvc_application/screens/vaccine/vaccines.dart';
+import 'package:hufi_vnvc_application/widgets/layout/bottom_navigation_bar.dart';
+import 'package:hufi_vnvc_application/widgets/layout/top_bar.dart';
 
 void main() {
   runApp(MaterialApp(

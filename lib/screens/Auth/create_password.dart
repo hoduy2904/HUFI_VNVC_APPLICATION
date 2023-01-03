@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/Auth/phone_number.dart';
-import 'package:flutter_application_1/screens/profile/profile_infomation.dart';
+import 'package:hufi_vnvc_application/screens/Auth/phone_number.dart';
+import 'package:hufi_vnvc_application/screens/profile/profile_infomation.dart';
 
 class CreatePasswordScreen extends StatefulWidget {
   const CreatePasswordScreen({super.key});

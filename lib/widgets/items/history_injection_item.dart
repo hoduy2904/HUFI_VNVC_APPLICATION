@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hufi_vnvc_application/models/history_injection_model.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_application_1/models/history_injection_model.dart';
 
 class HistoryInjectionItem extends StatelessWidget {
   final HistoryInjectionModel model;

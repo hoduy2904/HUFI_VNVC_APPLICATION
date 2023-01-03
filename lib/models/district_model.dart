@@ -1,5 +1,5 @@
-import 'package:flutter_application_1/models/base_address.dart';
-import 'package:flutter_application_1/models/ward_model.dart';
+import 'package:hufi_vnvc_application/models/base_address.dart';
+import 'package:hufi_vnvc_application/models/ward_model.dart';
 
 class DistrictModel extends BaseAddress {
   final int provinceCode;

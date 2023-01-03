@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/utils/SearchBarWidget/search_bar.dart';
+import 'package:hufi_vnvc_application/utils/SearchBarWidget/search_bar.dart';
 
 class FormWithSearchWidget extends StatelessWidget {
   final Widget child;
