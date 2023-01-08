@@ -1,15 +1,19 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:hufi_vnvc_application/screens/Auth/phone_number.dart';
-import 'package:hufi_vnvc_application/screens/history_injection/history_injection.dart';
+import 'package:hufi_vnvc_application/screens/cart/cart.dart';
+import 'package:hufi_vnvc_application/screens/history_buy/history_buy.dart';
 import 'package:hufi_vnvc_application/screens/home/home_page.dart';
+import 'package:hufi_vnvc_application/screens/order/order.dart';
+import 'package:hufi_vnvc_application/screens/profile/personal_screen.dart';
+import 'package:hufi_vnvc_application/screens/record/record.dart';
 import 'package:hufi_vnvc_application/screens/vaccine/vaccines.dart';
 import 'package:hufi_vnvc_application/widgets/layout/bottom_navigation_bar.dart';
 import 'package:hufi_vnvc_application/widgets/layout/top_bar.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: PhoneNumberView(),
+    home: MyApp(),
   ));
 }
 
@@ -25,7 +29,6 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     // ignore: prefer_const_constructors
     return Scaffold(
-      appBar: const TopAppBar(),
       body: PageTransitionSwitcher(
         transitionBuilder: (child, primaryAnimation, secondaryAnimation) =>
             SharedAxisTransition(
@@ -54,11 +57,10 @@ class _MyAppState extends State<MyApp> {
 const Tabs = [
   HomePage(),
   VaccinesScreen(
-    isShowAppBar: false,
+    isShowAppBar: true,
   ),
-  HistoryInjectionScreen(
-    isShowAppBar: false,
-  ),
+  RecordScreen(),
+  PersonalScreen()
 ];
 
 const items = [
@@ -72,7 +74,7 @@ const items = [
   ),
   BottomNavigationBarItem(
     icon: Icon(Icons.schedule_outlined),
-    label: "Lịch sử tiêm",
+    label: "Lịch tiêm",
   ),
   BottomNavigationBarItem(
     icon: Icon(Icons.contacts_outlined),

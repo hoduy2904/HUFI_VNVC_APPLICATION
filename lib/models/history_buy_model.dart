@@ -1,4 +1,4 @@
-class HistoryInjectionModel {
+class HistoryBuyModel {
   final DateTime timeInjection;
   final bool isPay;
   final String bookingCode;
@@ -6,6 +6,6 @@ class HistoryInjectionModel {
   final double total;
   final DateTime appointmentDate;
 
-  const HistoryInjectionModel(this.timeInjection, this.isPay, this.bookingCode,
+  const HistoryBuyModel(this.timeInjection, this.isPay, this.bookingCode,
       this.vaccineName, this.appointmentDate, this.total);
 }

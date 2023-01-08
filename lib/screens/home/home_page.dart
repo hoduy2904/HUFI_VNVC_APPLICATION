@@ -5,6 +5,7 @@ import 'package:hufi_vnvc_application/widgets/carousel_cateogry_widget.dart';
 import 'package:hufi_vnvc_application/widgets/carousel_image_widget.dart';
 import 'package:hufi_vnvc_application/widgets/category_horization_widget.dart';
 import 'package:hufi_vnvc_application/widgets/items/vaccine_item.dart';
+import 'package:hufi_vnvc_application/widgets/layout/top_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,8 +18,9 @@ class _HomePageState extends State<HomePage> {
   int currentCategory = listCateogry.first.id;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: ListView(shrinkWrap: true, children: <Widget>[
+    return Scaffold(
+      appBar: const TopAppBar(),
+      body: ListView(shrinkWrap: true, children: <Widget>[
         const CarouselWidget(),
         const SizedBox(
           height: 30,
@@ -110,6 +112,7 @@ final listCateogry = [
 
 final list = [
   VaccineModel(
+      1,
       2,
       "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
       "Vắc xin 4 trong 1 ssssssssssssssss",
@@ -117,6 +120,7 @@ final list = [
       50000,
       20000),
   VaccineModel(
+      2,
       1,
       "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
       "Vắc xin 4 trong 1",
@@ -124,6 +128,7 @@ final list = [
       50000,
       20000),
   VaccineModel(
+      3,
       2,
       "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
       "Vắc xin 4 trong 1",
@@ -131,6 +136,7 @@ final list = [
       50000,
       20000),
   VaccineModel(
+      4,
       4,
       "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
       "Vắc xin 4 trong 1",

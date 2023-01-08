@@ -39,6 +39,7 @@ class _VaccinesScreenState extends State<VaccinesScreen> {
 
 final list = [
   const VaccineModel(
+      1,
       2,
       "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
       "Vắc xin 4 trong 1 ssssssssssssssss",
@@ -46,6 +47,7 @@ final list = [
       50000,
       20000),
   const VaccineModel(
+      2,
       1,
       "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
       "Vắc xin 4 trong 1",
@@ -53,6 +55,7 @@ final list = [
       50000,
       20000),
   const VaccineModel(
+      3,
       2,
       "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
       "Vắc xin 4 trong 1",
@@ -60,6 +63,7 @@ final list = [
       50000,
       20000),
   const VaccineModel(
+      4,
       4,
       "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
       "Vắc xin 4 trong 1",

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hufi_vnvc_application/screens/cart/cart.dart';
+import 'package:hufi_vnvc_application/screens/notification/notification.dart';
 
 class TopAppBar extends StatelessWidget with PreferredSizeWidget {
   const TopAppBar({super.key});
@@ -23,7 +25,7 @@ class TopAppBar extends StatelessWidget with PreferredSizeWidget {
           Padding(
             padding: const EdgeInsets.only(left: 10),
             child: Column(
-              children: [
+              children: const [
                 Text("Chào buổi sáng",
                     style: TextStyle(fontSize: 12, color: Colors.white)),
                 Text(
@@ -38,10 +40,52 @@ class TopAppBar extends StatelessWidget with PreferredSizeWidget {
           )
         ],
       ),
-      leading: Icon(
-        Icons.notifications,
-        color: Colors.white,
-      ),
+      leading: IconButton(
+          onPressed: () => {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const NotificationScreen()))
+              },
+          icon: Icon(
+            Icons.notifications,
+            color: Colors.white,
+          )),
+      actions: [
+        IconButton(
+            onPressed: () => {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CartScreen()))
+                },
+            icon: Stack(
+              children: [
+                const Icon(
+                  Icons.shopping_bag_outlined,
+                  color: Colors.white,
+                ),
+                Positioned(
+                  right: 0,
+                  top: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(2.0),
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        "0",
+                        style: TextStyle(fontSize: 10),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ))
+      ],
     );
   }
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hufi_vnvc_application/models/history_injection_model.dart';
-import 'package:hufi_vnvc_application/widgets/items/history_injection_item.dart';
+import 'package:hufi_vnvc_application/models/history_buy_model.dart';
+import 'package:hufi_vnvc_application/widgets/items/history_buy_item.dart';
 
 class HistoryInjectionWidget extends StatelessWidget {
-  final List<HistoryInjectionModel> items;
+  final List<HistoryBuyModel> items;
   const HistoryInjectionWidget({required this.items, super.key});
 
   @override
