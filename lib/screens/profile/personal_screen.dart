@@ -31,7 +31,7 @@ class PersonalScreen extends StatelessWidget {
                     const CircleAvatar(
                       radius: 35.0,
                       backgroundImage: NetworkImage(
-                          "https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2022/09/avatar-anime-1.jpg?ssl=1"),
+                          "https://cdn-amz.woka.io/images/I/71yt4KT589L.jpg"),
                     ),
                     const SizedBox(
                       width: 10,

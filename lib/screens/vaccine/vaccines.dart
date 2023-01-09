@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hufi_vnvc_application/api/vaccine_api.dart';
 import 'package:hufi_vnvc_application/models/vaccine_category_model.dart';
 import 'package:hufi_vnvc_application/models/vaccine_model.dart';
 import 'package:hufi_vnvc_application/utils/FormWithSearchWidget/form_with_search.dart';
@@ -14,6 +15,20 @@ class VaccinesScreen extends StatefulWidget {
 
 class _VaccinesScreenState extends State<VaccinesScreen> {
   int currentCategory = listCateogry.first.id;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+  }
+
+  getData() async {
+    var res = await VaccineAPI().getVaccines();
+    if (res != null) {
+      print(res);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return FormWithSearchWidget(
