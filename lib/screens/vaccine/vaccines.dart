@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hufi_vnvc_application/api/vaccine_api.dart';
 import 'package:hufi_vnvc_application/models/vaccine_category_model.dart';
 import 'package:hufi_vnvc_application/models/vaccine_model.dart';
 import 'package:hufi_vnvc_application/utils/FormWithSearchWidget/form_with_search.dart';
@@ -19,14 +18,6 @@ class _VaccinesScreenState extends State<VaccinesScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getData();
-  }
-
-  getData() async {
-    var res = await VaccineAPI().getVaccines();
-    if (res != null) {
-      print(res);
-    }
   }
 
   @override

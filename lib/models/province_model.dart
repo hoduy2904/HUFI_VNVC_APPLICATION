@@ -20,12 +20,18 @@ class ProvinceModel extends BaseAddress {
             divisionType: divisionType);
 
   factory ProvinceModel.fromJson(Map<String, dynamic> json) {
+    List<DistrictModel> districts = [];
+    if (json["districts"] != null) {
+      districts = (json["districts"] as List)
+          .map((e) => DistrictModel.fromJson(e))
+          .toList();
+    }
     return ProvinceModel(
         name: json["name"],
         code: json["code"],
         codeName: json["codename"],
         divisionType: json["division_type"],
         phoneCode: json["phone_code"],
-        districts: []);
+        districts: districts);
   }
 }
