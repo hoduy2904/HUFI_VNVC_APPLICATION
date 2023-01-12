@@ -7,6 +7,7 @@ import 'package:hufi_vnvc_application/main.dart';
 import 'package:hufi_vnvc_application/models/province_model.dart';
 import 'package:hufi_vnvc_application/utils/FormControlWidget/form_control.dart';
 import 'package:hufi_vnvc_application/utils/RadioButtonWidget/radio_button.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class ProfileInfomationScreen extends StatefulWidget {
@@ -27,7 +28,7 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
         home: Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.blue[900],
-              title: Text("Thông tin cá nhân"),
+              title: const Text("Thông tin cá nhân"),
               centerTitle: true,
             ),
             body: Column(
@@ -36,10 +37,7 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                Expanded(
-                    child: ListView(
-                  children: [formValidate()],
-                )),
+                Expanded(child: SingleChildScrollView(child: formValidate())),
               ],
             )));
   }
@@ -50,7 +48,6 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
         create: (context) => ProfileBloc()..add(OnLoadProvince()),
         child:
             BlocBuilder<ProfileBloc, ProfileState>(builder: ((context, state) {
-          print(state.formInputStatus?.email);
           return Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
@@ -59,15 +56,23 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                     title: "Họ và tên",
                     required: true,
                     child: TextField(
+                      style: const TextStyle(fontSize: 12),
                       decoration: InputDecoration(
-                          hintText: "NGUYỄN VĂN A",
-                          isDense: true,
-                          errorText: isFullnameValidate ? "Lỗi" : null,
-                          hintStyle: const TextStyle(fontSize: 12),
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 12, horizontal: 6),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(3))),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey.shade300),
+                            borderRadius: BorderRadius.circular(6)),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey.shade300),
+                            borderRadius: BorderRadius.circular(6)),
+                        hintText: "NGUYỄN VĂN A",
+                        isDense: true,
+                        errorText: state.submitState?.submit == true
+                            ? state.formInputStatus?.validateFullName
+                            : null,
+                        hintStyle: const TextStyle(fontSize: 12),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 6),
+                      ),
                       onChanged: (value) {
                         context
                             .read<ProfileBloc>()
@@ -99,18 +104,30 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                       },
                       readOnly: true,
                       decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(6)),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(6)),
                           suffixIcon: Icon(
                             Icons.calendar_month,
                             color: Colors.blue.shade700,
                           ),
                           hintText: "25/12/2001",
                           isDense: true,
-                          errorText: isFullnameValidate ? "Lỗi" : null,
+                          errorText: state.submitState?.submit == true
+                              ? state.formInputStatus?.validateBirthday
+                              : null,
                           hintStyle: const TextStyle(fontSize: 12),
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 12, horizontal: 6),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(3))),
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(6))),
                     ))),
                 FormControl(
                     title: "Giới tính",
@@ -167,7 +184,7 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                               decoration: BoxDecoration(
                                   border:
                                       Border.all(color: Colors.grey.shade300),
-                                  borderRadius: BorderRadius.circular(5)),
+                                  borderRadius: BorderRadius.circular(6)),
                               child: DropdownButton(
                                   isExpanded: true,
                                   style: const TextStyle(
@@ -197,7 +214,7 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                               decoration: BoxDecoration(
                                   border:
                                       Border.all(color: Colors.grey.shade300),
-                                  borderRadius: BorderRadius.circular(5)),
+                                  borderRadius: BorderRadius.circular(6)),
                               child: DropdownButton(
                                   isExpanded: true,
                                   style: const TextStyle(
@@ -206,7 +223,7 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                                   isDense: true,
                                   underline:
                                       Container(color: Colors.transparent),
-                                  hint: const Text("Chọn Quốc tịch"),
+                                  hint: const Text("Chọn dân tộc"),
                                   items: itemss
                                       .map((e) => DropdownMenuItem(
                                             child: Text(e.name),
@@ -218,13 +235,67 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                   ],
                 ),
                 FormControl(
+                    title: "Số CMND/CCCD/Passport",
+                    required: true,
+                    child: TextField(
+                      style: const TextStyle(fontSize: 12),
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey.shade300),
+                            borderRadius: BorderRadius.circular(6)),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey.shade300),
+                            borderRadius: BorderRadius.circular(6)),
+                        hintText: "251512351...",
+                        isDense: true,
+                        errorText: state.submitState?.submit == true
+                            ? state.formInputStatus?.validateIdentityCode
+                            : null,
+                        hintStyle: const TextStyle(fontSize: 12),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 6),
+                      ),
+                      onChanged: (value) {
+                        context
+                            .read<ProfileBloc>()
+                            .add(OnIdentityCodeChange(identityCode: value));
+                      },
+                    )),
+                FormControl(
+                    title: "Địa chỉ",
+                    required: true,
+                    child: TextField(
+                      style: const TextStyle(fontSize: 12),
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey.shade300),
+                            borderRadius: BorderRadius.circular(6)),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey.shade300),
+                            borderRadius: BorderRadius.circular(6)),
+                        hintText: "Trung tâm VNVC Thành Phố Hồ Chí Minh",
+                        isDense: true,
+                        errorText: state.submitState?.submit == true
+                            ? state.formInputStatus?.validateAddress
+                            : null,
+                        hintStyle: const TextStyle(fontSize: 12),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 6),
+                      ),
+                      onChanged: (value) {
+                        context
+                            .read<ProfileBloc>()
+                            .add(OnAddressChange(address: value));
+                      },
+                    )),
+                FormControl(
                     title: "Tỉnh/Thành phố",
                     required: true,
                     child: Container(
                         padding: const EdgeInsets.all(6),
                         decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey.shade300),
-                            borderRadius: BorderRadius.circular(5)),
+                            borderRadius: BorderRadius.circular(6)),
                         child: DropdownButton(
                             value: state.provinceStatus?.codeSelect,
                             isExpanded: true,
@@ -260,7 +331,7 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                                             true)
                                         ? Colors.grey.shade300
                                         : Colors.red),
-                            borderRadius: BorderRadius.circular(5)),
+                            borderRadius: BorderRadius.circular(6)),
                         child: DropdownButton(
                             value: state.districtStatus?.codeSelect,
                             isExpanded: true,
@@ -291,7 +362,7 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                         padding: const EdgeInsets.all(6),
                         decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey.shade300),
-                            borderRadius: BorderRadius.circular(5)),
+                            borderRadius: BorderRadius.circular(6)),
                         child: DropdownButton(
                             value: state.wardStatus?.codeSelect,
                             isExpanded: true,
@@ -319,6 +390,14 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                     child: TextField(
                       style: const TextStyle(fontSize: 12),
                       decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(6)),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(6)),
                           hintText: "BHYT",
                           isDense: true,
                           errorText: !isFullnameValidate ? "Lỗi" : null,
@@ -326,7 +405,9 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 12, horizontal: 6),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(3))),
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(6))),
                       onChanged: (value) {
                         context
                             .read<ProfileBloc>()
@@ -338,6 +419,14 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                     child: TextField(
                       style: const TextStyle(fontSize: 12),
                       decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(6)),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(6)),
                           hintText: "Email",
                           isDense: true,
                           errorText: isFullnameValidate ? "Lỗi" : null,
@@ -345,7 +434,9 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 12, horizontal: 6),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(3))),
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(6))),
                       onChanged: (value) {
                         context
                             .read<ProfileBloc>()
@@ -358,7 +449,7 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                         padding: const EdgeInsets.all(6),
                         decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey.shade300),
-                            borderRadius: BorderRadius.circular(5)),
+                            borderRadius: BorderRadius.circular(6)),
                         child: DropdownButton(
                             isExpanded: true,
                             style: const TextStyle(
@@ -376,6 +467,10 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                             onChanged: ((value) {})))),
                 ElevatedButton(
                     onPressed: (() {
+                      print(state.formInputStatus);
+                      context
+                          .read<ProfileBloc>()
+                          .add(onSubmitEvent(isSubmit: true));
                       // Navigator.pushReplacement(context,
                       //     MaterialPageRoute(builder: (context) => MyApp()));
                     }),
@@ -395,22 +490,30 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
 
 Widget imageProfile() {
   return Center(
+      child: InkWell(
+    onTap: () async {
+      PickedFile? pickedFile =
+          await ImagePicker().getImage(source: ImageSource.camera);
+      if (pickedFile != null) {
+        print(pickedFile.path);
+      }
+    },
     child: Stack(
-      children: const <Widget>[
+      children: <Widget>[
         CircleAvatar(
           radius: 50.0,
           backgroundImage: NetworkImage(
               "https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2022/09/avatar-anime-1.jpg?ssl=1"),
         ),
         Positioned(
-            bottom: 10.0,
+            bottom: 0.0,
             right: 10.0,
             child: Icon(
               size: 24,
-              color: Colors.white,
+              color: Colors.blue.shade700,
               Icons.camera_alt,
             ))
       ],
     ),
-  );
+  ));
 }

@@ -14,26 +14,35 @@ class ProfileState extends Equatable {
   final WardStatus? wardStatus;
   final DistrictStatus? districtStatus;
   final FormInputStatus? formInputStatus;
+  final ProfileSubmitState? submitState;
   const ProfileState(
       {this.provinceStatus,
       this.wardStatus,
       this.districtStatus,
-      this.formInputStatus});
+      this.formInputStatus,
+      this.submitState});
   ProfileState copyWith(
       {ProvinceStatus? provinceStatus,
       WardStatus? wardStatus,
       DistrictStatus? districtStatus,
-      FormInputStatus? formInputStatus}) {
+      FormInputStatus? formInputStatus,
+      ProfileSubmitState? submitState}) {
     return ProfileState(
         provinceStatus: provinceStatus ?? this.provinceStatus,
         wardStatus: wardStatus ?? this.wardStatus,
         districtStatus: districtStatus ?? this.districtStatus,
-        formInputStatus: formInputStatus ?? this.formInputStatus);
+        formInputStatus: formInputStatus ?? this.formInputStatus,
+        submitState: submitState ?? this.submitState);
   }
 
   @override
-  List<Object?> get props =>
-      [provinceStatus, districtStatus, wardStatus, formInputStatus];
+  List<Object?> get props => [
+        provinceStatus,
+        districtStatus,
+        wardStatus,
+        formInputStatus,
+        submitState
+      ];
 }
 
 class ProfileErrorState extends ProfileState {
@@ -41,6 +50,13 @@ class ProfileErrorState extends ProfileState {
   const ProfileErrorState(this.error);
   @override
   List<Object?> get props => [error];
+}
+
+class ProfileSubmitState extends ProfileState {
+  final bool isValid;
+  final bool submit;
+  const ProfileSubmitState({this.submit = false, this.isValid = false});
+  List<Object?> get props => [submit, isValid];
 }
 
 class ProfileInitialState extends ProfileState {

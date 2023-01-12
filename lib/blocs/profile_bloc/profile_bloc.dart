@@ -8,7 +8,8 @@ import 'package:hufi_vnvc_application/blocs/profile_bloc/address_status/ward_sta
 import 'package:hufi_vnvc_application/repositories/address_repository.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-  ProfileBloc() : super(const ProfileInitialState()) {
+  ProfileBloc()
+      : super(const ProfileInitialState(formInputStatus: FormInputStatus())) {
     //Loading State Provinces
     on<OnLoadProvince>((event, emit) async {
       emit(state.copyWith(provinceStatus: const ProvinceStatus()));
@@ -85,21 +86,44 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<OnBirthdayChange>((event, emit) async {
       emit(state.copyWith(
           formInputStatus:
-              state.formInputStatus?.copyFrom(fullName: event.birthday)));
+              state.formInputStatus?.copyFrom(birthday: event.birthday)));
     });
 
     on<OnInsuranceCodeChange>((event, emit) async {
       emit(state.copyWith(
-          formInputStatus:
-              state.formInputStatus?.copyFrom(fullName: event.insuranceCode)));
+          formInputStatus: state.formInputStatus
+              ?.copyFrom(insuranceCode: event.insuranceCode)));
     });
+
     on<OnEmailChange>((event, emit) async {
-      emit(
-          state.copyWith(formInputStatus: FormInputStatus(email: event.email)));
+      emit(state.copyWith(
+          formInputStatus:
+              state.formInputStatus?.copyFrom(email: event.email)));
     });
     on<OnSexChange>((event, emit) async {
       emit(state.copyWith(
           formInputStatus: state.formInputStatus?.copyFrom(sex: event.sex)));
+    });
+    on<OnAddressChange>((event, emit) async {
+      emit(state.copyWith(
+          formInputStatus:
+              state.formInputStatus?.copyFrom(address: event.address)));
+    });
+    on<OnIdentityCodeChange>((event, emit) async {
+      emit(state.copyWith(
+          formInputStatus: state.formInputStatus
+              ?.copyFrom(identityCode: event.identityCode)));
+    });
+    on<onSubmitEvent>((event, emit) async {
+      if (event.isSubmit && state.formInputStatus?.isValidFormInput() == true) {
+        emit(state.copyWith(
+            submitState:
+                const ProfileSubmitState(submit: true, isValid: true)));
+      } else {
+        emit(state.copyWith(
+            submitState:
+                const ProfileSubmitState(submit: true, isValid: false)));
+      }
     });
   }
 }

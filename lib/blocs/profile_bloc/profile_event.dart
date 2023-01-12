@@ -79,3 +79,25 @@ class OnSexChange extends ProfileEvent {
   @override
   List<Object?> get props => [sex];
 }
+
+class OnIdentityCodeChange extends ProfileEvent {
+  final String identityCode;
+  OnIdentityCodeChange({required this.identityCode});
+  @override
+  List<Object?> get props => [identityCode];
+}
+
+class OnAddressChange extends ProfileEvent {
+  final String address;
+  OnAddressChange({required this.address});
+  @override
+  List<Object?> get props => [address];
+}
+
+class onSubmitEvent extends ProfileEvent {
+  final bool isValid;
+  final bool isSubmit;
+  onSubmitEvent({this.isValid = false, this.isSubmit = false});
+  @override
+  List<Object?> get props => [isSubmit, isValid];
+}
