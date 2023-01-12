@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hufi_vnvc_application/models/injection_model.dart';
+import 'package:hufi_vnvc_application/themes/color.dart';
+import 'package:hufi_vnvc_application/themes/typography.dart';
 import 'package:hufi_vnvc_application/widgets/items/injection_item.dart';
 
 class RecordScreen extends StatelessWidget {
@@ -9,7 +11,11 @@ class RecordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Hồ sơ tiêm chủng"),
+        backgroundColor: ColorTheme.primary,
+        title: Text(
+          "Hồ sơ tiêm chủng",
+          style: TypographyTheme.titleBar,
+        ),
         centerTitle: true,
       ),
       body: Container(

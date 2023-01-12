@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hufi_vnvc_application/themes/color.dart';
+import 'package:hufi_vnvc_application/themes/typography.dart';
 import 'package:hufi_vnvc_application/utils/ButtonSelectWidget/button_select.dart';
 
 class PersonalScreen extends StatelessWidget {
@@ -8,8 +10,11 @@ class PersonalScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.blue.shade800,
-          title: const Text("Cá nhân"),
+          backgroundColor: ColorTheme.primary,
+          title: Text(
+            "Cá nhân",
+            style: TypographyTheme.titleBar,
+          ),
           centerTitle: true,
           leading: const Icon(
             Icons.notifications,
@@ -77,7 +82,7 @@ class PersonalScreen extends StatelessWidget {
                               ),
                               leading: Icon(
                                 Icons.edit,
-                                color: Colors.blue.shade800,
+                                color: ColorTheme.primary,
                                 size: 16,
                               ),
                               child: const Text("Chỉnh sửa tài khoản"),
@@ -90,7 +95,7 @@ class PersonalScreen extends StatelessWidget {
                               ),
                               leading: Icon(
                                 Icons.manage_history_outlined,
-                                color: Colors.blue.shade800,
+                                color: ColorTheme.primary,
                                 size: 16,
                               ),
                               child: const Text("Quản lý hồ sơ y tế"),
@@ -103,7 +108,7 @@ class PersonalScreen extends StatelessWidget {
                               ),
                               leading: Icon(
                                 Icons.lock_outline,
-                                color: Colors.blue.shade800,
+                                color: ColorTheme.primary,
                                 size: 16,
                               ),
                               child: const Text("Đổi mật khẩu"),
@@ -117,7 +122,7 @@ class PersonalScreen extends StatelessWidget {
                               ),
                               leading: Icon(
                                 Icons.logout_outlined,
-                                color: Colors.blue.shade800,
+                                color: ColorTheme.primary,
                                 size: 16,
                               ),
                               child: const Text("Đăng xuất"),
@@ -125,7 +130,7 @@ class PersonalScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Card(
@@ -144,7 +149,7 @@ class PersonalScreen extends StatelessWidget {
                               ),
                               leading: Icon(
                                 Icons.document_scanner_outlined,
-                                color: Colors.blue.shade800,
+                                color: ColorTheme.primary,
                                 size: 16,
                               ),
                               child: const Text("Điều khoản dịch vụ"),
@@ -157,7 +162,7 @@ class PersonalScreen extends StatelessWidget {
                               ),
                               leading: Icon(
                                 Icons.privacy_tip_outlined,
-                                color: Colors.blue.shade800,
+                                color: ColorTheme.primary,
                                 size: 16,
                               ),
                               child: const Text("Chính sách quyền riêng tư"),

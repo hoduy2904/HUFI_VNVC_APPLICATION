@@ -56,6 +56,7 @@ class ProfileSubmitState extends ProfileState {
   final bool isValid;
   final bool submit;
   const ProfileSubmitState({this.submit = false, this.isValid = false});
+  @override
   List<Object?> get props => [submit, isValid];
 }
 

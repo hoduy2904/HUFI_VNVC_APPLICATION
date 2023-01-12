@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hufi_vnvc_application/models/category_model.dart';
+import 'package:hufi_vnvc_application/themes/color.dart';
 
 class CategoryItem extends StatelessWidget {
   final CategoryModel categoryModel;
@@ -16,7 +17,7 @@ class CategoryItem extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                  color: Colors.blue[800],
+                  color: ColorTheme.primary,
                   borderRadius: BorderRadius.circular(12)),
               child: Icon(
                 categoryModel.icon,

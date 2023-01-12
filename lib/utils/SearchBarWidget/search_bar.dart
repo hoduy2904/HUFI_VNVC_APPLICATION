@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:hufi_vnvc_application/themes/color.dart';
 
 class SearchBarWidget extends StatelessWidget {
   final Function onChange;
@@ -12,7 +13,7 @@ class SearchBarWidget extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6),
-        color: Colors.blue.shade900,
+        color: ColorTheme.primaryStrong,
       ),
       child: TextField(
         decoration: const InputDecoration(

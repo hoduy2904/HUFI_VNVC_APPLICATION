@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hufi_vnvc_application/themes/color.dart';
 
 import '../../models/vaccine_model.dart';
 
@@ -29,14 +30,13 @@ class VaccineItem extends StatelessWidget {
               Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
-                      border:
-                          Border.all(width: 4, color: Colors.blue.shade800)),
+                      border: Border.all(width: 4, color: ColorTheme.primary)),
                   child: Image.network(vaccine.images)),
               Positioned(
                   bottom: 3,
                   left: 2,
                   child: Container(
-                    color: Colors.blue[800],
+                    color: ColorTheme.primary,
                     padding: const EdgeInsets.all(3),
                     child: const Text(
                       "Vắc xin 4 trong 1",
@@ -94,7 +94,7 @@ class VaccineItem extends StatelessWidget {
                     child: Text(
                       vaccine.price.toString(),
                       style: TextStyle(
-                          color: Colors.blue.shade800,
+                          color: ColorTheme.primary,
                           fontWeight: FontWeight.bold,
                           fontSize: 16),
                     ),
@@ -105,12 +105,12 @@ class VaccineItem extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8)),
                           minimumSize: const Size.fromHeight(45),
                           side: BorderSide(
-                              color: Colors.blue.shade800, width: 1.0)),
+                              color: ColorTheme.primary, width: 1.0)),
                       onPressed: () => {},
                       child: Text(
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Colors.blue.shade800),
+                              color: ColorTheme.primary),
                           "Chọn mua")),
                 ],
               ),

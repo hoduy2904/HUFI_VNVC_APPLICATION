@@ -25,35 +25,35 @@ class _CategoryCarouselWidgetState extends State<CategoryCarouselWidget> {
         },
       ),
       CategoryItem(
-        CategoryModel(Icons.schedule_rounded, "Lịch sử mua"),
+        const CategoryModel(Icons.schedule_rounded, "Lịch sử mua"),
         onClick: () => {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const HistoryBuyScreen()))
         },
       ),
       CategoryItem(
-        CategoryModel(Icons.money_outlined, "Đặt mua vắc xin"),
+        const CategoryModel(Icons.money_outlined, "Đặt mua vắc xin"),
         onClick: () => {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const OrderScreen()))
         },
       ),
       CategoryItem(
-        CategoryModel(Icons.alarm, "Thông báo"),
+        const CategoryModel(Icons.alarm, "Thông báo"),
         onClick: () => {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const VaccinesScreen()))
         },
       ),
       CategoryItem(
-        CategoryModel(Icons.category, "Danh mục"),
+        const CategoryModel(Icons.category, "Danh mục"),
         onClick: () => {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const VaccinesScreen()))
         },
       ),
       CategoryItem(
-        CategoryModel(Icons.person, "Trang cá nhân"),
+        const CategoryModel(Icons.person, "Trang cá nhân"),
         onClick: () => {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const VaccinesScreen()))

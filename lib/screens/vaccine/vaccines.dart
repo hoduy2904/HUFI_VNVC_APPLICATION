@@ -16,6 +16,7 @@ class _VaccinesScreenState extends State<VaccinesScreen> {
   int currentCategory = listCateogry.first.id;
   @override
   void initState() {
+    // ignore: todo
     // TODO: implement initState
     super.initState();
   }

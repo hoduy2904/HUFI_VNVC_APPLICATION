@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hufi_vnvc_application/screens/cart/cart.dart';
 import 'package:hufi_vnvc_application/screens/notification/notification.dart';
+import 'package:hufi_vnvc_application/themes/color.dart';
 
 class TopAppBar extends StatelessWidget with PreferredSizeWidget {
   const TopAppBar({super.key});
@@ -9,7 +10,7 @@ class TopAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0,
-      backgroundColor: Colors.blue[800],
+      backgroundColor: ColorTheme.primary,
       centerTitle: true,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -47,7 +48,7 @@ class TopAppBar extends StatelessWidget with PreferredSizeWidget {
                     MaterialPageRoute(
                         builder: (context) => const NotificationScreen()))
               },
-          icon: Icon(
+          icon: const Icon(
             Icons.notifications,
             color: Colors.white,
           )),

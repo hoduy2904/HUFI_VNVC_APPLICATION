@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 
 class ProfileEvent extends Equatable {
   @override
+  // ignore: todo
   // TODO: implement props
   List<Object?> get props => [];
 }

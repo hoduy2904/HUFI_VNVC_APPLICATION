@@ -1,6 +1,4 @@
 import 'package:hufi_vnvc_application/blocs/profile_bloc/profile_state.dart';
-import 'package:hufi_vnvc_application/models/district_model.dart';
-import 'package:hufi_vnvc_application/models/province_model.dart';
 import 'package:hufi_vnvc_application/models/ward_model.dart';
 
 class WardStatus extends ProfileState {

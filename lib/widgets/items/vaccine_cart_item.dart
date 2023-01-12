@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hufi_vnvc_application/models/vaccine_model.dart';
+import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:intl/intl.dart';
 
 class VaccineCartItem extends StatelessWidget {
@@ -68,7 +69,7 @@ class VaccineCartItem extends StatelessWidget {
                   child: Text(
                     "${formatMoney.format(model.price)} VNĐ",
                     style: TextStyle(
-                        color: Colors.blue.shade900,
+                        color: ColorTheme.primaryStrong,
                         fontWeight: FontWeight.bold,
                         fontSize: 16),
                   ),

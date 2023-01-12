@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hufi_vnvc_application/screens/Auth/phone_number.dart';
 import 'package:hufi_vnvc_application/screens/profile/profile_infomation.dart';
+import 'package:hufi_vnvc_application/themes/color.dart';
 
 class CreatePasswordScreen extends StatefulWidget {
   const CreatePasswordScreen({super.key});
@@ -18,8 +19,9 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
   void _toggleObscured() {
     setState(() {
       _obscured = !_obscured;
-      if (textFieldFocusNode.hasPrimaryFocus)
-        return; // If focus is on text field, dont unfocus
+      if (textFieldFocusNode.hasPrimaryFocus) {
+        return;
+      } // If focus is on text field, dont unfocus
       textFieldFocusNode.canRequestFocus =
           false; // Prevents focus if tap on eye
     });
@@ -32,12 +34,15 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [Color.fromARGB(255, 9, 39, 208), Colors.blue.shade300])),
+              colors: [
+            const Color.fromARGB(255, 9, 39, 208),
+            Colors.blue.shade300
+          ])),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 60,
             ),
             Container(
@@ -49,10 +54,10 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                 scale: 8,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
-            Text(
+            const Text(
               "Đặt mật khẩu",
               style: TextStyle(
                   color: Colors.white,
@@ -64,7 +69,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
               height: 5,
             ),
             const Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
+              padding: EdgeInsets.symmetric(horizontal: 30),
               child: Text(
                 textAlign: TextAlign.center,
                 "Nhập mật khẩu 6 ký tự số dùng để xác thực tài khoản VNVC cho các lần đăng nhập sau",
@@ -89,7 +94,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                       children: [
                         TextFormField(
                           obscureText: !_obscured,
-                          style: TextStyle(fontSize: 14),
+                          style: const TextStyle(fontSize: 14),
                           onChanged: (pwd) => {
                             setState(() {
                               password = pwd;
@@ -119,7 +124,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                         ),
                         TextFormField(
                           obscureText: !_obscured,
-                          style: TextStyle(fontSize: 14),
+                          style: const TextStyle(fontSize: 14),
                           onChanged: (pwd) => {
                             setState(() {
                               repeatPassword = pwd;
@@ -161,7 +166,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                                 disabledForegroundColor: Colors.white,
                                 disabledBackgroundColor:
                                     const Color.fromARGB(255, 127, 151, 213),
-                                backgroundColor: Colors.blue.shade800,
+                                backgroundColor: ColorTheme.primary,
                                 minimumSize: const Size.fromHeight(40)),
                             child: const Text("Tiếp tục")),
                         const SizedBox(

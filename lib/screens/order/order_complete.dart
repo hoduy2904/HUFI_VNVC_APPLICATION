@@ -9,7 +9,7 @@ class OrderComplete extends StatelessWidget {
       Center(
         child: Column(
           children: [
-            Icon(
+            const Icon(
               Icons.check_circle,
               color: Colors.green,
               size: 50,
@@ -34,7 +34,7 @@ class OrderComplete extends StatelessWidget {
             ElevatedButton(
                 onPressed: () =>
                     {Navigator.popUntil(context, (route) => route.isFirst)},
-                child: Text("Quay lại trang chủ"))
+                child: const Text("Quay lại trang chủ"))
           ],
         ),
       )

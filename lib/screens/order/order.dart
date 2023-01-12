@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hufi_vnvc_application/screens/order/order_complete.dart';
 import 'package:hufi_vnvc_application/screens/order/payment_order.dart';
 import 'package:hufi_vnvc_application/screens/order/people_order.dart';
+import 'package:hufi_vnvc_application/themes/color.dart';
+import 'package:hufi_vnvc_application/themes/typography.dart';
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
@@ -23,8 +25,11 @@ class _OrderScreenState extends State<OrderScreen>
         length: 3,
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.blue.shade800,
-            title: const Text("Đặt trước"),
+            backgroundColor: ColorTheme.primary,
+            title: Text(
+              "Đặt trước",
+              style: TypographyTheme.titleBar,
+            ),
             centerTitle: true,
             bottom: TabBar(
                 onTap: (value) {
@@ -42,12 +47,12 @@ class _OrderScreenState extends State<OrderScreen>
                         decoration: BoxDecoration(
                             color: currentTab == 0
                                 ? Colors.white
-                                : Colors.blue.shade900,
+                                : ColorTheme.primaryStrong,
                             borderRadius: BorderRadius.circular(8)),
                         child: Icon(
                           isChoosePeople ? Icons.check : Icons.people_alt,
                           color: currentTab == 0
-                              ? Colors.blue.shade900
+                              ? ColorTheme.primaryStrong
                               : isChoosePeople
                                   ? Colors.lightGreen
                                   : Colors.white,
@@ -61,14 +66,14 @@ class _OrderScreenState extends State<OrderScreen>
                         decoration: BoxDecoration(
                             color: currentTab == 1
                                 ? Colors.white
-                                : Colors.blue.shade900,
+                                : ColorTheme.primaryStrong,
                             borderRadius: BorderRadius.circular(8)),
                         child: Icon(
                           isPayment ? Icons.check : Icons.payment,
                           color: currentTab == 1
                               ? isPayment
                                   ? Colors.lightGreen
-                                  : Colors.blue.shade900
+                                  : ColorTheme.primaryStrong
                               : Colors.white,
                         )),
                   ),
@@ -80,12 +85,12 @@ class _OrderScreenState extends State<OrderScreen>
                       decoration: BoxDecoration(
                           color: currentTab == 2
                               ? Colors.white
-                              : Colors.blue.shade900,
+                              : ColorTheme.primaryStrong,
                           borderRadius: BorderRadius.circular(8)),
                       child: Icon(
                         Icons.done,
                         color: currentTab == 2
-                            ? Colors.blue.shade900
+                            ? ColorTheme.primaryStrong
                             : Colors.white,
                       ),
                     ),

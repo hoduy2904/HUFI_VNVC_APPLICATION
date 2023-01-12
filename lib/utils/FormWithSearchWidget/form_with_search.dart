@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hufi_vnvc_application/themes/color.dart';
+import 'package:hufi_vnvc_application/themes/typography.dart';
 import 'package:hufi_vnvc_application/utils/SearchBarWidget/search_bar.dart';
 
 class FormWithSearchWidget extends StatelessWidget {
@@ -19,10 +21,10 @@ class FormWithSearchWidget extends StatelessWidget {
       appBar: isShowAppBar
           ? AppBar(
               elevation: 0,
-              backgroundColor: Colors.blue.shade800,
+              backgroundColor: ColorTheme.primary,
               title: Text(
                 titleBar,
-                style: const TextStyle(fontSize: 16),
+                style: TypographyTheme.titleBar,
               ),
               centerTitle: true,
             )

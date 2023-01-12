@@ -5,6 +5,8 @@ import 'package:hufi_vnvc_application/blocs/profile_bloc/profile_event.dart';
 import 'package:hufi_vnvc_application/blocs/profile_bloc/profile_state.dart';
 import 'package:hufi_vnvc_application/main.dart';
 import 'package:hufi_vnvc_application/models/province_model.dart';
+import 'package:hufi_vnvc_application/themes/color.dart';
+import 'package:hufi_vnvc_application/themes/typography.dart';
 import 'package:hufi_vnvc_application/utils/FormControlWidget/form_control.dart';
 import 'package:hufi_vnvc_application/utils/RadioButtonWidget/radio_button.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,7 +21,6 @@ class ProfileInfomationScreen extends StatefulWidget {
 }
 
 class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
-  DateTime _dateTime = DateTime.now();
   var txtDatePicker = TextEditingController();
   List<ProvinceModel> itemss = List.empty();
   @override
@@ -27,8 +28,11 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
     return MaterialApp(
         home: Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.blue[900],
-              title: const Text("Thông tin cá nhân"),
+              backgroundColor: ColorTheme.primary,
+              title: Text(
+                "Thông tin cá nhân",
+                style: TypographyTheme.titleBar,
+              ),
               centerTitle: true,
             ),
             body: Column(
@@ -196,8 +200,8 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                                   hint: const Text("Chọn Quốc tịch"),
                                   items: itemss
                                       .map((e) => DropdownMenuItem(
-                                            child: Text(e.name),
                                             value: e,
+                                            child: Text(e.name),
                                           ))
                                       .toList(),
                                   onChanged: ((value) {})),
@@ -226,8 +230,8 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                                   hint: const Text("Chọn dân tộc"),
                                   items: itemss
                                       .map((e) => DropdownMenuItem(
-                                            child: Text(e.name),
                                             value: e,
+                                            child: Text(e.name),
                                           ))
                                       .toList(),
                                   onChanged: ((value) {})),
@@ -375,8 +379,8 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                             items: (state.wardStatus?.status == Status.SUCCESS)
                                 ? state.wardStatus?.wards
                                     .map((e) => DropdownMenuItem(
-                                          child: Text(e.name),
                                           value: e.code,
+                                          child: Text(e.name),
                                         ))
                                     .toList()
                                 : null,
@@ -460,8 +464,8 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                             hint: const Text("Nghề nghiệp"),
                             items: itemss
                                 .map((e) => DropdownMenuItem(
-                                      child: Text(e.name),
                                       value: e,
+                                      child: Text(e.name),
                                     ))
                                 .toList(),
                             onChanged: ((value) {})))),
@@ -478,8 +482,8 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                         disabledForegroundColor: Colors.white,
                         disabledBackgroundColor:
                             const Color.fromARGB(255, 127, 151, 213),
-                        backgroundColor: Colors.blue.shade800,
-                        minimumSize: Size.fromHeight(40)),
+                        backgroundColor: ColorTheme.primary,
+                        minimumSize: const Size.fromHeight(40)),
                     child: const Text("Tiếp tục"))
               ],
             ),
@@ -500,7 +504,7 @@ Widget imageProfile() {
     },
     child: Stack(
       children: <Widget>[
-        CircleAvatar(
+        const CircleAvatar(
           radius: 50.0,
           backgroundImage: NetworkImage(
               "https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2022/09/avatar-anime-1.jpg?ssl=1"),

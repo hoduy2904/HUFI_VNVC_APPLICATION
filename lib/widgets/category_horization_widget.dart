@@ -28,7 +28,7 @@ class CategoryHorizationWidget extends StatelessWidget {
                       isBorder: true,
                       fontSize: 12,
                       borderRadius: BorderRadius.circular(5),
-                      padding: EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                     ))
                 .toList()));
   }

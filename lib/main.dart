@@ -1,20 +1,14 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:hufi_vnvc_application/screens/Auth/phone_number.dart';
-import 'package:hufi_vnvc_application/screens/cart/cart.dart';
-import 'package:hufi_vnvc_application/screens/history_buy/history_buy.dart';
 import 'package:hufi_vnvc_application/screens/home/home_page.dart';
-import 'package:hufi_vnvc_application/screens/order/order.dart';
 import 'package:hufi_vnvc_application/screens/profile/personal_screen.dart';
-import 'package:hufi_vnvc_application/screens/profile/profile_infomation.dart';
 import 'package:hufi_vnvc_application/screens/record/record.dart';
 import 'package:hufi_vnvc_application/screens/vaccine/vaccines.dart';
 import 'package:hufi_vnvc_application/widgets/layout/bottom_navigation_bar.dart';
-import 'package:hufi_vnvc_application/widgets/layout/top_bar.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: ProfileInfomationScreen(),
+    home: MyApp(),
   ));
 }
 

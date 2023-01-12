@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hufi_vnvc_application/models/vaccine_model.dart';
 import 'package:hufi_vnvc_application/screens/order/order.dart';
+import 'package:hufi_vnvc_application/themes/color.dart';
+import 'package:hufi_vnvc_application/themes/typography.dart';
 import 'package:intl/intl.dart';
 
 class CartScreen extends StatefulWidget {
@@ -15,7 +17,11 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Giỏ hàng"),
+        backgroundColor: ColorTheme.primary,
+        title: Text(
+          "Giỏ hàng",
+          style: TypographyTheme.titleBar,
+        ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -27,14 +33,15 @@ class _CartScreenState extends State<CartScreen> {
                 .toList(),
           ),
           ElevatedButton(
-              style: ElevatedButton.styleFrom(minimumSize: Size.fromHeight(45)),
+              style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(45)),
               onPressed: () => {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const OrderScreen()))
                   },
-              child: Text("Đặt mua"))
+              child: const Text("Đặt mua"))
         ]),
       ),
     );
@@ -105,7 +112,7 @@ Widget CartItem(BuildContext context, VaccineModel model, Function onTap) {
                     child: Text(
                       "${formatMoney.format(model.price)} VNĐ",
                       style: TextStyle(
-                          color: Colors.blue.shade900,
+                          color: ColorTheme.primaryStrong,
                           fontWeight: FontWeight.bold,
                           fontSize: 16),
                     ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hufi_vnvc_application/themes/color.dart';
+import 'package:hufi_vnvc_application/themes/typography.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
@@ -7,7 +9,11 @@ class NotificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Thông báo"),
+          backgroundColor: ColorTheme.primary,
+          title: Text(
+            "Thông báo",
+            style: TypographyTheme.titleBar,
+          ),
           centerTitle: true,
         ),
         body: SingleChildScrollView(
@@ -29,13 +35,13 @@ class NotificationScreen extends StatelessWidget {
                       children: [
                         Icon(Icons.notifications_active_rounded,
                             color: Colors.blue.shade600),
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               "Đây là nội dung thông báo",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 14),

@@ -40,7 +40,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-              Color.fromARGB(255, 9, 39, 208),
+              const Color.fromARGB(255, 9, 39, 208),
               Colors.blue.shade300
             ])),
         child: Padding(

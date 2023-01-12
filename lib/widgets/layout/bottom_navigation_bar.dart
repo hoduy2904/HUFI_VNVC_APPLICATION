@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hufi_vnvc_application/themes/color.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
   final List<BottomNavigationBarItem> items;
@@ -15,7 +16,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
     return BottomNavigationBar(
       backgroundColor: Colors.white,
       unselectedItemColor: Colors.grey,
-      selectedItemColor: Colors.blue[800],
+      selectedItemColor: ColorTheme.primary,
       items: items,
       currentIndex: currentIndex,
       showUnselectedLabels: true,

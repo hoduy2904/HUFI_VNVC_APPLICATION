@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hufi_vnvc_application/models/people_item_model.dart';
+import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:hufi_vnvc_application/widgets/items/people_viewer_item.dart';
 
 class PeopleOrder extends StatelessWidget {
@@ -19,7 +20,7 @@ class PeopleOrder extends StatelessWidget {
                   decoration: InputDecoration(
                       prefixIcon: Icon(
                         Icons.search,
-                        color: Colors.blue.shade800,
+                        color: ColorTheme.primary,
                       ),
                       hintStyle: const TextStyle(fontSize: 12),
                       hintText: "Tìm kiếm theo tên",
@@ -27,7 +28,7 @@ class PeopleOrder extends StatelessWidget {
                       contentPadding: const EdgeInsets.symmetric(
                           vertical: 12, horizontal: 12),
                       border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue.shade800),
+                          borderSide: BorderSide(color: ColorTheme.primary),
                           borderRadius: BorderRadius.circular(5))),
                 ),
                 const SizedBox(
@@ -44,11 +45,11 @@ class PeopleOrder extends StatelessWidget {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: (() {}),
+            backgroundColor: ColorTheme.primary,
             child: const Icon(
               Icons.plus_one,
               color: Colors.white,
             ),
-            backgroundColor: Colors.blue.shade800,
           )),
     );
   }

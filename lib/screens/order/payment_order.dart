@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hufi_vnvc_application/models/vaccine_model.dart';
+import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:hufi_vnvc_application/widgets/items/vaccine_cart_item.dart';
 
 class PaymentOrder extends StatelessWidget {
@@ -43,13 +44,13 @@ class PaymentOrder extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                         minimumSize: const Size.fromHeight(45),
                         backgroundColor: Colors.white,
-                        textStyle: TextStyle(color: Colors.blue.shade800),
-                        side: BorderSide(color: Colors.blue.shade900)),
+                        textStyle: TextStyle(color: ColorTheme.primary),
+                        side: BorderSide(color: ColorTheme.primaryStrong)),
                     onPressed: () => {},
                     child: Text(
                       "Thêm hoặc xoá vắc xin",
                       style: TextStyle(
-                          color: Colors.blue.shade900,
+                          color: ColorTheme.primaryStrong,
                           fontWeight: FontWeight.bold),
                     )),
               ),

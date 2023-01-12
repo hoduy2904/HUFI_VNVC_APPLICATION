@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hufi_vnvc_application/models/history_buy_model.dart';
+import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:intl/intl.dart';
 
 class HistoryInjectionItem extends StatelessWidget {
@@ -139,7 +140,7 @@ class HistoryInjectionItem extends StatelessWidget {
                     !model.isPay
                         ? ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue.shade800),
+                                backgroundColor: ColorTheme.primary),
                             onPressed: (() {}),
                             child: const Text(
                               "Thanh toán",
@@ -152,14 +153,14 @@ class HistoryInjectionItem extends StatelessWidget {
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             side: BorderSide(
-                              color: Colors.blue.shade800,
+                              color: ColorTheme.primary,
                             ),
                             backgroundColor: Colors.white),
                         onPressed: (() {}),
                         child: Text(
                           "Chi tiết",
                           style: TextStyle(
-                              color: Colors.blue.shade800,
+                              color: ColorTheme.primary,
                               fontWeight: FontWeight.bold),
                         ))
                   ],

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:hufi_vnvc_application/screens/Auth/code_verify.dart';
+import 'package:hufi_vnvc_application/themes/color.dart';
 
 class PhoneNumberView extends StatefulWidget {
   const PhoneNumberView({super.key});
@@ -22,7 +23,10 @@ class _PhoneNumberViewState extends State<PhoneNumberView> {
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [Color.fromARGB(255, 9, 39, 208), Colors.blue.shade300])),
+              colors: [
+            const Color.fromARGB(255, 9, 39, 208),
+            Colors.blue.shade300
+          ])),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
@@ -77,7 +81,7 @@ class _PhoneNumberViewState extends State<PhoneNumberView> {
                 child: Column(
                   children: [
                     TextField(
-                      style: TextStyle(fontSize: 14),
+                      style: const TextStyle(fontSize: 14),
                       onChanged: (phone) => {
                         setState(() {
                           phoneNumber = phone;
@@ -110,8 +114,8 @@ class _PhoneNumberViewState extends State<PhoneNumberView> {
                             disabledForegroundColor: Colors.white,
                             disabledBackgroundColor:
                                 const Color.fromARGB(255, 127, 151, 213),
-                            backgroundColor: Colors.blue.shade800,
-                            minimumSize: Size.fromHeight(40)),
+                            backgroundColor: ColorTheme.primary,
+                            minimumSize: const Size.fromHeight(40)),
                         child: const Text("Tiếp tục"))
                   ],
                 ),

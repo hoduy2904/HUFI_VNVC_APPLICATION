@@ -18,10 +18,17 @@ class _HomePageState extends State<HomePage> {
   int currentCategory = listCateogry.first.id;
   @override
   Widget build(BuildContext context) {
+    final List<String> imgList = [
+      'https://vnvc.vn/wp-content/uploads/2022/12/tiem-goi-vacxin-theo-yeu-cau-mb.jpg',
+      'https://vnvc.vn/wp-content/uploads/2021/12/uu-dai-giang-sinh-nam-moi-768x402.jpg',
+      'https://vnvc.vn/wp-content/uploads/2022/12/vnvc-nga-bay-hau-giang-dat-giu-vac-xin-768x402.jpg',
+    ];
     return Scaffold(
       appBar: const TopAppBar(),
       body: ListView(shrinkWrap: true, children: <Widget>[
-        const CarouselWidget(),
+        CarouselWidget(
+          images: imgList,
+        ),
         const SizedBox(
           height: 30,
         ),
@@ -56,7 +63,7 @@ class _HomePageState extends State<HomePage> {
           height: 10,
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 22),
+          padding: const EdgeInsets.symmetric(horizontal: 22),
           child: Column(
             children: [
               Container(
