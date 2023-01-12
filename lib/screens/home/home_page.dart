@@ -22,120 +22,126 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (context) => HomeBloc(),
-        child: BlocBuilder(
-            builder: ((context, state) => Scaffold(
-                  appBar: const TopAppBar(),
-                  body: ListView(shrinkWrap: true, children: <Widget>[
-                    if (state is BannerLoadingState)
-                      Center(
-                        child: LoadingAnimationWidget.stretchedDots(
-                            color: ColorTheme.secondary, size: 24),
-                      ),
-                    if (state is BannerSuccessState)
-                      CarouselWidget(
-                        images: state.bannerSuccessState?.banners ?? [],
-                      ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    const CategoryCarouselWidget(),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          color: Colors.blue.shade100,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Image.network(
-                              excludeFromSemantics: true,
-                              width: 80,
-                              scale: 5,
-                              fit: BoxFit.cover,
-                              "https://vnvc.vn/img/logo.png"),
-                          Image.network(
-                              width: 80,
-                              fit: BoxFit.cover,
-                              "https://vnvc.vn/img/logo.png"),
-                          Image.network(
-                              width: 80,
-                              fit: BoxFit.cover,
-                              "https://vnvc.vn/img/logo.png"),
-                          Image.network(
-                              width: 80,
-                              fit: BoxFit.cover,
-                              "https://vnvc.vn/img/logo.png"),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 22),
-                      child: Column(
-                        children: [
-                          Container(
-                            alignment: Alignment.topLeft,
-                            child: Text(
-                              "Danh mục vắc xin",
-                              style: Theme.of(context).textTheme.headline6,
-                            ),
+    return Scaffold(
+        appBar: const TopAppBar(),
+        body: BlocProvider(
+            create: (context) => HomeBloc()
+              ..add(OnLoadBannerEvent())
+              ..add(OnLoadCategoryEvent()),
+            child: BlocBuilder<HomeBloc, HomeState>(
+                builder: ((context, state) => ListView(
+                      shrinkWrap: true,
+                      children: <Widget>[
+                        if (state is BannerLoadingState)
+                          Center(
+                            child: LoadingAnimationWidget.stretchedDots(
+                                color: ColorTheme.secondary, size: 24),
                           ),
-                          const SizedBox(
-                            height: 10,
+                        if (state is BannerSuccessState)
+                          CarouselWidget(
+                            images: state.bannerSuccessState?.banners ?? [],
                           ),
-                          if (state is CategoryLoaddingState)
-                            Center(
-                              child: LoadingAnimationWidget.stretchedDots(
-                                  color: ColorTheme.secondary, size: 24),
-                            ),
-                          if (state is CategorySuccessState)
-                            CategoryHorizationWidget(
-                              items: state.categorySuccessState?.categories ??
-                                  const <VaccineCategoryModel>[],
-                              groupValue: state.categorySuccessState?.currentId,
-                              onTap: (value) => {
-                                context
-                                    .read<HomeBloc>()
-                                    .add(OnClickCategoryEvent(id: value))
-                              },
-                            ),
-                          const SizedBox(
-                            height: 10,
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        const CategoryCarouselWidget(),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              color: Colors.blue.shade100,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Image.network(
+                                  excludeFromSemantics: true,
+                                  width: 80,
+                                  scale: 5,
+                                  fit: BoxFit.cover,
+                                  "https://vnvc.vn/img/logo.png"),
+                              Image.network(
+                                  width: 80,
+                                  fit: BoxFit.cover,
+                                  "https://vnvc.vn/img/logo.png"),
+                              Image.network(
+                                  width: 80,
+                                  fit: BoxFit.cover,
+                                  "https://vnvc.vn/img/logo.png"),
+                              Image.network(
+                                  width: 80,
+                                  fit: BoxFit.cover,
+                                  "https://vnvc.vn/img/logo.png"),
+                            ],
                           ),
-                          if (state is ProductLoadingState)
-                            Center(
-                              child: LoadingAnimationWidget.stretchedDots(
-                                  color: ColorTheme.secondary, size: 24),
-                            ),
-                          if (state is ProductSuccessState)
-                            GridView(
-                              primary: false,
-                              shrinkWrap: true,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                      mainAxisExtent: 325,
-                                      crossAxisCount: 2,
-                                      crossAxisSpacing: 15),
-                              children: state.productSuccessState?.vaccines
-                                      .map((e) => VaccineItem(e))
-                                      .toList() ??
-                                  [],
-                            )
-                          else
-                            const Center(
-                              child: Text("Không có vắc xin"),
-                            )
-                        ],
-                      ),
-                    )
-                  ]),
-                ))));
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 22),
+                          child: Column(
+                            children: [
+                              Container(
+                                alignment: Alignment.topLeft,
+                                child: Text(
+                                  "Danh mục vắc xin",
+                                  style: Theme.of(context).textTheme.headline6,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              if (state is CategoryLoaddingState)
+                                Center(
+                                  child: LoadingAnimationWidget.stretchedDots(
+                                      color: ColorTheme.secondary, size: 24),
+                                ),
+                              if (state is CategorySuccessState)
+                                CategoryHorizationWidget(
+                                  items:
+                                      state.categorySuccessState?.categories ??
+                                          const <VaccineCategoryModel>[],
+                                  groupValue:
+                                      state.categorySuccessState?.currentId,
+                                  onTap: (value) => {
+                                    context
+                                        .read<HomeBloc>()
+                                        .add(OnClickCategoryEvent(id: value))
+                                  },
+                                ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              if (state is ProductLoadingState)
+                                Center(
+                                  child: LoadingAnimationWidget.stretchedDots(
+                                      color: ColorTheme.secondary, size: 24),
+                                ),
+                              if (state is ProductSuccessState)
+                                GridView(
+                                  primary: false,
+                                  shrinkWrap: true,
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                          mainAxisExtent: 325,
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: 15),
+                                  children: state.productSuccessState?.vaccines
+                                          .map((e) => VaccineItem(e))
+                                          .toList() ??
+                                      [],
+                                )
+                              else
+                                const Center(
+                                  child: Text("Không có vắc xin"),
+                                )
+                            ],
+                          ),
+                        )
+                      ],
+                    )))));
   }
 }
