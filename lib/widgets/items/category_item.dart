@@ -31,7 +31,7 @@ class CategoryItem extends StatelessWidget {
             Text(
               overflow: TextOverflow.fade,
               maxLines: 2,
-              categoryModel.Title,
+              categoryModel.title,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyText1,
             ),

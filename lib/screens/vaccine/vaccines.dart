@@ -79,10 +79,10 @@ final list = [
       20000),
 ];
 final listCateogry = [
-  const VaccineCategoryModel(1, "Vắc xin 4 trong 1"),
-  const VaccineCategoryModel(2, "Trẻ em"),
-  const VaccineCategoryModel(3, "Người lớn"),
-  const VaccineCategoryModel(4, "Covid-19"),
-  const VaccineCategoryModel(5, "Người già"),
-  const VaccineCategoryModel(6, "Bà bầu"),
+  const VaccineCategoryModel(id: 1, name: "Vắc xin 4 trong 1"),
+  const VaccineCategoryModel(id: 2, name: "Trẻ em"),
+  const VaccineCategoryModel(id: 3, name: "Người lớn"),
+  const VaccineCategoryModel(id: 4, name: "Covid-19"),
+  const VaccineCategoryModel(id: 5, name: "Người già"),
+  const VaccineCategoryModel(id: 6, name: "Bà bầu"),
 ];

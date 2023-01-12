@@ -4,12 +4,12 @@ import 'package:hufi_vnvc_application/utils/RadioButtonWidget/radio_button.dart'
 
 class CategoryHorizationWidget extends StatelessWidget {
   final List<VaccineCategoryModel> items;
-  final int groupValue;
+  final int? groupValue;
   final Function onTap;
   const CategoryHorizationWidget(
       {required this.onTap,
-      required this.groupValue,
-      required this.items,
+      this.groupValue,
+      this.items = const <VaccineCategoryModel>[],
       super.key});
 
   @override
