@@ -1,5 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:hufi_vnvc_application/screens/chat/chat.dart';
 import 'package:hufi_vnvc_application/screens/home/home_page.dart';
 import 'package:hufi_vnvc_application/screens/profile/personal_screen.dart';
 import 'package:hufi_vnvc_application/screens/record/record.dart';
@@ -8,7 +9,7 @@ import 'package:hufi_vnvc_application/widgets/layout/bottom_navigation_bar.dart'
 
 void main() {
   runApp(MaterialApp(
-    home: MyApp(),
+    home: ChatScreen(),
   ));
 }
 
