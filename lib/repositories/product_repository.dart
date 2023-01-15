@@ -6,7 +6,7 @@ class ProductRepository {
       {required int page, required int size, String? q}) async {
     var resource = APIServices(
         url:
-            "/api/getVaccines?page=$page&size=$size${q == null ? "" : ("&q=$q")}",
+            "/api/vaccine/getVaccines?page=$page&size=$size${q == null ? "" : ("&q=$q")}",
         parse: ((json) {
           var list = json as List;
           return list.map((e) => VaccineModel.fromJson(e)).toList();

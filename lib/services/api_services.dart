@@ -1,11 +1,12 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class APIServices<T> {
   final String url;
   final String fullUrl;
-  final Map<String, String>? headers;
+  Map<String, String>? headers;
   final dynamic? body;
   T Function(dynamic json) parse;
   String finalUrl() => url.isEmpty ? fullUrl : url;
@@ -19,6 +20,15 @@ class APIServices<T> {
 
 class RequestAPI {
   Future<T> get<T>(APIServices<T> resource) async {
+    final prefs = await SharedPreferences.getInstance();
+    var authToken = prefs.getStringList("authToken");
+    if (authToken != null) {
+      resource.headers ??= {
+        "Content-type": "application/json",
+        'Accept': 'application/json',
+        "Authorization": authToken[0]
+      };
+    }
     var request = await http.get(Uri.parse(resource.finalUrl()),
         headers: resource.headers);
     if (request.statusCode == 200) {
@@ -30,6 +40,15 @@ class RequestAPI {
   }
 
   Future<T> post<T>(APIServices<T> resource) async {
+    final prefs = await SharedPreferences.getInstance();
+    var authToken = prefs.getStringList("authToken");
+    if (authToken != null) {
+      resource.headers ??= {
+        "Content-type": "application/json",
+        'Accept': 'application/json',
+        "Authorization": authToken[0]
+      };
+    }
     var request = await http.post(Uri.parse(resource.finalUrl()),
         headers: resource.headers, body: jsonEncode(resource.body));
     if (request.statusCode == 200) {

@@ -11,12 +11,27 @@ class VaccineModel {
   final String prevention;
   final double price;
   final double priceOld;
-  const VaccineModel(this.id, this.categoryId, this.images, this.name,
-      this.prevention, this.price, this.priceOld);
+  final int quantityRemain;
+  const VaccineModel(
+      {required this.quantityRemain,
+      required this.id,
+      required this.categoryId,
+      required this.images,
+      required this.name,
+      required this.prevention,
+      required this.price,
+      required this.priceOld});
 
   factory VaccineModel.fromJson(Map<String, dynamic> json) {
     print(json);
-    return VaccineModel(json["id"], json["categoryId"], json["images"],
-        json["name"], json["prevention"], json["price"], json["priceOld"]);
+    return VaccineModel(
+        quantityRemain: json["quantityRemain"],
+        id: json["id"],
+        categoryId: json["typeOfVaccineId"],
+        images: json["image"],
+        name: json["name"],
+        prevention: json["diseasePrevention"],
+        price: json["price"],
+        priceOld: json["priceOld"]);
   }
 }

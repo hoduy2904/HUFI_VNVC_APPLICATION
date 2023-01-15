@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hufi_vnvc_application/blocs/cart_bloc/cart_bloc.dart';
+import 'package:hufi_vnvc_application/blocs/cart_bloc/cart_state.dart';
+import 'package:hufi_vnvc_application/models/cart_model.dart';
 import 'package:hufi_vnvc_application/models/vaccine_model.dart';
 import 'package:hufi_vnvc_application/screens/order/order.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
@@ -16,39 +20,54 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ColorTheme.primary,
-        title: Text(
-          "Giỏ hàng",
-          style: TypographyTheme.titleBar,
-        ),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(children: [
-          Column(
-            children: list
-                .map((model) => CartItem(context, model, (e) => {}))
-                .toList(),
+        appBar: AppBar(
+          backgroundColor: ColorTheme.primary,
+          title: Text(
+            "Giỏ hàng",
+            style: TypographyTheme.titleBar,
           ),
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(45)),
-              onPressed: () => {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const OrderScreen()))
-                  },
-              child: const Text("Đặt mua"))
-        ]),
-      ),
-    );
+          centerTitle: true,
+        ),
+        body: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: BlocProvider(
+                create: (context) => CartBloc(),
+                child: BlocBuilder<CartBloc, CartState>(
+                  builder: ((context, state) => Column(
+                        children: [
+                          if (state is CartLoadingState)
+                            Center(
+                              child: Text("Loading"),
+                            ),
+                          if (state is CartSuccessState)
+                            Column(
+                              children: state.carts
+                                  .map((model) =>
+                                      CartItem(context, model, (e) => {}))
+                                  .toList(),
+                            ),
+                          if (state is CartFailedState)
+                            Center(
+                              child: Text(state.error),
+                            ),
+                          ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  minimumSize: const Size.fromHeight(45)),
+                              onPressed: () => {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const OrderScreen()))
+                                  },
+                              child: const Text("Đặt mua"))
+                        ],
+                      )),
+                ))));
   }
 }
 
-Widget CartItem(BuildContext context, VaccineModel model, Function onTap) {
+Widget CartItem(BuildContext context, CartModel model, Function onTap) {
   var formatMoney = NumberFormat("#,##0", "vi_VN");
   return Card(
       margin: const EdgeInsets.symmetric(vertical: 10),
@@ -76,7 +95,7 @@ Widget CartItem(BuildContext context, VaccineModel model, Function onTap) {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        model.name.toUpperCase(),
+                        model.vaccineModel.name.toUpperCase(),
                         style: const TextStyle(
                             decoration: TextDecoration.none,
                             fontSize: 14,
@@ -94,7 +113,7 @@ Widget CartItem(BuildContext context, VaccineModel model, Function onTap) {
                         height: 5,
                       ),
                       Text(
-                        "Phòng bệnh: ${model.prevention}",
+                        "Phòng bệnh: ${model.vaccineModel.prevention}",
                         style: Theme.of(context).textTheme.bodySmall,
                       )
                     ],
@@ -110,7 +129,7 @@ Widget CartItem(BuildContext context, VaccineModel model, Function onTap) {
                   Container(
                     alignment: Alignment.bottomRight,
                     child: Text(
-                      "${formatMoney.format(model.price)} VNĐ",
+                      "${formatMoney.format(model.vaccineModel.price)} VNĐ",
                       style: TextStyle(
                           color: ColorTheme.primaryStrong,
                           fontWeight: FontWeight.bold,
@@ -132,36 +151,56 @@ Widget CartItem(BuildContext context, VaccineModel model, Function onTap) {
 }
 
 final list = [
-  const VaccineModel(
-      1,
-      2,
-      "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
-      "Vắc xin 4 trong 1 ssssssssssssssss",
-      "Phòng bệnh",
-      50000,
-      20000),
-  const VaccineModel(
-      2,
-      1,
-      "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
-      "Vắc xin 4 trong 1",
-      "Phòng bệnh",
-      50000,
-      20000),
-  const VaccineModel(
-      3,
-      2,
-      "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
-      "Vắc xin 4 trong 1",
-      "Phòng bệnh",
-      50000,
-      20000),
-  const VaccineModel(
-      4,
-      4,
-      "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
-      "Vắc xin 4 trong 1",
-      "Phòng bệnh",
-      50000,
-      20000),
+  CartModel(
+      number: 1,
+      id: 1,
+      vaccineModel: VaccineModel(
+          id: 1,
+          categoryId: 2,
+          images:
+              "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
+          name: "Vắc xin 4 trong 1 ssssssssssssssss",
+          prevention: "Phòng bệnh",
+          price: 50000,
+          priceOld: 20000,
+          quantityRemain: 10)),
+  CartModel(
+      number: 1,
+      id: 1,
+      vaccineModel: VaccineModel(
+          id: 1,
+          categoryId: 2,
+          images:
+              "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
+          name: "Vắc xin 4 trong 1 ssssssssssssssss",
+          prevention: "Phòng bệnh",
+          price: 50000,
+          priceOld: 20000,
+          quantityRemain: 10)),
+  CartModel(
+      number: 1,
+      id: 1,
+      vaccineModel: VaccineModel(
+          id: 1,
+          categoryId: 2,
+          images:
+              "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
+          name: "Vắc xin 4 trong 1 ssssssssssssssss",
+          prevention: "Phòng bệnh",
+          price: 50000,
+          priceOld: 20000,
+          quantityRemain: 10)),
+  CartModel(
+      number: 1,
+      id: 1,
+      vaccineModel: VaccineModel(
+          id: 1,
+          categoryId: 2,
+          images:
+              "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
+          name: "Vắc xin 4 trong 1 ssssssssssssssss",
+          prevention: "Phòng bệnh",
+          price: 50000,
+          priceOld: 20000,
+          quantityRemain: 10)),
 ];
