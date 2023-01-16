@@ -8,7 +8,7 @@ import 'package:hufi_vnvc_application/widgets/layout/bottom_navigation_bar.dart'
 
 void main() {
   runApp(MaterialApp(
-    home: MyApp(),
+    home: PersonalScreen(),
   ));
 }
 

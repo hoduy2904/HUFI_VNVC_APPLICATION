@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hufi_vnvc_application/screens/Auth/change_password.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:hufi_vnvc_application/themes/typography.dart';
 import 'package:hufi_vnvc_application/utils/ButtonSelectWidget/button_select.dart';
@@ -112,7 +113,11 @@ class PersonalScreen extends StatelessWidget {
                                 size: 16,
                               ),
                               child: const Text("Đổi mật khẩu"),
-                              onTab: () => {}),
+                              onTab: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: ((context) =>
+                                          const ChangePasswordScreen())))),
                           ButtonSelectWidget(
                               isBorderButton: false,
                               lastRow: const Icon(
