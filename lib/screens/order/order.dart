@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hufi_vnvc_application/screens/order/order_complete.dart';
 import 'package:hufi_vnvc_application/screens/order/payment_order.dart';
 import 'package:hufi_vnvc_application/screens/order/people_order.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:hufi_vnvc_application/themes/typography.dart';
+import 'package:hufi_vnvc_application/utils/ToastWidget/toast_widget.dart';
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
@@ -18,6 +20,14 @@ class _OrderScreenState extends State<OrderScreen>
   bool isPayment = false;
   int selectId = -1;
   int currentTab = 0;
+  late FToast fToast;
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     var tab = TabController(length: 3, vsync: this, initialIndex: currentTab);
@@ -109,11 +119,17 @@ class _OrderScreenState extends State<OrderScreen>
             ),
             SingleChildScrollView(
                 child: PaymentOrder(
-              onPay: () => {
-                setState((() {
-                  currentTab = 2;
-                  isPayment = true;
-                }))
+              selectId: selectId,
+              onPay: (isSuccess, message) {
+                if (isSuccess) {
+                  setState((() {
+                    currentTab = 2;
+                    isPayment = true;
+                  }));
+                } else {
+                  fToast.showToast(
+                      child: ToastWidget(message: message, status: "error"));
+                }
               },
             )),
             const OrderComplete()

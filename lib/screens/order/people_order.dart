@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hufi_vnvc_application/models/people_item_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hufi_vnvc_application/blocs/order_bloc/people_order_bloc/people_order_bloc.dart';
+import 'package:hufi_vnvc_application/blocs/order_bloc/people_order_bloc/people_order_event.dart';
+import 'package:hufi_vnvc_application/blocs/order_bloc/people_order_bloc/people_order_state.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:hufi_vnvc_application/widgets/items/people_viewer_item.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class PeopleOrder extends StatelessWidget {
   final Function onSelect;
@@ -13,10 +17,15 @@ class PeopleOrder extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
       child: Scaffold(
           body: SingleChildScrollView(
-            child: Column(
-              children: [
+            child: BlocProvider(
+              create: (context) =>
+                  PeopleOrderBloc()..add(OnLoadPeopleOrderEvent()),
+              child: Column(children: [
                 TextField(
                   style: const TextStyle(fontSize: 12),
+                  onChanged: (value) => context
+                      .read<PeopleOrderBloc>()
+                      .add(OnSearchPeopleOrderEvent(query: value)),
                   decoration: InputDecoration(
                       prefixIcon: Icon(
                         Icons.search,
@@ -34,13 +43,31 @@ class PeopleOrder extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                Column(
-                  children: list
-                      .map((e) => PeopleItem(
-                          peopleItemModel: e, onTab: (id) => {onSelect(id)}))
-                      .toList(),
-                )
-              ],
+                BlocBuilder(builder: ((context, state) {
+                  if (state is PeopleOrderLoadingState) {
+                    return Center(
+                      child: LoadingAnimationWidget.fourRotatingDots(
+                          color: ColorTheme.primary, size: 24),
+                    );
+                  }
+                  if (state is PeopleOrderSuccessState) {
+                    return Column(
+                      children: state.people
+                          .map((e) => PeopleItem(
+                              peopleItemModel: e,
+                              onTab: (id) => {onSelect(id)}))
+                          .toList(),
+                    );
+                  } else {
+                    return Center(
+                      child: Text(
+                        (state as PeopleOrderFailedState).error,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    );
+                  }
+                }))
+              ]),
             ),
           ),
           floatingActionButton: FloatingActionButton(
@@ -54,16 +81,3 @@ class PeopleOrder extends StatelessWidget {
     );
   }
 }
-
-const list = [
-  PeopleItemModel(
-      1,
-      "https://upload.wikimedia.org/wikipedia/commons/f/fe/Son_Tung_M-TP_1_%282017%29.png",
-      "Nguyễn Thanh Tùng",
-      26),
-  PeopleItemModel(
-      2,
-      "https://media.coolmate.me/cdn-cgi/image/quality=80,format=auto/uploads/September2022/mono-bat-ngo-xuat-hien-sau-khi-tao-bao-voi-waiting-for-you-body-cuc-chay-tiep-tuc-gay-sot-cba-6656027.png",
-      "Nguyễn Việt Hoàng",
-      24),
-];

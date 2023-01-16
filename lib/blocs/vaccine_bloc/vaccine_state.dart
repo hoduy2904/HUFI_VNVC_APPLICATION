@@ -62,3 +62,14 @@ class VaccineFaliledState extends VaccineState {
   @override
   List<Object?> get props => [error];
 }
+
+class VaccineAddToCartLoading extends VaccineState {}
+
+class VaccineAddToCartResult extends VaccineState {
+  final String message;
+  final bool isSuccess;
+  const VaccineAddToCartResult(
+      {required this.message, required this.isSuccess});
+  @override
+  List<Object?> get props => [message, isSuccess];
+}

@@ -8,6 +8,7 @@ import 'package:hufi_vnvc_application/screens/order/order.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:hufi_vnvc_application/themes/typography.dart';
 import 'package:intl/intl.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -37,7 +38,8 @@ class _CartScreenState extends State<CartScreen> {
                         children: [
                           if (state is CartLoadingState)
                             Center(
-                              child: Text("Loading"),
+                              child: LoadingAnimationWidget.fourRotatingDots(
+                                  color: ColorTheme.primary, size: 24),
                             ),
                           if (state is CartSuccessState)
                             Column(

@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hufi_vnvc_application/blocs/cart_bloc/cart_bloc.dart';
+import 'package:hufi_vnvc_application/blocs/cart_bloc/cart_state.dart';
+import 'package:hufi_vnvc_application/blocs/order_bloc/payment_order_bloc/payment_order_bloc.dart';
+import 'package:hufi_vnvc_application/blocs/order_bloc/payment_order_bloc/payment_order_event.dart';
+import 'package:hufi_vnvc_application/blocs/order_bloc/payment_order_bloc/payment_order_state.dart';
 import 'package:hufi_vnvc_application/models/vaccine_model.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:hufi_vnvc_application/widgets/items/vaccine_cart_item.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class PaymentOrder extends StatelessWidget {
+  final int selectId;
   final Function onPay;
-  const PaymentOrder({required this.onPay, super.key});
+  const PaymentOrder({required this.selectId, required this.onPay, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -69,17 +77,47 @@ class PaymentOrder extends StatelessWidget {
                       color: Colors.black),
                 ),
               ),
-              Column(
-                children: list.map((e) => VaccineCartItem(model: e)).toList(),
-              ),
+              BlocProvider(
+                  create: (context) => CartBloc(),
+                  child: BlocBuilder(builder: ((context, state) {
+                    if (state is CartLoadingState) {
+                      return Center(
+                        child: LoadingAnimationWidget.fourRotatingDots(
+                            color: ColorTheme.primary, size: 24),
+                      );
+                    } else if (state is CartSuccessState) {
+                      return Column(
+                        children: state.carts
+                            .map((e) => VaccineCartItem(model: e.vaccineModel))
+                            .toList(),
+                      );
+                    } else {
+                      return Center(
+                        child: Text((state as CartFailedState).error),
+                      );
+                    }
+                  }))),
               const SizedBox(
                 height: 20,
               ),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(45)),
-                  onPressed: () => onPay(),
-                  child: const Text("Đặt hàng"))
+              BlocProvider(
+                  create: (context) => PaymentOrderBloc(),
+                  child: BlocBuilder<PaymentOrderBloc, PaymentOrderState>(
+                      builder: ((context, state) => ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              minimumSize: const Size.fromHeight(45)),
+                          onPressed: () {
+                            context
+                                .read<PaymentOrderBloc>()
+                                .add(OnPayClickEvent(selectId: selectId));
+                            if (state is PaymentOrderResultState) {
+                              onPay(state.isSuccess, state.messsage);
+                            }
+                          },
+                          child: (state is PaymentOrderLoadingState)
+                              ? LoadingAnimationWidget.fourRotatingDots(
+                                  color: ColorTheme.primary, size: 24)
+                              : const Text("Đặt hàng")))))
             ],
           )
         ],
@@ -87,56 +125,3 @@ class PaymentOrder extends StatelessWidget {
     );
   }
 }
-
-final list = [
-  VaccineModel(
-      quantityRemain: 20,
-      id: 1,
-      categoryId: 2,
-      images:
-          "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
-      name: "Vắc xin 4 trong 1 ssssssssssssssss",
-      prevention: "Phòng bệnh",
-      price: 50000,
-      priceOld: 20000),
-  VaccineModel(
-      quantityRemain: 20,
-      id: 1,
-      categoryId: 2,
-      images:
-          "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
-      name: "Vắc xin 4 trong 1 ssssssssssssssss",
-      prevention: "Phòng bệnh",
-      price: 50000,
-      priceOld: 20000),
-  VaccineModel(
-      quantityRemain: 20,
-      id: 1,
-      categoryId: 2,
-      images:
-          "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
-      name: "Vắc xin 4 trong 1 ssssssssssssssss",
-      prevention: "Phòng bệnh",
-      price: 50000,
-      priceOld: 20000),
-  VaccineModel(
-      quantityRemain: 20,
-      id: 1,
-      categoryId: 2,
-      images:
-          "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
-      name: "Vắc xin 4 trong 1 ssssssssssssssss",
-      prevention: "Phòng bệnh",
-      price: 50000,
-      priceOld: 20000),
-  VaccineModel(
-      quantityRemain: 20,
-      id: 1,
-      categoryId: 2,
-      images:
-          "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
-      name: "Vắc xin 4 trong 1 ssssssssssssssss",
-      prevention: "Phòng bệnh",
-      price: 50000,
-      priceOld: 20000),
-];

@@ -21,3 +21,10 @@ class OnClickCategoryEvent extends VaccineEvent {
   @override
   List<Object?> get props => [id];
 }
+
+class OnClickAddToCartVaccineEvent extends VaccineEvent {
+  final int id;
+  OnClickAddToCartVaccineEvent({required this.id});
+  @override
+  List<Object?> get props => [id];
+}

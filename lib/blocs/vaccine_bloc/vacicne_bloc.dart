@@ -32,5 +32,11 @@ class VaccineBloc extends Bloc<VaccineEvent, VaccineState> {
           categorySuccessState:
               state.categorySuccessState?.copyFrom(currentId: event.id)));
     });
+    on<OnClickAddToCartVaccineEvent>((event, emit) {
+      emit(VaccineAddToCartLoading());
+      try {} catch (e) {
+        emit(VaccineAddToCartResult(message: e.toString(), isSuccess: false));
+      }
+    });
   }
 }
