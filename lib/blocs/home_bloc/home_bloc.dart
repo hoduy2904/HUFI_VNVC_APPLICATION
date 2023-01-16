@@ -11,37 +11,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(BannerLoadingState());
       try {
         var banners = await BannerRepository().getBanners();
-        emit(state.copyWith(
-            bannerSuccessState: BannerSuccessState(banners: banners)));
+        emit(BannerSuccessState(banners: banners));
       } catch (e) {
         emit(BannerFailedState(error: e.toString()));
       }
-    });
-    on<OnLoadCategoryEvent>((event, emit) async {
-      emit(CategoryLoaddingState());
-      try {
-        var categories = await CategoryVaccineRepository().getCategories();
-        emit(state.copyWith(
-            categorySuccessState: CategorySuccessState(
-                categories: categories, currentId: categories.first.id)));
-      } catch (e) {
-        CategoryFailedState(error: e.toString());
-      }
-    });
-    on<OnLoadProductEvent>((event, emit) async {
-      emit(ProductLoadingState());
-      try {
-        var vaccines = await ProductRepository().getVaccines(page: 1, size: 20);
-        emit(state.copyWith(
-            productSuccessState: ProductSuccessState(vaccines: vaccines)));
-      } catch (e) {
-        emit(ProductFaliledState(error: e.toString()));
-      }
-    });
-    on<OnClickCategoryEvent>((event, emit) async {
-      emit(state.copyWith(
-          categorySuccessState:
-              state.categorySuccessState?.copyFrom(currentId: event.id)));
     });
   }
 }

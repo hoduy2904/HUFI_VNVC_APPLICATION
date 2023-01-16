@@ -6,4 +6,18 @@ class VaccineEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class OnLoadVaccineEvent extends VaccineEvent {}
+class OnLoadCategoryEvent extends VaccineEvent {}
+
+class OnLoadProductEvent extends VaccineEvent {
+  final int categoryId;
+  OnLoadProductEvent({required this.categoryId});
+  @override
+  List<Object?> get props => [categoryId];
+}
+
+class OnClickCategoryEvent extends VaccineEvent {
+  final int id;
+  OnClickCategoryEvent({required this.id});
+  @override
+  List<Object?> get props => [id];
+}

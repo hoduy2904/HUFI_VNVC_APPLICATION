@@ -4,7 +4,7 @@ import 'package:hufi_vnvc_application/services/api_services.dart';
 class CategoryVaccineRepository {
   Future<List<VaccineCategoryModel>> getCategories() async {
     var resource = APIServices(
-        url: "/api/getCategories",
+        url: "/api/typeofvaccine/gettypeofvaccines",
         parse: ((json) {
           var list = json as List;
           return list.map((e) => VaccineCategoryModel.fromJson(e)).toList();

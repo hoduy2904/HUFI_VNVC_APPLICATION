@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/home_bloc/home_bloc.dart';
-import 'package:hufi_vnvc_application/blocs/home_bloc/home_event.dart';
 import 'package:hufi_vnvc_application/blocs/home_bloc/home_state.dart';
+import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_event.dart';
+import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_state.dart';
+import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vacicne_bloc.dart';
 import 'package:hufi_vnvc_application/models/vaccine_category_model.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:hufi_vnvc_application/widgets/carousel_cateogry_widget.dart';
@@ -24,65 +26,70 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: const TopAppBar(),
-        body: BlocProvider(
-            create: (context) => HomeBloc()
-              ..add(OnLoadBannerEvent())
-              ..add(OnLoadCategoryEvent()),
-            child: BlocBuilder<HomeBloc, HomeState>(
-                builder: ((context, state) => ListView(
-                      shrinkWrap: true,
-                      children: <Widget>[
-                        if (state is BannerLoadingState)
-                          Center(
-                            child: LoadingAnimationWidget.stretchedDots(
-                                color: ColorTheme.secondary, size: 24),
-                          ),
-                        if (state is BannerSuccessState)
-                          CarouselWidget(
-                            images: state.bannerSuccessState?.banners ?? [],
-                          ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        const CategoryCarouselWidget(),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              color: Colors.blue.shade100,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.network(
-                                  excludeFromSemantics: true,
-                                  width: 80,
-                                  scale: 5,
-                                  fit: BoxFit.cover,
-                                  "https://vnvc.vn/img/logo.png"),
-                              Image.network(
-                                  width: 80,
-                                  fit: BoxFit.cover,
-                                  "https://vnvc.vn/img/logo.png"),
-                              Image.network(
-                                  width: 80,
-                                  fit: BoxFit.cover,
-                                  "https://vnvc.vn/img/logo.png"),
-                              Image.network(
-                                  width: 80,
-                                  fit: BoxFit.cover,
-                                  "https://vnvc.vn/img/logo.png"),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 22),
-                          child: Column(
+        body: MultiBlocProvider(
+            providers: [
+              BlocProvider(create: ((context) => HomeBloc())),
+              BlocProvider(create: (context) => VaccineBloc())
+            ],
+            child: ListView(
+              shrinkWrap: true,
+              children: <Widget>[
+                BlocBuilder<HomeBloc, HomeState>(builder: ((context, state) {
+                  if (state is BannerLoadingState) {
+                    return Center(
+                      child: LoadingAnimationWidget.stretchedDots(
+                          color: ColorTheme.secondary, size: 24),
+                    );
+                  }
+                  if (state is BannerSuccessState) {
+                    return CarouselWidget(
+                      images: state.bannerSuccessState?.banners ?? [],
+                    );
+                  }
+                  return const SizedBox(
+                    height: 30,
+                  );
+                })),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      color: Colors.blue.shade100,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Image.network(
+                          excludeFromSemantics: true,
+                          width: 80,
+                          scale: 5,
+                          fit: BoxFit.cover,
+                          "https://vnvc.vn/img/logo.png"),
+                      Image.network(
+                          width: 80,
+                          fit: BoxFit.cover,
+                          "https://vnvc.vn/img/logo.png"),
+                      Image.network(
+                          width: 80,
+                          fit: BoxFit.cover,
+                          "https://vnvc.vn/img/logo.png"),
+                      Image.network(
+                          width: 80,
+                          fit: BoxFit.cover,
+                          "https://vnvc.vn/img/logo.png"),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                const CategoryCarouselWidget(),
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 22),
+                  child: BlocBuilder<VaccineBloc, VaccineState>(
+                      builder: ((context, state) => Column(
                             children: [
                               Container(
                                 alignment: Alignment.topLeft,
@@ -108,19 +115,19 @@ class _HomePageState extends State<HomePage> {
                                       state.categorySuccessState?.currentId,
                                   onTap: (value) => {
                                     context
-                                        .read<HomeBloc>()
+                                        .read<VaccineBloc>()
                                         .add(OnClickCategoryEvent(id: value))
                                   },
                                 ),
                               const SizedBox(
                                 height: 10,
                               ),
-                              if (state is ProductLoadingState)
+                              if (state is VaccineLoadingState)
                                 Center(
                                   child: LoadingAnimationWidget.stretchedDots(
                                       color: ColorTheme.secondary, size: 24),
                                 ),
-                              if (state is ProductSuccessState)
+                              if (state is VaccineSuccessState)
                                 GridView(
                                   primary: false,
                                   shrinkWrap: true,
@@ -129,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                                           mainAxisExtent: 325,
                                           crossAxisCount: 2,
                                           crossAxisSpacing: 15),
-                                  children: state.productSuccessState?.vaccines
+                                  children: state.vaccineSuccessState?.vaccines
                                           .map((e) => VaccineItem(e))
                                           .toList() ??
                                       [],
@@ -139,9 +146,9 @@ class _HomePageState extends State<HomePage> {
                                   child: Text("Không có vắc xin"),
                                 )
                             ],
-                          ),
-                        )
-                      ],
-                    )))));
+                          ))),
+                )
+              ],
+            )));
   }
 }
