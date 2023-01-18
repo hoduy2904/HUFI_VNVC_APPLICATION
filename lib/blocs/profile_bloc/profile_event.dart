@@ -98,7 +98,13 @@ class OnAddressChange extends ProfileEvent {
 class onSubmitEvent extends ProfileEvent {
   final bool isValid;
   final bool isSubmit;
-  onSubmitEvent({this.isValid = false, this.isSubmit = false});
+  final String? username;
+  final String? password;
+  onSubmitEvent(
+      {this.isValid = false,
+      this.isSubmit = false,
+      this.username,
+      this.password});
   @override
   List<Object?> get props => [isSubmit, isValid];
 }

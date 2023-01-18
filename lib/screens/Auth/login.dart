@@ -8,6 +8,7 @@ import 'package:hufi_vnvc_application/blocs/auth_bloc/login_bloc/login_event.dar
 import 'package:hufi_vnvc_application/blocs/auth_bloc/login_bloc/login_state.dart';
 import 'package:hufi_vnvc_application/main.dart';
 import 'package:hufi_vnvc_application/screens/Auth/code_verify.dart';
+import 'package:hufi_vnvc_application/screens/Auth/register.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -45,7 +46,7 @@ class LoginScreen extends StatelessWidget {
               height: 15,
             ),
             const Text(
-              "Nhập số điện thoại",
+              "Đăng nhập VNVC",
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -172,7 +173,24 @@ class LoginScreen extends StatelessWidget {
                                             .fourRotatingDots(
                                                 color: ColorTheme.primary,
                                                 size: 24)
-                                        : const Text("Tiếp tục"))
+                                        : const Text("Tiếp tục")),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                ElevatedButton(
+                                    onPressed: () => Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const RegisterScreen())),
+                                    style: ElevatedButton.styleFrom(
+                                        disabledForegroundColor: Colors.white,
+                                        disabledBackgroundColor:
+                                            const Color.fromARGB(
+                                                255, 127, 151, 213),
+                                        backgroundColor: ColorTheme.primary,
+                                        minimumSize: const Size.fromHeight(40)),
+                                    child: const Text("Đăng ký"))
                               ],
                             ),
                           ),

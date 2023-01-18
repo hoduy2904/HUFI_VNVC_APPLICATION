@@ -114,11 +114,23 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           formInputStatus: state.formInputStatus
               ?.copyFrom(identityCode: event.identityCode)));
     });
+
+    //Submit Form Infomation Acount
     on<onSubmitEvent>((event, emit) async {
+      //Check form validate
       if (event.isSubmit && state.formInputStatus?.isValidFormInput() == true) {
-        emit(state.copyWith(
-            submitState:
-                const ProfileSubmitState(submit: true, isValid: true)));
+        //Create Account
+        if (event.username != null && event.password != null) {
+          emit(state.copyWith(
+              submitState:
+                  const ProfileSubmitState(submit: true, isValid: true)));
+        }
+        //Update infomation Account
+        else {
+          emit(state.copyWith(
+              submitState:
+                  const ProfileSubmitState(submit: true, isValid: true)));
+        }
       } else {
         emit(state.copyWith(
             submitState:

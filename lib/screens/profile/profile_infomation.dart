@@ -13,7 +13,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class ProfileInfomationScreen extends StatefulWidget {
-  const ProfileInfomationScreen({super.key});
+  final String? username;
+  final String? password;
+  final bool fromRegister;
+  const ProfileInfomationScreen(
+      {this.username, this.password, this.fromRegister = false, super.key});
 
   @override
   State<ProfileInfomationScreen> createState() =>
@@ -471,7 +475,6 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                             onChanged: ((value) {})))),
                 ElevatedButton(
                     onPressed: (() {
-                      print(state.formInputStatus);
                       context
                           .read<ProfileBloc>()
                           .add(onSubmitEvent(isSubmit: true));

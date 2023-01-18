@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/register_bloc/register_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/register_bloc/register_event.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/register_bloc/register_state.dart';
+import 'package:hufi_vnvc_application/screens/Auth/login.dart';
 import 'package:hufi_vnvc_application/screens/profile/profile_infomation.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -41,7 +42,7 @@ class RegisterScreen extends StatelessWidget {
               height: 15,
             ),
             const Text(
-              "Nhập số điện thoại",
+              "Đăng ký tài khoản VNVC",
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -75,8 +76,11 @@ class RegisterScreen extends StatelessWidget {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: ((context) =>
-                                    const ProfileInfomationScreen())));
+                                builder: ((context) => ProfileInfomationScreen(
+                                      username: state.userName,
+                                      password: state.password,
+                                      fromRegister: true,
+                                    ))));
                       }
                     },
                     builder: ((context, state) => Card(
@@ -201,7 +205,24 @@ class RegisterScreen extends StatelessWidget {
                                             .fourRotatingDots(
                                                 color: ColorTheme.primary,
                                                 size: 24)
-                                        : const Text("Tiếp tục"))
+                                        : const Text("Tiếp tục")),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                ElevatedButton(
+                                    onPressed: () => Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const LoginScreen())),
+                                    style: ElevatedButton.styleFrom(
+                                        disabledForegroundColor: Colors.white,
+                                        disabledBackgroundColor:
+                                            const Color.fromARGB(
+                                                255, 127, 151, 213),
+                                        backgroundColor: ColorTheme.primary,
+                                        minimumSize: const Size.fromHeight(40)),
+                                    child: const Text("Đăng nhập"))
                               ],
                             ),
                           ),
