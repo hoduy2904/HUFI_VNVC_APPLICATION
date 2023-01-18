@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hufi_vnvc_application/blocs/history_buy_bloc/history_buy_bloc.dart';
+import 'package:hufi_vnvc_application/blocs/history_buy_bloc/history_buy_state.dart';
 import 'package:hufi_vnvc_application/models/history_buy_model.dart';
 import 'package:hufi_vnvc_application/utils/FormWithSearchWidget/form_with_search.dart';
 import 'package:hufi_vnvc_application/widgets/history_injection_widget.dart';
@@ -23,7 +26,11 @@ class _HistoryBuyScreenState extends State<HistoryBuyScreen> {
                 searchValue = value;
               }))
             },
-        child: HistoryInjectionWidget(items: items));
+        child: BlocProvider(
+            create: (context) => HistoryBuyBloc(),
+            child: BlocBuilder<HistoryBuyBloc, HistoryBuyState>(
+                builder: ((context, state) =>
+                    HistoryInjectionWidget(items: items)))));
   }
 }
 
