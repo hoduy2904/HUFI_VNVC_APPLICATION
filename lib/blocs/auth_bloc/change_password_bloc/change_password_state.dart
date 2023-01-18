@@ -26,8 +26,7 @@ class ChangePasswordState extends Equatable {
       bool? isShowPassword,
       bool? isShowRepeatPassword}) {
     return ChangePasswordState(
-        passwordChangingState:
-            passwordChangingState ?? this.passwordChangingState,
+        passwordChangingState: passwordChangingState,
         isSubmit: isSubmit ?? this.isSubmit,
         isShowPassword: isShowPassword ?? this.isShowPassword,
         isShowRepeatPassword: isShowRepeatPassword ?? this.isShowRepeatPassword,

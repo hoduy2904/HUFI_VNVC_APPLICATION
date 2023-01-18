@@ -23,7 +23,12 @@ class VaccineModel {
       required this.priceOld});
 
   factory VaccineModel.fromJson(Map<String, dynamic> json) {
-    print(json);
+    double price = 0, priceOld = 0;
+    if (json["vaccinePrices"] != null) {
+      var listPrice = json["vaccinePrices"] as List;
+      price = listPrice[0]["retailPrice"] ?? 0;
+      priceOld = listPrice[1]["retailPrice"] ?? 0;
+    }
     return VaccineModel(
         quantityRemain: json["quantityRemain"],
         id: json["id"],
@@ -31,7 +36,7 @@ class VaccineModel {
         images: json["image"],
         name: json["name"],
         prevention: json["diseasePrevention"],
-        price: json["price"],
-        priceOld: json["priceOld"]);
+        price: price,
+        priceOld: priceOld);
   }
 }

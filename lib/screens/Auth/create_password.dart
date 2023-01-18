@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hufi_vnvc_application/screens/Auth/phone_number.dart';
+import 'package:hufi_vnvc_application/screens/Auth/login.dart';
 import 'package:hufi_vnvc_application/screens/profile/profile_infomation.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
 
@@ -186,7 +186,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const PhoneNumberView()));
+                                              const LoginScreen()));
                                 }),
                                 icon: Image.asset(
                                   "assets/icons/edit.png",

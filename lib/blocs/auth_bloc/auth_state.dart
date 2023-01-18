@@ -5,3 +5,9 @@ class AuthState extends Equatable {
   // TODO: implement props
   List<Object?> get props => [];
 }
+
+class AuthenticationState extends AuthState {}
+
+class UnAuthenticationState extends AuthState {}
+
+class AuthLoading extends AuthState {}

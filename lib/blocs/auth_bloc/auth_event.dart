@@ -5,3 +5,5 @@ class AuthEvent extends Equatable {
   // TODO: implement props
   List<Object?> get props => [];
 }
+
+class OnCheckLoginEvent extends AuthEvent {}

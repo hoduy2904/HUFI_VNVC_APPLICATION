@@ -1,15 +1,30 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_bloc.dart';
+import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_event.dart';
+import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_state.dart';
+import 'package:hufi_vnvc_application/screens/Auth/login.dart';
 import 'package:hufi_vnvc_application/screens/home/home_page.dart';
 import 'package:hufi_vnvc_application/screens/profile/personal_screen.dart';
 import 'package:hufi_vnvc_application/screens/record/record.dart';
+import 'package:hufi_vnvc_application/screens/splash_screen/splash_screen.dart';
 import 'package:hufi_vnvc_application/screens/vaccine/vaccines.dart';
 import 'package:hufi_vnvc_application/widgets/layout/bottom_navigation_bar.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: PersonalScreen(),
-  ));
+      home: BlocProvider(
+          create: (context) => AuthBloc()..add(OnCheckLoginEvent()),
+          child: BlocBuilder<AuthBloc, AuthState>(builder: ((context, state) {
+            if (state is AuthLoading) {
+              return const SplashScreen();
+            } else if (state is AuthenticationState) {
+              return MyApp();
+            } else {
+              return const LoginScreen();
+            }
+          })))));
 }
 
 class MyApp extends StatefulWidget {
