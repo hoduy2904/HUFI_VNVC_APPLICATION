@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/register_bloc/register_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/register_bloc/register_event.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/register_bloc/register_state.dart';
 import 'package:hufi_vnvc_application/screens/Auth/login.dart';
 import 'package:hufi_vnvc_application/screens/profile/profile_infomation.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
+import 'package:hufi_vnvc_application/utils/ToastWidget/toast_widget.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -13,6 +15,8 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FToast fToast = FToast();
+    fToast.init(context);
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -72,6 +76,12 @@ class RegisterScreen extends StatelessWidget {
                 child: BlocConsumer<RegisterBloc, RegisterState>(
                     listener: (context, state) {
                       if (state.registerResultState?.status ==
+                          RegisterStatus.Exits) {
+                        fToast.showToast(
+                            child: const ToastWidget(
+                                message: "Số điện thoại này đã được đăng ký",
+                                status: "error"));
+                      } else if (state.registerResultState?.status ==
                           RegisterStatus.Success) {
                         Navigator.pushReplacement(
                             context,
@@ -81,7 +91,13 @@ class RegisterScreen extends StatelessWidget {
                                       password: state.password,
                                       fromRegister: true,
                                     ))));
-                      }
+                      } else if (state.registerResultState?.status ==
+                          RegisterStatus.Failed) {
+                        fToast.showToast(
+                            child: ToastWidget(
+                                message: state.registerResultState!.message,
+                                status: "error"));
+                      } else {}
                     },
                     builder: ((context, state) => Card(
                           shape: RoundedRectangleBorder(
@@ -122,6 +138,10 @@ class RegisterScreen extends StatelessWidget {
                                   obscureText: !state.isShowPassword,
                                   keyboardType: TextInputType.phone,
                                   decoration: InputDecoration(
+                                      errorText: !state.validatePassword &&
+                                              state.isSubmit
+                                          ? "Mật khẩu tối thiểu 6 chữ số"
+                                          : null,
                                       suffixIcon: GestureDetector(
                                         onTap: () => context
                                             .read<RegisterBloc>()
@@ -160,6 +180,11 @@ class RegisterScreen extends StatelessWidget {
                                   obscureText: !state.isShowRepeatPassword,
                                   keyboardType: TextInputType.phone,
                                   decoration: InputDecoration(
+                                      errorText:
+                                          !state.validateRepeatPassword &&
+                                                  state.isSubmit
+                                              ? "Không trùng khớp"
+                                              : null,
                                       suffixIcon: GestureDetector(
                                         onTap: () => context
                                             .read<RegisterBloc>()
@@ -189,9 +214,13 @@ class RegisterScreen extends StatelessWidget {
                                   height: 15,
                                 ),
                                 ElevatedButton(
-                                    onPressed: () => context
-                                        .read<RegisterBloc>()
-                                        .add(OnClickRegisterEvent()),
+                                    onPressed:
+                                        (state.registerResultState?.status ==
+                                                RegisterStatus.Loading)
+                                            ? null
+                                            : () => context
+                                                .read<RegisterBloc>()
+                                                .add(OnClickRegisterEvent()),
                                     style: ElevatedButton.styleFrom(
                                         disabledForegroundColor: Colors.white,
                                         disabledBackgroundColor:

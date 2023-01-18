@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:hufi_vnvc_application/constaint.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class APIServices<T> {
@@ -9,7 +10,7 @@ class APIServices<T> {
   Map<String, String>? headers;
   final dynamic? body;
   T Function(dynamic json) parse;
-  String finalUrl() => url.isEmpty ? fullUrl : url;
+  String finalUrl() => url.isEmpty ? fullUrl : HOST + url;
   APIServices(
       {required this.url,
       this.fullUrl = "",

@@ -11,7 +11,8 @@ class RegisterState extends Equatable {
   final bool isSubmit;
   bool get validatePassword => password!.length > 5;
   final String? repeatPassword;
-  bool get validateRepeatPassword => repeatPassword!.length > 5;
+  bool get validateRepeatPassword =>
+      repeatPassword!.length > 5 && repeatPassword == password;
   bool get validateForm =>
       validatePassword && validateRepeatPassword && password == repeatPassword;
   final bool isShowPassword;
