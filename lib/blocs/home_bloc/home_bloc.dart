@@ -6,7 +6,7 @@ import 'package:hufi_vnvc_application/repositories/category_vaccine_repository.d
 import 'package:hufi_vnvc_application/repositories/product_repository.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc() : super(HomeState.initialState()) {
+  HomeBloc() : super(HomeState()) {
     on<OnLoadBannerEvent>((event, emit) async {
       emit(BannerLoadingState());
       try {

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:hufi_vnvc_application/blocs/auth_bloc/login_bloc/login_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/login_bloc/login_event.dart';
@@ -10,6 +11,7 @@ import 'package:hufi_vnvc_application/main.dart';
 import 'package:hufi_vnvc_application/screens/Auth/code_verify.dart';
 import 'package:hufi_vnvc_application/screens/Auth/register.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
+import 'package:hufi_vnvc_application/utils/ToastWidget/toast_widget.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -17,6 +19,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FToast fToast = FToast();
+    fToast.init(context);
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -77,16 +81,23 @@ class LoginScreen extends StatelessWidget {
                     listener: (context, state) {
                       if (state.loginResultState?.status ==
                           LoginStatus.Success) {
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: ((context) => MyApp())));
-                      }
-                      if (state.loginResultState?.status ==
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => const RunFirstApp())));
+                      } else if (state.loginResultState?.status ==
                           LoginStatus.NotActive) {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
                                     const VerifyCodeScreen()));
+                      } else if (state.loginResultState?.status ==
+                          LoginStatus.Failed) {
+                        fToast.showToast(
+                            child: ToastWidget(
+                                message: state.loginResultState!.message,
+                                status: "error"));
                       }
                     },
                     builder: ((context, state) => Card(

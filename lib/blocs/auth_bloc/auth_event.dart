@@ -7,3 +7,5 @@ class AuthEvent extends Equatable {
 }
 
 class OnCheckLoginEvent extends AuthEvent {}
+
+class OnLogoutEvent extends AuthEvent {}

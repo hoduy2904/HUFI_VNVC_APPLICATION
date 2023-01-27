@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_bloc.dart';
+import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_event.dart';
+import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_state.dart';
 import 'package:hufi_vnvc_application/screens/Auth/change_password.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:hufi_vnvc_application/themes/typography.dart';
 import 'package:hufi_vnvc_application/utils/ButtonSelectWidget/button_select.dart';
+import 'package:intl/intl.dart';
 
 class PersonalScreen extends StatelessWidget {
   const PersonalScreen({super.key});
@@ -29,156 +34,163 @@ class PersonalScreen extends StatelessWidget {
           ],
           bottom: PreferredSize(
               preferredSize: const Size.fromHeight(80),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const CircleAvatar(
-                      radius: 35.0,
-                      backgroundImage: NetworkImage(
-                          "https://cdn-amz.woka.io/images/I/71yt4KT589L.jpg"),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+              child:
+                  BlocBuilder<AuthBloc, AuthState>(builder: ((context, state) {
+                var user = (state as AuthenticationState).user;
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        radius: 35.0,
+                        backgroundImage: NetworkImage(user.avatar ??
+                            "https://cdn-amz.woka.io/images/I/71yt4KT589L.jpg"),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                              "${user.lastName} ${user.firstName}"
+                                  .toUpperCase(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: Colors.white)),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                              "${user.phoneNumber} - ${user.sex ? "Nam" : "Nữ"}, ${DateFormat("dd/MM/yyyy").format(user.dateOfBirth)}",
+                              style:
+                                  TextStyle(fontSize: 12, color: Colors.white))
+                        ],
+                      )
+                    ],
+                  ),
+                );
+              })))),
+      body: Column(
+        children: [
+          Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        side: BorderSide(
+                            width: 0.5, color: Colors.grey.shade300)),
+                    elevation: 0,
+                    child: Column(
                       children: [
-                        Text("Hồ Đức Duy".toUpperCase(),
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                                color: Colors.white)),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        const Text("84348770100 - Nam, 29/04/2001",
-                            style: TextStyle(fontSize: 12, color: Colors.white))
+                        ButtonSelectWidget(
+                            lastRow: const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 14,
+                              color: Colors.grey,
+                            ),
+                            leading: Icon(
+                              Icons.edit,
+                              color: ColorTheme.primary,
+                              size: 16,
+                            ),
+                            child: const Text("Chỉnh sửa tài khoản"),
+                            onTab: () => {}),
+                        ButtonSelectWidget(
+                            lastRow: const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 14,
+                              color: Colors.grey,
+                            ),
+                            leading: Icon(
+                              Icons.manage_history_outlined,
+                              color: ColorTheme.primary,
+                              size: 16,
+                            ),
+                            child: const Text("Quản lý hồ sơ y tế"),
+                            onTab: () => {}),
+                        ButtonSelectWidget(
+                            lastRow: const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 14,
+                              color: Colors.grey,
+                            ),
+                            leading: Icon(
+                              Icons.lock_outline,
+                              color: ColorTheme.primary,
+                              size: 16,
+                            ),
+                            child: const Text("Đổi mật khẩu"),
+                            onTab: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) =>
+                                        const ChangePasswordScreen())))),
+                        ButtonSelectWidget(
+                            isBorderButton: false,
+                            lastRow: const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 14,
+                              color: Colors.grey,
+                            ),
+                            leading: Icon(
+                              Icons.logout_outlined,
+                              color: ColorTheme.primary,
+                              size: 16,
+                            ),
+                            child: const Text("Đăng xuất"),
+                            onTab: () =>
+                                context.read<AuthBloc>().add(OnLogoutEvent()))
                       ],
-                    )
-                  ],
-                ),
-              ))),
-      body: Container(
-        child: Column(
-          children: [
-            Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          side: BorderSide(
-                              width: 0.5, color: Colors.grey.shade300)),
-                      elevation: 0,
-                      child: Column(
-                        children: [
-                          ButtonSelectWidget(
-                              lastRow: const Icon(
-                                Icons.arrow_forward_ios,
-                                size: 14,
-                                color: Colors.grey,
-                              ),
-                              leading: Icon(
-                                Icons.edit,
-                                color: ColorTheme.primary,
-                                size: 16,
-                              ),
-                              child: const Text("Chỉnh sửa tài khoản"),
-                              onTab: () => {}),
-                          ButtonSelectWidget(
-                              lastRow: const Icon(
-                                Icons.arrow_forward_ios,
-                                size: 14,
-                                color: Colors.grey,
-                              ),
-                              leading: Icon(
-                                Icons.manage_history_outlined,
-                                color: ColorTheme.primary,
-                                size: 16,
-                              ),
-                              child: const Text("Quản lý hồ sơ y tế"),
-                              onTab: () => {}),
-                          ButtonSelectWidget(
-                              lastRow: const Icon(
-                                Icons.arrow_forward_ios,
-                                size: 14,
-                                color: Colors.grey,
-                              ),
-                              leading: Icon(
-                                Icons.lock_outline,
-                                color: ColorTheme.primary,
-                                size: 16,
-                              ),
-                              child: const Text("Đổi mật khẩu"),
-                              onTab: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: ((context) =>
-                                          const ChangePasswordScreen())))),
-                          ButtonSelectWidget(
-                              isBorderButton: false,
-                              lastRow: const Icon(
-                                Icons.arrow_forward_ios,
-                                size: 14,
-                                color: Colors.grey,
-                              ),
-                              leading: Icon(
-                                Icons.logout_outlined,
-                                color: ColorTheme.primary,
-                                size: 16,
-                              ),
-                              child: const Text("Đăng xuất"),
-                              onTab: () => {})
-                        ],
-                      ),
                     ),
-                    const SizedBox(
-                      height: 20,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        side: BorderSide(
+                            width: 0.5, color: Colors.grey.shade300)),
+                    elevation: 0,
+                    child: Column(
+                      children: [
+                        ButtonSelectWidget(
+                            lastRow: const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 14,
+                              color: Colors.grey,
+                            ),
+                            leading: Icon(
+                              Icons.document_scanner_outlined,
+                              color: ColorTheme.primary,
+                              size: 16,
+                            ),
+                            child: const Text("Điều khoản dịch vụ"),
+                            onTab: () => {}),
+                        ButtonSelectWidget(
+                            lastRow: const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 14,
+                              color: Colors.grey,
+                            ),
+                            leading: Icon(
+                              Icons.privacy_tip_outlined,
+                              color: ColorTheme.primary,
+                              size: 16,
+                            ),
+                            child: const Text("Chính sách quyền riêng tư"),
+                            onTab: () => {}),
+                      ],
                     ),
-                    Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          side: BorderSide(
-                              width: 0.5, color: Colors.grey.shade300)),
-                      elevation: 0,
-                      child: Column(
-                        children: [
-                          ButtonSelectWidget(
-                              lastRow: const Icon(
-                                Icons.arrow_forward_ios,
-                                size: 14,
-                                color: Colors.grey,
-                              ),
-                              leading: Icon(
-                                Icons.document_scanner_outlined,
-                                color: ColorTheme.primary,
-                                size: 16,
-                              ),
-                              child: const Text("Điều khoản dịch vụ"),
-                              onTab: () => {}),
-                          ButtonSelectWidget(
-                              lastRow: const Icon(
-                                Icons.arrow_forward_ios,
-                                size: 14,
-                                color: Colors.grey,
-                              ),
-                              leading: Icon(
-                                Icons.privacy_tip_outlined,
-                                color: ColorTheme.primary,
-                                size: 16,
-                              ),
-                              child: const Text("Chính sách quyền riêng tư"),
-                              onTab: () => {}),
-                        ],
-                      ),
-                    ),
-                  ],
-                ))
-          ],
-        ),
+                  ),
+                ],
+              ))
+        ],
       ),
     );
   }

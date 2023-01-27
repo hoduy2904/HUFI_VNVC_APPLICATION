@@ -9,10 +9,10 @@ class VaccineEvent extends Equatable {
 class OnLoadCategoryEvent extends VaccineEvent {}
 
 class OnLoadProductEvent extends VaccineEvent {
-  final int categoryId;
-  OnLoadProductEvent({required this.categoryId});
+  final String? search;
+  OnLoadProductEvent({this.search});
   @override
-  List<Object?> get props => [categoryId];
+  List<Object?> get props => [search];
 }
 
 class OnClickCategoryEvent extends VaccineEvent {

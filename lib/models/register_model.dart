@@ -14,10 +14,11 @@ class RegisterModel {
   final String address;
   final String phoneNumber;
   final String? note;
-  final int customerTypeId;
+  final int? customerTypeId;
+  final String password;
   RegisterModel(
       {required this.firstName,
-      required this.lastName,
+      this.lastName = '',
       this.email,
       required this.sex,
       required this.identityCard,
@@ -30,6 +31,27 @@ class RegisterModel {
       required this.village,
       required this.address,
       required this.phoneNumber,
+      required this.password,
       this.note,
-      required this.customerTypeId});
+      this.customerTypeId});
+
+  Map<String, dynamic> toJson() => {
+        'firstName': firstName,
+        'lastName': lastName,
+        'email': email,
+        'sex': sex,
+        'identityCard': identityCard,
+        'avatar': avatar,
+        'insuranceCode': insuranceCode,
+        'dateOfBirth': dateOfBirth.toIso8601String(),
+        'country': country,
+        'province': province,
+        'district': district,
+        'village': village,
+        'address': address,
+        'phoneNumber': phoneNumber,
+        'note': note,
+        'customerTypeId': customerTypeId,
+        'password': password
+      };
 }

@@ -14,5 +14,32 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         emit(CartFailedState(error: e.toString()));
       }
     });
+    on<OnAddCartEvent>((event, emit) async {
+      emit(AddToCartLoading());
+      try {
+        var addCartResult =
+            await CartRepository().insertCart(vaccineId: event.idProduct);
+        emit(AddToCartResult(
+            message: addCartResult.messages.first,
+            isSuccess: addCartResult.isSuccess));
+      } catch (e) {
+        emit(AddToCartResult(message: e.toString(), isSuccess: false));
+      }
+    });
+
+    on<OnRemoveCartItem>((event, emit) async {
+      try {
+        print("have 1");
+        var removeCartResult =
+            await CartRepository().removeCart(event.idProduct);
+        print("have 2");
+        if (removeCartResult.isSuccess) {
+          var carts = await CartRepository().getCarts();
+          emit(CartSuccessState(carts: carts));
+        }
+      } catch (e) {
+        print(e.toString());
+      }
+    });
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/order_bloc/people_order_bloc/people_order_bloc.dart';
@@ -43,25 +45,32 @@ class PeopleOrder extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                BlocBuilder(builder: ((context, state) {
+                BlocBuilder<PeopleOrderBloc, PeopleOrderState>(
+                    builder: ((context, state) {
                   if (state is PeopleOrderLoadingState) {
                     return Center(
                       child: LoadingAnimationWidget.fourRotatingDots(
                           color: ColorTheme.primary, size: 24),
                     );
-                  }
-                  if (state is PeopleOrderSuccessState) {
-                    return Column(
-                      children: state.people
-                          .map((e) => PeopleItem(
-                              peopleItemModel: e,
-                              onTab: (id) => {onSelect(id)}))
-                          .toList(),
+                  } else if (state is PeopleOrderSuccessState) {
+                    return Column(children: [
+                      PeopleItem(
+                          peopleItemModel: state.people,
+                          onTab: (id) => {onSelect(id)}),
+                      ...state.people.customerLink.map((e) => PeopleItem(
+                          peopleItemModel: e, onTab: (id) => {onSelect(id)}))
+                    ]);
+                  } else if (state is PeopleOrderFailedState) {
+                    return Center(
+                      child: Text(
+                        state.error,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
                     );
                   } else {
                     return Center(
                       child: Text(
-                        (state as PeopleOrderFailedState).error,
+                        "Vui lòng thử lại",
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                     );

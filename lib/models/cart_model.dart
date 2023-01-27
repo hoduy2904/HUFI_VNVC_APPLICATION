@@ -1,17 +1,25 @@
 import 'package:hufi_vnvc_application/models/vaccine_model.dart';
 
 class CartModel {
-  final int number;
+  final int? vaccineId;
   final int id;
-  final VaccineModel vaccineModel;
+  final int? packageId;
+  final VaccineModel? vaccineModel;
   CartModel(
-      {required this.number, required this.id, required this.vaccineModel});
+      {this.vaccineId, this.packageId, required this.id, this.vaccineModel});
   factory CartModel.fromJson(Map<String, dynamic> json) {
-    VaccineModel vaccineModel = {} as VaccineModel;
-    if (json["vaccines"] != null) {
-      vaccineModel = json["vaccines"] as VaccineModel;
+    if (json["vaccine"] != null) {
+      VaccineModel vaccineModel = VaccineModel.fromJson(json["vaccine"]);
+      return CartModel(
+          vaccineId: json["vaccineId"],
+          id: json["id"],
+          packageId: json["packageId"],
+          vaccineModel: vaccineModel);
     }
     return CartModel(
-        number: json["number"], id: json["id"], vaccineModel: vaccineModel);
+        vaccineId: json["vaccineId"],
+        id: json["id"],
+        packageId: json["packageId"],
+        vaccineModel: null);
   }
 }

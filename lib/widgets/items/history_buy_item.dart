@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hufi_vnvc_application/models/history_buy_model.dart';
+import 'package:hufi_vnvc_application/models/injection_schedule.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:intl/intl.dart';
 
 class HistoryInjectionItem extends StatelessWidget {
-  final HistoryBuyModel model;
+  final InjectionScheduleModel model;
   const HistoryInjectionItem(this.model, {super.key});
 
   @override
@@ -29,7 +30,7 @@ class HistoryInjectionItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    DateFormat("dd/MM/yyyy").format(model.timeInjection),
+                    DateFormat("dd/MM/yyyy").format(model.date),
                     style: const TextStyle(
                         fontSize: 14,
                         color: Colors.white,
@@ -44,9 +45,9 @@ class HistoryInjectionItem extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           vertical: 6, horizontal: 15),
                       child: Text(
-                        model.isPay ? "Đã thanh toán" : "Chưa thanh toán",
+                        model.checkPay ? "Đã thanh toán" : "Chưa thanh toán",
                         style: TextStyle(
-                            color: model.isPay
+                            color: model.checkPay
                                 ? Colors.green.shade600
                                 : Colors.red,
                             fontSize: 14,
@@ -69,7 +70,7 @@ class HistoryInjectionItem extends StatelessWidget {
                       "Mã booking",
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
-                    Text(model.bookingCode,
+                    Text("#${model.id}",
                         style: const TextStyle(
                             color: Colors.black,
                             decoration: TextDecoration.none,
@@ -80,38 +81,8 @@ class HistoryInjectionItem extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Tên vắc xin",
-                      style: Theme.of(context).textTheme.bodyText1,
-                    ),
-                    Text(model.vaccineName,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            decoration: TextDecoration.none,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13)),
-                  ],
-                ),
                 const SizedBox(
                   height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Tổng tiền",
-                      style: Theme.of(context).textTheme.bodyText1,
-                    ),
-                    Text(NumberFormat("#,##0", "vi-VN").format(model.total),
-                        style: const TextStyle(
-                            color: Colors.black,
-                            decoration: TextDecoration.none,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13)),
-                  ],
                 ),
                 const SizedBox(
                   height: 10,
@@ -123,7 +94,7 @@ class HistoryInjectionItem extends StatelessWidget {
                       "Ngày hẹn tiêm",
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
-                    Text(DateFormat("dd/MM/yyyy").format(model.appointmentDate),
+                    Text(DateFormat("dd/MM/yyyy").format(model.date),
                         style: const TextStyle(
                             color: Colors.black,
                             decoration: TextDecoration.none,
@@ -137,7 +108,7 @@ class HistoryInjectionItem extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    !model.isPay
+                    !model.checkPay
                         ? ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: ColorTheme.primary),

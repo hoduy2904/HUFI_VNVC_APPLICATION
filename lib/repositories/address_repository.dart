@@ -8,7 +8,7 @@ class AddressRepository {
   Future<List<ProvinceModel>> getProvinces() async {
     var apiRequest = APIServices(
         url: "",
-        fullUrl: "https://provinces.open-api.vn/api/?depth=1",
+        fullUrl: "http://provinces.open-api.vn/api/?depth=1",
         parse: (json) {
           var list = json as List;
           return list.map((e) => ProvinceModel.fromJson(e)).toList();
@@ -22,7 +22,7 @@ class AddressRepository {
   Future<List<DistrictModel>> getDistricts(int provinceId) async {
     var apiRequest = APIServices(
         url: "",
-        fullUrl: "https://provinces.open-api.vn/api/p/$provinceId?depth=2",
+        fullUrl: "http://provinces.open-api.vn/api/p/$provinceId?depth=2",
         parse: ((json) {
           var province = ProvinceModel.fromJson(json);
           return province.districts;
@@ -35,7 +35,7 @@ class AddressRepository {
   Future<List<WardModel>> getWards(int districtId) async {
     var apiRequest = APIServices(
         url: "",
-        fullUrl: "https://provinces.open-api.vn/api/d/$districtId?depth=2",
+        fullUrl: "http://provinces.open-api.vn/api/d/$districtId?depth=2",
         parse: ((json) {
           var province = DistrictModel.fromJson(json);
           return province.wards;

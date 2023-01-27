@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:equatable/equatable.dart';
 import 'package:hufi_vnvc_application/models/history_buy_model.dart';
+import 'package:hufi_vnvc_application/models/injection_schedule.dart';
 
 class HistoryBuyState extends Equatable {
   @override
@@ -12,7 +13,7 @@ class HistoryBuyState extends Equatable {
 class HistoryBuyLoadingState extends HistoryBuyState {}
 
 class HistoryBuySuccessState extends HistoryBuyState {
-  final List<HistoryBuyModel> histories;
+  final List<InjectionScheduleModel> histories;
   HistoryBuySuccessState({this.histories = const []});
   @override
   // TODO: implement props

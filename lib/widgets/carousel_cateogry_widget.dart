@@ -62,6 +62,7 @@ class _CategoryCarouselWidgetState extends State<CategoryCarouselWidget> {
     ];
 
     return GridView.builder(
+      physics: const NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
       itemCount: DUMPDATA.length,
       shrinkWrap: true,

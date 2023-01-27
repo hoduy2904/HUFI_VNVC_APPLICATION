@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_bloc.dart';
+import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_state.dart';
+import 'package:hufi_vnvc_application/blocs/cart_bloc/cart_bloc.dart';
+import 'package:hufi_vnvc_application/blocs/cart_bloc/cart_event.dart';
+import 'package:hufi_vnvc_application/blocs/cart_bloc/cart_state.dart';
 import 'package:hufi_vnvc_application/screens/cart/cart.dart';
 import 'package:hufi_vnvc_application/screens/notification/notification.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
@@ -8,39 +14,52 @@ class TopAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<CartBloc>().add(OnLoadCartEvent());
     return AppBar(
       elevation: 0,
       backgroundColor: ColorTheme.primary,
       centerTitle: true,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(50),
-            child: (Image.network(
-              "https://cdn.vox-cdn.com/thumbor/W6YyHkPAoXd8VGz2OGMjqkWWM7E=/0x0:2370x1574/1400x1400/filters:focal(1185x787:1186x788)/cdn.vox-cdn.com/uploads/chorus_asset/file/20103707/Screen_Shot_2020_07_21_at_9.38.25_AM.png",
-              width: 35,
-              height: 35,
-            )),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Column(
-              children: const [
-                Text("Chào buổi sáng",
-                    style: TextStyle(fontSize: 12, color: Colors.white)),
-                Text(
-                  "Duy Hồ",
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                )
-              ],
-            ),
-          )
-        ],
-      ),
+      title: BlocBuilder<AuthBloc, AuthState>(
+          builder: ((context, state) => Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: (state is AuthenticationState &&
+                            state.user.avatar != null)
+                        ? Image.network(
+                            state.user.avatar!,
+                            width: 35,
+                            height: 35,
+                          )
+                        : Image.asset(
+                            "assets/image/avatar.png",
+                            width: 35,
+                            height: 35,
+                          ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Column(
+                      children: [
+                        Text(
+                            "Chào buổi ${DateTime.now().hour > 12 ? "Chiều" : "Sáng"}",
+                            style: const TextStyle(
+                                fontSize: 12, color: Colors.white)),
+                        Text(
+                          (state is AuthenticationState)
+                              ? "${state.user.lastName} ${state.user.firstName}"
+                              : "Khách",
+                          style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ))),
       leading: IconButton(
           onPressed: () => {
                 Navigator.push(
@@ -66,24 +85,28 @@ class TopAppBar extends StatelessWidget with PreferredSizeWidget {
                   Icons.shopping_bag_outlined,
                   color: Colors.white,
                 ),
-                Positioned(
-                  right: 0,
-                  top: 0,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(2.0),
-                      child: Text(
-                        textAlign: TextAlign.center,
-                        "0",
-                        style: TextStyle(fontSize: 10),
+                BlocBuilder<CartBloc, CartState>(builder: ((context, state) {
+                  return Positioned(
+                    right: 0,
+                    top: 0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(2.0),
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          (state is CartSuccessState)
+                              ? state.carts.length.toString()
+                              : "0",
+                          style: TextStyle(fontSize: 10),
+                        ),
                       ),
                     ),
-                  ),
-                )
+                  );
+                }))
               ],
             ))
       ],

@@ -2,24 +2,36 @@ import 'package:equatable/equatable.dart';
 import 'package:hufi_vnvc_application/models/vaccine_category_model.dart';
 import 'package:hufi_vnvc_application/models/vaccine_model.dart';
 
+enum VaccineStatus {
+  VaccineLoading,
+  VaccineSuccess,
+  VaccineError,
+}
+
 class VaccineState extends Equatable {
+  final VaccineStatus? vaccineStatus;
   final VaccineSuccessState? vaccineSuccessState;
   final CategorySuccessState? categorySuccessState;
-  const VaccineState({this.vaccineSuccessState, this.categorySuccessState});
+  const VaccineState(
+      {this.vaccineSuccessState,
+      this.categorySuccessState,
+      this.vaccineStatus});
   @override
-  List<Object?> get props => [vaccineSuccessState, categorySuccessState];
+  List<Object?> get props =>
+      [vaccineSuccessState, categorySuccessState, vaccineStatus];
 
   factory VaccineState.initialState() => VaccineState(
       vaccineSuccessState: const VaccineSuccessState(),
       categorySuccessState: CategorySuccessState());
 
   VaccineState copyWith(
-      {VaccineSuccessState? vaccineSuccessState,
+      {VaccineStatus? vaccineStatus,
+      VaccineSuccessState? vaccineSuccessState,
       CategorySuccessState? categorySuccessState}) {
     return VaccineState(
         vaccineSuccessState: vaccineSuccessState ?? this.vaccineSuccessState,
-        categorySuccessState:
-            categorySuccessState ?? this.categorySuccessState);
+        categorySuccessState: categorySuccessState ?? this.categorySuccessState,
+        vaccineStatus: vaccineStatus ?? this.vaccineStatus);
   }
 }
 
@@ -61,15 +73,4 @@ class VaccineFaliledState extends VaccineState {
   const VaccineFaliledState({required this.error});
   @override
   List<Object?> get props => [error];
-}
-
-class VaccineAddToCartLoading extends VaccineState {}
-
-class VaccineAddToCartResult extends VaccineState {
-  final String message;
-  final bool isSuccess;
-  const VaccineAddToCartResult(
-      {required this.message, required this.isSuccess});
-  @override
-  List<Object?> get props => [message, isSuccess];
 }

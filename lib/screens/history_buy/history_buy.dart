@@ -24,11 +24,7 @@ class _HistoryBuyScreenState extends State<HistoryBuyScreen> {
     return FormWithSearchWidget(
         isShowAppBar: widget.isShowAppBar,
         titleBar: "Lịch sử mua",
-        searchChange: (value) => {
-              setState((() {
-                searchValue = value;
-              }))
-            },
+        searchChange: () {},
         child: BlocProvider(
             create: (context) => HistoryBuyBloc()
               ..add(OnLoadHistoryBuyEvent(search: searchValue)),
@@ -41,9 +37,13 @@ class _HistoryBuyScreenState extends State<HistoryBuyScreen> {
                 );
               } else if (state is HistoryBuySuccessState) {
                 return HistoryInjectionWidget(items: state.histories);
+              } else if (state is HistoryBuyFailedState) {
+                return Center(
+                  child: Text(state.error),
+                );
               } else {
                 return Center(
-                  child: Text((state as HistoryBuyFailedState).error),
+                  child: Text("Vui lòng thử lại"),
                 );
               }
             }))));

@@ -3,7 +3,7 @@ import 'package:hufi_vnvc_application/models/province_model.dart';
 
 class ProvinceStatus extends ProfileState {
   final Status status;
-  final String? message;
+  final String message;
   final List<ProvinceModel>? provinces;
   final int? codeSelect;
   bool get isValidateProvince => codeSelect != null;
@@ -11,7 +11,7 @@ class ProvinceStatus extends ProfileState {
   const ProvinceStatus(
       {this.status = Status.LOADING,
       this.provinces,
-      this.message,
+      this.message = '',
       this.codeSelect});
 
   ProvinceStatus copyFrom(

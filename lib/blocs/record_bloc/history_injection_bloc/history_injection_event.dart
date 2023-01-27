@@ -6,4 +6,6 @@ class HistoryInjectionEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class OnLoadingHistoryInjectionState extends HistoryInjectionEvent {}
+class OnLoadHistoryInjectionEvent extends HistoryInjectionEvent {}
+
+class OnLoadNextInjectionEvent extends HistoryInjectionEvent {}

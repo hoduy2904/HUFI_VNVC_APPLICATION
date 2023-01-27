@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:equatable/equatable.dart';
+import 'package:hufi_vnvc_application/models/customer_model.dart';
 import 'package:hufi_vnvc_application/models/people_item_model.dart';
 
 class PeopleOrderState extends Equatable {
@@ -12,8 +13,8 @@ class PeopleOrderState extends Equatable {
 class PeopleOrderLoadingState extends PeopleOrderState {}
 
 class PeopleOrderSuccessState extends PeopleOrderState {
-  final List<PeopleItemModel> people;
-  PeopleOrderSuccessState({this.people = const []});
+  final CustomerModel people;
+  PeopleOrderSuccessState({required this.people});
   @override
   // TODO: implement props
   List<Object?> get props => [people];

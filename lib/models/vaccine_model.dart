@@ -9,8 +9,8 @@ class VaccineModel {
   final String images;
   final String name;
   final String prevention;
-  final double price;
-  final double priceOld;
+  final int price;
+  final int priceOld;
   final int quantityRemain;
   const VaccineModel(
       {required this.quantityRemain,
@@ -23,11 +23,17 @@ class VaccineModel {
       required this.priceOld});
 
   factory VaccineModel.fromJson(Map<String, dynamic> json) {
-    double price = 0, priceOld = 0;
+    int price = 0, priceOld = 0;
     if (json["vaccinePrices"] != null) {
-      var listPrice = json["vaccinePrices"] as List;
-      price = listPrice[0]["retailPrice"] ?? 0;
-      priceOld = listPrice[1]["retailPrice"] ?? 0;
+      try {
+        var listPrice = json["vaccinePrices"] as List;
+        if (listPrice.isNotEmpty) {
+          price = (listPrice[0]["retailPrice"] ?? 0);
+          priceOld = (listPrice.length > 0 ? listPrice[1]["retailPrice"] : 0);
+        }
+      } catch (e) {
+        print(e.toString());
+      }
     }
     return VaccineModel(
         quantityRemain: json["quantityRemain"],

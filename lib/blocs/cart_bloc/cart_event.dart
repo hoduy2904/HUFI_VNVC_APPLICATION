@@ -7,3 +7,19 @@ class CartEvent extends Equatable {
 }
 
 class OnLoadCartEvent extends CartEvent {}
+
+class OnAddCartEvent extends CartEvent {
+  final int idProduct;
+  OnAddCartEvent({required this.idProduct});
+  @override
+  // TODO: implement props
+  List<Object?> get props => [idProduct];
+}
+
+class OnRemoveCartItem extends CartEvent {
+  final int idProduct;
+  OnRemoveCartItem({required this.idProduct});
+  @override
+  // TODO: implement props
+  List<Object?> get props => [idProduct];
+}

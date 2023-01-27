@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hufi_vnvc_application/models/injection_model.dart';
+import 'package:hufi_vnvc_application/models/injection_schedule_details.dart';
 import 'package:intl/intl.dart';
 
 class InjectionItem extends StatelessWidget {
-  final InjectionModel model;
+  final InjectionScheduleDetails model;
   const InjectionItem({required this.model, super.key});
 
   @override
@@ -19,16 +20,18 @@ class InjectionItem extends StatelessWidget {
         children: [
           Column(
             children: [
+              if (model.scheduleTime != null) ...[
+                Text(
+                  DateFormat("hh:mm").format(model.scheduleTime!),
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                Text(
+                  DateFormat("dd/MM/yyyy").format(model.scheduleTime!),
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ],
               Text(
-                DateFormat("hh:mm").format(model.dateTime),
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              Text(
-                DateFormat("dd/MM/yyyy").format(model.dateTime),
-                style: Theme.of(context).textTheme.bodyText1,
-              ),
-              Text(
-                "Mũi ${model.number}",
+                "Mũi ${model.injections}",
                 style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
@@ -41,21 +44,17 @@ class InjectionItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                model.location,
+                model.address,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               Text(
-                model.vaccineName,
+                model.vaccineName ?? model.vaccinePackageName ?? "",
                 style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     decoration: TextDecoration.none,
                     color: Colors.black),
               ),
-              Text(
-                model.preventive,
-                style: Theme.of(context).textTheme.bodySmall,
-              )
             ],
           )
         ],

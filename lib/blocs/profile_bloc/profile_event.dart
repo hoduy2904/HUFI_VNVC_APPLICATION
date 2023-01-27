@@ -68,7 +68,7 @@ class OnDistrictChange extends ProfileEvent {
 }
 
 class OnBirthdayChange extends ProfileEvent {
-  final String birthday;
+  final DateTime birthday;
   OnBirthdayChange(this.birthday);
   @override
   List<Object?> get props => [birthday];
@@ -95,12 +95,12 @@ class OnAddressChange extends ProfileEvent {
   List<Object?> get props => [address];
 }
 
-class onSubmitEvent extends ProfileEvent {
+class OnSubmitEvent extends ProfileEvent {
   final bool isValid;
   final bool isSubmit;
   final String? username;
   final String? password;
-  onSubmitEvent(
+  OnSubmitEvent(
       {this.isValid = false,
       this.isSubmit = false,
       this.username,

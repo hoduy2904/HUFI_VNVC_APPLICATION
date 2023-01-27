@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:hufi_vnvc_application/models/response_api.dart';
 import 'package:hufi_vnvc_application/services/api_services.dart';
 
 class BannerRepository {
@@ -5,8 +8,15 @@ class BannerRepository {
     var request = APIServices(
         url: "/api/banner/getBanners",
         parse: ((json) {
-          var list = json["image"] as List<String>;
-          return list;
+          var res = ResponseAPI.fromJson(json);
+
+          var list = res.data as List;
+          var response = list
+              .map(
+                (e) => e["image"] as String,
+              )
+              .toList();
+          return response;
         }));
     var banners = await RequestAPI().get(request);
     return banners;

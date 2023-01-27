@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/cart_bloc/cart_bloc.dart';
+import 'package:hufi_vnvc_application/blocs/cart_bloc/cart_event.dart';
 import 'package:hufi_vnvc_application/blocs/cart_bloc/cart_state.dart';
 import 'package:hufi_vnvc_application/blocs/order_bloc/payment_order_bloc/payment_order_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/order_bloc/payment_order_bloc/payment_order_event.dart';
@@ -78,22 +79,34 @@ class PaymentOrder extends StatelessWidget {
                 ),
               ),
               BlocProvider(
-                  create: (context) => CartBloc(),
-                  child: BlocBuilder(builder: ((context, state) {
+                  create: (context) => CartBloc()..add(OnLoadCartEvent()),
+                  child: BlocBuilder<CartBloc, CartState>(
+                      builder: ((context, state) {
                     if (state is CartLoadingState) {
                       return Center(
                         child: LoadingAnimationWidget.fourRotatingDots(
                             color: ColorTheme.primary, size: 24),
                       );
                     } else if (state is CartSuccessState) {
-                      return Column(
-                        children: state.carts
-                            .map((e) => VaccineCartItem(model: e.vaccineModel))
-                            .toList(),
+                      if (state.carts.isEmpty) {
+                        return const Center(
+                          child: Text("Giỏ hàng trống"),
+                        );
+                      } else {
+                        return Column(
+                          children: state.carts
+                              .map((e) =>
+                                  VaccineCartItem(model: e.vaccineModel!))
+                              .toList(),
+                        );
+                      }
+                    } else if (state is CartFailedState) {
+                      return Center(
+                        child: Text(state.error),
                       );
                     } else {
-                      return Center(
-                        child: Text((state as CartFailedState).error),
+                      return const Center(
+                        child: Text("Vui lòng thử lại"),
                       );
                     }
                   }))),
@@ -102,17 +115,21 @@ class PaymentOrder extends StatelessWidget {
               ),
               BlocProvider(
                   create: (context) => PaymentOrderBloc(),
-                  child: BlocBuilder<PaymentOrderBloc, PaymentOrderState>(
+                  child: BlocConsumer<PaymentOrderBloc, PaymentOrderState>(
+                      listener: (context, state) {
+                        if (state is PaymentOrderResultState) {
+                          onPay(state.isSuccess, state.messsage);
+                        }
+                      },
                       builder: ((context, state) => ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               minimumSize: const Size.fromHeight(45)),
                           onPressed: () {
-                            context
-                                .read<PaymentOrderBloc>()
-                                .add(OnPayClickEvent(selectId: selectId));
-                            if (state is PaymentOrderResultState) {
-                              onPay(state.isSuccess, state.messsage);
-                            }
+                            (state is PaymentOrderLoadingState)
+                                ? null
+                                : context
+                                    .read<PaymentOrderBloc>()
+                                    .add(OnPayClickEvent(selectId: selectId));
                           },
                           child: (state is PaymentOrderLoadingState)
                               ? LoadingAnimationWidget.fourRotatingDots(

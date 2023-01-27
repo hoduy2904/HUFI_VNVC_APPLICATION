@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/cart_bloc/cart_bloc.dart';
+import 'package:hufi_vnvc_application/blocs/cart_bloc/cart_event.dart';
 import 'package:hufi_vnvc_application/blocs/cart_bloc/cart_state.dart';
 import 'package:hufi_vnvc_application/models/cart_model.dart';
 import 'package:hufi_vnvc_application/models/vaccine_model.dart';
@@ -29,43 +30,56 @@ class _CartScreenState extends State<CartScreen> {
           ),
           centerTitle: true,
         ),
-        body: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: BlocProvider(
-                create: (context) => CartBloc(),
-                child: BlocBuilder<CartBloc, CartState>(
-                  builder: ((context, state) => Column(
+        bottomNavigationBar: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(45)),
+            onPressed: () => {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const OrderScreen()))
+                },
+            child: const Text("Đặt mua")),
+        body: BlocProvider(
+            create: (context) => CartBloc()..add(OnLoadCartEvent()),
+            child: BlocBuilder<CartBloc, CartState>(builder: ((context, state) {
+              if (state is CartLoadingState) {
+                return Center(
+                  child: LoadingAnimationWidget.fourRotatingDots(
+                      color: ColorTheme.primary, size: 24),
+                );
+              } else if (state is CartSuccessState) {
+                if (state.carts.isEmpty) {
+                  return const Center(
+                    child: Text("Giỏ hàng trống"),
+                  );
+                } else {
+                  return SingleChildScrollView(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
                         children: [
-                          if (state is CartLoadingState)
-                            Center(
-                              child: LoadingAnimationWidget.fourRotatingDots(
-                                  color: ColorTheme.primary, size: 24),
-                            ),
-                          if (state is CartSuccessState)
-                            Column(
-                              children: state.carts
-                                  .map((model) =>
-                                      CartItem(context, model, (e) => {}))
-                                  .toList(),
-                            ),
-                          if (state is CartFailedState)
-                            Center(
-                              child: Text(state.error),
-                            ),
-                          ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  minimumSize: const Size.fromHeight(45)),
-                              onPressed: () => {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const OrderScreen()))
-                                  },
-                              child: const Text("Đặt mua"))
+                          Column(
+                            children: state.carts
+                                .map((model) => CartItem(
+                                    context,
+                                    model,
+                                    (e) => {
+                                          context.read<CartBloc>().add(
+                                              OnRemoveCartItem(idProduct: e))
+                                        }))
+                                .toList(),
+                          )
                         ],
-                      )),
-                ))));
+                      ));
+                }
+              } else if (state is CartFailedState) {
+                return Center(
+                  child: Text(state.error),
+                );
+              } else {
+                return const SizedBox();
+              }
+            }))));
   }
 }
 
@@ -97,7 +111,7 @@ Widget CartItem(BuildContext context, CartModel model, Function onTap) {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        model.vaccineModel.name.toUpperCase(),
+                        model.vaccineModel!.name.toUpperCase(),
                         style: const TextStyle(
                             decoration: TextDecoration.none,
                             fontSize: 14,
@@ -115,7 +129,7 @@ Widget CartItem(BuildContext context, CartModel model, Function onTap) {
                         height: 5,
                       ),
                       Text(
-                        "Phòng bệnh: ${model.vaccineModel.prevention}",
+                        "Phòng bệnh: ${model.vaccineModel?.prevention}",
                         style: Theme.of(context).textTheme.bodySmall,
                       )
                     ],
@@ -131,7 +145,7 @@ Widget CartItem(BuildContext context, CartModel model, Function onTap) {
                   Container(
                     alignment: Alignment.bottomRight,
                     child: Text(
-                      "${formatMoney.format(model.vaccineModel.price)} VNĐ",
+                      "${formatMoney.format(model.vaccineModel?.price)} VNĐ",
                       style: TextStyle(
                           color: ColorTheme.primaryStrong,
                           fontWeight: FontWeight.bold,
@@ -151,58 +165,3 @@ Widget CartItem(BuildContext context, CartModel model, Function onTap) {
         ),
       ));
 }
-
-final list = [
-  CartModel(
-      number: 1,
-      id: 1,
-      vaccineModel: VaccineModel(
-          id: 1,
-          categoryId: 2,
-          images:
-              "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
-          name: "Vắc xin 4 trong 1 ssssssssssssssss",
-          prevention: "Phòng bệnh",
-          price: 50000,
-          priceOld: 20000,
-          quantityRemain: 10)),
-  CartModel(
-      number: 1,
-      id: 1,
-      vaccineModel: VaccineModel(
-          id: 1,
-          categoryId: 2,
-          images:
-              "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
-          name: "Vắc xin 4 trong 1 ssssssssssssssss",
-          prevention: "Phòng bệnh",
-          price: 50000,
-          priceOld: 20000,
-          quantityRemain: 10)),
-  CartModel(
-      number: 1,
-      id: 1,
-      vaccineModel: VaccineModel(
-          id: 1,
-          categoryId: 2,
-          images:
-              "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
-          name: "Vắc xin 4 trong 1 ssssssssssssssss",
-          prevention: "Phòng bệnh",
-          price: 50000,
-          priceOld: 20000,
-          quantityRemain: 10)),
-  CartModel(
-      number: 1,
-      id: 1,
-      vaccineModel: VaccineModel(
-          id: 1,
-          categoryId: 2,
-          images:
-              "https://file3.qdnd.vn/data/images/0/2021/12/01/tranyen/qdnd%20vaccine%20pfizer.jpg?dpi=150&quality=100&w=870",
-          name: "Vắc xin 4 trong 1 ssssssssssssssss",
-          prevention: "Phòng bệnh",
-          price: 50000,
-          priceOld: 20000,
-          quantityRemain: 10)),
-];

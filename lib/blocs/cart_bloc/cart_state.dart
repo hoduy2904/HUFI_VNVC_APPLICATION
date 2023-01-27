@@ -24,3 +24,13 @@ class CartFailedState extends CartState {
   // TODO: implement props
   List<Object?> get props => [error];
 }
+
+class AddToCartLoading extends CartState {}
+
+class AddToCartResult extends CartState {
+  final String message;
+  final bool isSuccess;
+  AddToCartResult({required this.message, required this.isSuccess});
+  @override
+  List<Object?> get props => [message, isSuccess];
+}

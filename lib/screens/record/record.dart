@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/record_bloc/history_injection_bloc/history_injection_bloc.dart';
+import 'package:hufi_vnvc_application/blocs/record_bloc/history_injection_bloc/history_injection_event.dart';
 import 'package:hufi_vnvc_application/blocs/record_bloc/history_injection_bloc/history_injection_state.dart';
 import 'package:hufi_vnvc_application/models/injection_model.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:hufi_vnvc_application/themes/typography.dart';
 import 'package:hufi_vnvc_application/widgets/items/injection_item.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class RecordScreen extends StatelessWidget {
   const RecordScreen({super.key});
@@ -25,7 +27,7 @@ class RecordScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(children: [
               //Sidebar
-              Container(
+              /* Container(
                   margin: const EdgeInsets.only(top: 20),
                   alignment: Alignment.topLeft,
                   height: 80,
@@ -54,7 +56,7 @@ class RecordScreen extends StatelessWidget {
                         ],
                       )
                     ],
-                  )),
+                  )),*/
               Expanded(
                   child: DefaultTabController(
                       length: 2,
@@ -73,26 +75,69 @@ class RecordScreen extends StatelessWidget {
                             ]),
                         Expanded(
                             child: TabBarView(children: <Widget>[
-                          SingleChildScrollView(
-                              child: BlocProvider(
-                                  create: (context) => HistoryInjectionBloc(),
-                                  child: BlocBuilder<HistoryInjectionBloc,
-                                          HistoryInjectionState>(
-                                      builder: ((context, state) {
-                                    if (state is HistoryInjectionLoadingState) {
-                                      return const Center(child: Text(""));
-                                    }
-                                    if (state is HistoryInjectionSuccessState) {
-                                      return Column(
+                          BlocProvider(
+                              create: (context) => HistoryInjectionBloc()
+                                ..add(OnLoadHistoryInjectionEvent()),
+                              child: BlocBuilder<HistoryInjectionBloc,
+                                      HistoryInjectionState>(
+                                  builder: ((context, state) {
+                                if (state is HistoryInjectionLoadingState) {
+                                  return const Center(child: Text(""));
+                                } else if (state
+                                    is HistoryInjectionSuccessState) {
+                                  return SingleChildScrollView(
+                                      child: Column(
                                           children: state.historyInjections
                                               .map((e) =>
                                                   InjectionItem(model: e))
-                                              .toList());
-                                    } else {
-                                      return const SizedBox();
-                                    }
-                                  })))),
-                          const Text("View Two")
+                                              .toList()));
+                                } else if (state
+                                    is HistoryInjectionFailedState) {
+                                  return Center(
+                                    child: Text(state.error),
+                                  );
+                                } else {
+                                  return const Center(
+                                    child: Text("Vui lòng thử lại"),
+                                  );
+                                }
+                              }))),
+                          BlocProvider(
+                              create: (context) => HistoryInjectionBloc()
+                                ..add(OnLoadNextInjectionEvent()),
+                              child: BlocBuilder<HistoryInjectionBloc,
+                                      HistoryInjectionState>(
+                                  builder: ((context, state) {
+                                if (state is NextInjectionLoadingState) {
+                                  return Center(
+                                      child: LoadingAnimationWidget
+                                          .fourRotatingDots(
+                                              color: ColorTheme.primary,
+                                              size: 24));
+                                } else if (state is NextInjectionSuccessState) {
+                                  if (state.historyInjections.isEmpty) {
+                                    return const Center(
+                                      child: Text("Không có lịch kế tiếp"),
+                                    );
+                                  }
+
+                                  return SingleChildScrollView(
+                                      child: Column(
+                                          children: state.historyInjections
+                                              .map((e) =>
+                                                  InjectionItem(model: e))
+                                              .toList()));
+                                } else if (state
+                                    is HistoryInjectionFailedState) {
+                                  return Center(
+                                    child: Text(state.error),
+                                  );
+                                } else {
+                                  return const Center(
+                                    child: Text("Vui lòng thử lại"),
+                                  );
+                                }
+                              }))),
                         ]))
                       ]))),
             ])));

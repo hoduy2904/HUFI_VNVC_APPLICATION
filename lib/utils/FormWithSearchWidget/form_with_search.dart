@@ -8,8 +8,10 @@ class FormWithSearchWidget extends StatelessWidget {
   final Function searchChange;
   final String titleBar;
   final bool isShowAppBar;
+  final String hint;
   const FormWithSearchWidget(
       {this.isShowAppBar = true,
+      this.hint = '',
       required this.titleBar,
       required this.searchChange,
       required this.child,
@@ -35,7 +37,8 @@ class FormWithSearchWidget extends StatelessWidget {
           Container(
             color: Colors.blue.shade800,
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: SearchBarWidget(onChange: (value) => searchChange(value)),
+            child: SearchBarWidget(
+                hint: hint, onChange: (value) => searchChange(value)),
           ),
           const SizedBox(
             height: 10,
