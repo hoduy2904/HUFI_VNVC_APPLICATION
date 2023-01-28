@@ -12,26 +12,31 @@ class VaccineState extends Equatable {
   final VaccineStatus? vaccineStatus;
   final VaccineSuccessState? vaccineSuccessState;
   final CategorySuccessState? categorySuccessState;
+  final int currentPage;
   const VaccineState(
       {this.vaccineSuccessState,
       this.categorySuccessState,
-      this.vaccineStatus});
+      this.vaccineStatus,
+      this.currentPage = 1});
   @override
   List<Object?> get props =>
-      [vaccineSuccessState, categorySuccessState, vaccineStatus];
+      [vaccineSuccessState, categorySuccessState, vaccineStatus, currentPage];
 
   factory VaccineState.initialState() => VaccineState(
       vaccineSuccessState: const VaccineSuccessState(),
-      categorySuccessState: CategorySuccessState());
+      categorySuccessState: CategorySuccessState(),
+      currentPage: 1);
 
   VaccineState copyWith(
       {VaccineStatus? vaccineStatus,
       VaccineSuccessState? vaccineSuccessState,
-      CategorySuccessState? categorySuccessState}) {
+      CategorySuccessState? categorySuccessState,
+      int? currentPage}) {
     return VaccineState(
         vaccineSuccessState: vaccineSuccessState ?? this.vaccineSuccessState,
         categorySuccessState: categorySuccessState ?? this.categorySuccessState,
-        vaccineStatus: vaccineStatus ?? this.vaccineStatus);
+        vaccineStatus: vaccineStatus ?? this.vaccineStatus,
+        currentPage: currentPage ?? this.currentPage);
   }
 }
 

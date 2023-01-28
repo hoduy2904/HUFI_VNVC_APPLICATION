@@ -15,6 +15,7 @@ class VaccineBloc extends Bloc<VaccineEvent, VaccineState> {
         var vaccines = await ProductRepository().getVaccines(
             page: 1, size: 20, typeOfVaccineId: categories.first.id);
         emit(state.copyWith(
+            currentPage: 1,
             vaccineStatus: VaccineStatus.VaccineSuccess,
             categorySuccessState: CategorySuccessState(
                 categories: categories, currentId: categories.first.id),
@@ -33,6 +34,7 @@ class VaccineBloc extends Bloc<VaccineEvent, VaccineState> {
             typeOfVaccineId: state.categorySuccessState!.currentId!,
             q: event.search);
         emit(state.copyWith(
+            currentPage: 1,
             vaccineStatus: VaccineStatus.VaccineSuccess,
             vaccineSuccessState: VaccineSuccessState(vaccines: vaccines)));
       } catch (e) {
@@ -45,9 +47,24 @@ class VaccineBloc extends Bloc<VaccineEvent, VaccineState> {
         var vaccines = await ProductRepository()
             .getVaccines(page: 1, size: 20, typeOfVaccineId: event.id);
         emit(state.copyWith(
+            currentPage: 1,
             vaccineStatus: VaccineStatus.VaccineSuccess,
             categorySuccessState:
                 state.categorySuccessState?.copyFrom(currentId: event.id),
+            vaccineSuccessState: VaccineSuccessState(vaccines: vaccines)));
+      } catch (e) {
+        emit(state.copyWith(vaccineStatus: VaccineStatus.VaccineError));
+      }
+    });
+    on<OnFetchVaccineEvent>((event, emit) async {
+      try {
+        var vaccines = await ProductRepository().getVaccines(
+            page: state.currentPage + 1,
+            size: 20,
+            typeOfVaccineId: state.categorySuccessState!.currentId!);
+        List.of(state.vaccineSuccessState!.vaccines).addAll(vaccines);
+        emit(state.copyWith(
+            currentPage: state.currentPage + 1,
             vaccineSuccessState: VaccineSuccessState(vaccines: vaccines)));
       } catch (e) {
         emit(state.copyWith(vaccineStatus: VaccineStatus.VaccineError));

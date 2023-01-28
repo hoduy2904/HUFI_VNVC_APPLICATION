@@ -86,14 +86,7 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-const Tabs = [
-  HomePage(),
-  VaccinesScreen(
-    isShowAppBar: true,
-  ),
-  RecordScreen(),
-  PersonalScreen()
-];
+const Tabs = [HomePage(), VaccinesScreen(), RecordScreen(), PersonalScreen()];
 
 const items = [
   BottomNavigationBarItem(

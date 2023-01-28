@@ -5,6 +5,7 @@ import 'package:hufi_vnvc_application/blocs/history_buy_bloc/history_buy_event.d
 import 'package:hufi_vnvc_application/blocs/history_buy_bloc/history_buy_state.dart';
 import 'package:hufi_vnvc_application/models/history_buy_model.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
+import 'package:hufi_vnvc_application/utils/Debouncer/debouncer.dart';
 import 'package:hufi_vnvc_application/utils/FormWithSearchWidget/form_with_search.dart';
 import 'package:hufi_vnvc_application/widgets/history_injection_widget.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -18,6 +19,7 @@ class HistoryBuyScreen extends StatefulWidget {
 }
 
 class _HistoryBuyScreenState extends State<HistoryBuyScreen> {
+  var debounce = Debouncer(milliseconds: 1000);
   String searchValue = "";
   @override
   Widget build(BuildContext context) {
@@ -30,16 +32,29 @@ class _HistoryBuyScreenState extends State<HistoryBuyScreen> {
               ..add(OnLoadHistoryBuyEvent(search: searchValue)),
             child: BlocBuilder<HistoryBuyBloc, HistoryBuyState>(
                 builder: ((context, state) {
-              if (state is HistoryBuyLoadingState) {
+              if (state.status == HistoryBuyStatus.Loading) {
                 return Center(
                   child: LoadingAnimationWidget.fourRotatingDots(
                       color: ColorTheme.primary, size: 24),
                 );
-              } else if (state is HistoryBuySuccessState) {
-                return HistoryInjectionWidget(items: state.histories);
-              } else if (state is HistoryBuyFailedState) {
+              } else if (state.status == HistoryBuyStatus.Success) {
+                return NotificationListener<ScrollEndNotification>(
+                  onNotification: ((notification) {
+                    if (notification.metrics.maxScrollExtent -
+                            notification.metrics.pixels <
+                        20) {
+                      debounce.run(() => context
+                          .read<HistoryBuyBloc>()
+                          .add(OnFetchHistoryBuyEvent()));
+                    }
+                    return true;
+                  }),
+                  child: HistoryInjectionWidget(
+                      items: state.historyBuySuccessState?.histories ?? []),
+                );
+              } else if (state.status == HistoryBuyStatus.Failed) {
                 return Center(
-                  child: Text(state.error),
+                  child: Text(state.message),
                 );
               } else {
                 return Center(

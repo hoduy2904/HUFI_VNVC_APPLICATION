@@ -28,3 +28,5 @@ class OnClickAddToCartVaccineEvent extends VaccineEvent {
   @override
   List<Object?> get props => [id];
 }
+
+class OnFetchVaccineEvent extends VaccineEvent {}

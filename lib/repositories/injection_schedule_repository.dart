@@ -17,10 +17,10 @@ class InjectionScheduleRepository {
   }
 
   Future<List<InjectionScheduleModel>> getHistoryInjection(
-      int customerId) async {
+      {required int customerId, int page = 1, int? pageSize = 20}) async {
     var resource = APIServices(
         url:
-            "/api/InjectionSchedule/GetInjectionSchedules?customerId=$customerId",
+            "/api/InjectionSchedule/GetInjectionSchedules?page=$page&pageSize=$pageSize&customerId=$customerId",
         parse: ((json) {
           var request = ResponseAPI.fromJson(json);
           var listResponse = request.data as List;

@@ -13,3 +13,5 @@ class OnLoadHistoryBuyEvent extends HistoryBuyEvent {
   // TODO: implement props
   List<Object?> get props => [search];
 }
+
+class OnFetchHistoryBuyEvent extends HistoryBuyEvent {}
