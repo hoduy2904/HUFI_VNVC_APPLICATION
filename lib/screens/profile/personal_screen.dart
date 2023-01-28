@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_event.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_state.dart';
@@ -7,6 +8,7 @@ import 'package:hufi_vnvc_application/screens/Auth/change_password.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:hufi_vnvc_application/themes/typography.dart';
 import 'package:hufi_vnvc_application/utils/ButtonSelectWidget/button_select.dart';
+import 'package:hufi_vnvc_application/utils/ToastWidget/toast_widget.dart';
 import 'package:intl/intl.dart';
 
 class PersonalScreen extends StatelessWidget {
@@ -14,6 +16,8 @@ class PersonalScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FToast fToast = FToast();
+    fToast.init(context);
     return Scaffold(
       appBar: AppBar(
           backgroundColor: ColorTheme.primary,
@@ -99,7 +103,12 @@ class PersonalScreen extends StatelessWidget {
                               size: 16,
                             ),
                             child: const Text("Chỉnh sửa tài khoản"),
-                            onTab: () => {}),
+                            onTab: () => {
+                                  fToast.showToast(
+                                      child: const ToastWidget(
+                                          message: "Vui lòng liên hệ Admin",
+                                          status: "normal"))
+                                }),
                         ButtonSelectWidget(
                             lastRow: const Icon(
                               Icons.arrow_forward_ios,

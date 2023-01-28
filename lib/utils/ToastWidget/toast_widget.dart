@@ -20,7 +20,7 @@ class ToastWidget extends StatelessWidget {
               ? ColorTheme.primary
               : status == "error"
                   ? Colors.red.withOpacity(0.4)
-                  : Colors.yellowAccent,
+                  : ColorTheme.primary,
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,

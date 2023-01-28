@@ -1,5 +1,7 @@
 //onClick
 //onChange
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 
 class ProfileEvent extends Equatable {
@@ -107,4 +109,12 @@ class OnSubmitEvent extends ProfileEvent {
       this.password});
   @override
   List<Object?> get props => [isSubmit, isValid];
+}
+
+class OnChangeAvatarEvent extends ProfileEvent {
+  final File? avatar;
+  OnChangeAvatarEvent({required this.avatar});
+  @override
+  // TODO: implement props
+  List<Object?> get props => [avatar];
 }

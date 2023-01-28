@@ -2,30 +2,40 @@ import 'package:equatable/equatable.dart';
 
 class ChangePasswordState extends Equatable {
   final String? password;
-  bool get passwordValidate => password != null && password!.length > 6;
+  bool get passwordValidate => password != null && password!.length > 5;
   final String? repeatPassword;
   bool get passwordRepeatValidate =>
-      repeatPassword != null && repeatPassword!.length > 6;
+      repeatPassword != null && repeatPassword!.length > 5;
+  final String? oldPassword;
+  bool get oldPasswordValidate => oldPassword!.length > 5;
   final bool isSubmit;
   final bool isShowPassword;
+  final bool isShowOldPassword;
   final bool isShowRepeatPassword;
-  bool get confirmValidate => password == repeatPassword;
+  bool get confirmValidate =>
+      password == repeatPassword && oldPassword!.length > 5;
   final PasswordChangingState? passwordChangingState;
   const ChangePasswordState(
-      {this.passwordChangingState,
+      {this.oldPassword,
+      this.isShowOldPassword = false,
+      this.passwordChangingState,
       this.isSubmit = false,
       this.isShowPassword = false,
       this.isShowRepeatPassword = false,
       this.password,
       this.repeatPassword});
   ChangePasswordState copyWith(
-      {PasswordChangingState? passwordChangingState,
+      {String? oldPassword,
+      bool? isShowOldPassword,
+      PasswordChangingState? passwordChangingState,
       bool? isSubmit,
       String? password,
       String? repeatPassword,
       bool? isShowPassword,
       bool? isShowRepeatPassword}) {
     return ChangePasswordState(
+        oldPassword: oldPassword ?? this.oldPassword,
+        isShowOldPassword: isShowOldPassword ?? this.isShowOldPassword,
         passwordChangingState: passwordChangingState,
         isSubmit: isSubmit ?? this.isSubmit,
         isShowPassword: isShowPassword ?? this.isShowPassword,
@@ -40,10 +50,14 @@ class ChangePasswordState extends Equatable {
       isSubmit: false,
       password: "",
       repeatPassword: "",
+      oldPassword: "",
+      isShowOldPassword: false,
       isShowPassword: false,
       isShowRepeatPassword: false);
   @override
   List<Object?> get props => [
+        oldPassword,
+        isShowOldPassword,
         password,
         repeatPassword,
         isShowPassword,

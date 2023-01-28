@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/profile_bloc/profile_bloc.dart';
@@ -183,38 +185,6 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                 )),
             Row(
               children: [
-                Expanded(
-                    child: FormControl(
-                        title: "Quốc tịch",
-                        required: true,
-                        child: Container(
-                          padding: const EdgeInsets.all(6),
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey.shade300),
-                              borderRadius: BorderRadius.circular(6)),
-                          child: DropdownButton(
-                              isExpanded: true,
-                              style: const TextStyle(
-                                fontSize: 12,
-                              ),
-                              isDense: true,
-                              underline: Container(color: Colors.transparent),
-                              hint: const Text("Chọn Quốc tịch"),
-                              items: itemss
-                                  .map((e) => DropdownMenuItem(
-                                        value: e,
-                                        child: Text(
-                                          e.name,
-                                          style: const TextStyle(
-                                              color: Colors.black),
-                                        ),
-                                      ))
-                                  .toList(),
-                              onChanged: ((value) {})),
-                        ))),
-                const SizedBox(
-                  width: 10,
-                ),
                 Expanded(
                     child: FormControl(
                         title: "Dân tộc",
@@ -501,32 +471,45 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
   }
 }
 
-Widget imageProfile() {
-  return Center(
-      child: InkWell(
-    onTap: () async {
-      PickedFile? pickedFile =
-          await ImagePicker().getImage(source: ImageSource.camera);
-      if (pickedFile != null) {
-        print(pickedFile.path);
-      }
-    },
-    child: Stack(
-      children: <Widget>[
-        const CircleAvatar(
-          radius: 50.0,
-          backgroundImage: NetworkImage(
-              "https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2022/09/avatar-anime-1.jpg?ssl=1"),
-        ),
-        Positioned(
-            bottom: 0.0,
-            right: 10.0,
-            child: Icon(
-              size: 24,
-              color: Colors.blue.shade700,
-              Icons.camera_alt,
-            ))
-      ],
-    ),
-  ));
+class imageProfile extends StatelessWidget {
+  const imageProfile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ProfileBloc, ProfileState>(
+        builder: ((context, state) => Center(
+                child: InkWell(
+              onTap: () async {
+                PickedFile? pickedFile =
+                    await ImagePicker().getImage(source: ImageSource.gallery);
+                if (pickedFile != null) {
+                  File avatar = File(pickedFile.path);
+                  context
+                      .read<ProfileBloc>()
+                      .add(OnChangeAvatarEvent(avatar: avatar));
+                }
+              },
+              child: Stack(
+                children: <Widget>[
+                  state.avatar == null
+                      ? const CircleAvatar(
+                          radius: 50.0,
+                          backgroundImage: NetworkImage(
+                              "https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2022/09/avatar-anime-1.jpg?ssl=1"),
+                        )
+                      : CircleAvatar(
+                          radius: 50.0,
+                          backgroundImage: FileImage(state.avatar!)),
+                  Positioned(
+                      bottom: 0.0,
+                      right: 10.0,
+                      child: Icon(
+                        size: 24,
+                        color: Colors.blue.shade700,
+                        Icons.camera_alt,
+                      ))
+                ],
+              ),
+            ))));
+  }
 }

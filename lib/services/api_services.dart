@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:hufi_vnvc_application/constaint.dart';
@@ -152,5 +153,27 @@ class RequestAPI {
       prefs.clear();
       return false;
     }
+  }
+
+  Future<ResponseAPI> postFile(
+      {required List<File> files, Map<String, String>? headers}) async {
+    var request = http.MultipartRequest("POST", Uri.parse("/api/upload"));
+    for (var file in files) {
+      var pic = http.MultipartFile(
+          "file", file.readAsBytes().asStream(), file.lengthSync(),
+          filename: file.path.split("/").last);
+      request.files.add(pic);
+    }
+    request.headers.addAll(headers ?? {});
+    var response = await request.send();
+    if (response.statusCode == 200) {
+      return ResponseAPI.fromJson(
+          jsonDecode(await response.stream.bytesToString()));
+    }
+    return ResponseAPI(
+        statusCode: response.statusCode,
+        messages: ["Faild to upload"],
+        isSuccess: false,
+        data: null);
   }
 }

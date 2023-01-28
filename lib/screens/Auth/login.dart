@@ -184,7 +184,7 @@ class LoginScreen extends StatelessWidget {
                                             .fourRotatingDots(
                                                 color: ColorTheme.primary,
                                                 size: 24)
-                                        : const Text("Tiếp tục")),
+                                        : const Text("Đăng nhập")),
                                 const SizedBox(
                                   height: 15,
                                 ),

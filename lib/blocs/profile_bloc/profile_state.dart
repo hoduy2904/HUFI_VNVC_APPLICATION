@@ -1,6 +1,8 @@
 //Loading
 //Success
 //Failed
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 import 'package:hufi_vnvc_application/blocs/profile_bloc/address_status/district_status.dart';
 import 'package:hufi_vnvc_application/blocs/profile_bloc/address_status/province_status.dart';
@@ -15,19 +17,23 @@ class ProfileState extends Equatable {
   final DistrictStatus? districtStatus;
   final FormInputStatus? formInputStatus;
   final ProfileSubmitState? submitState;
+  final File? avatar;
   const ProfileState(
-      {this.provinceStatus,
+      {this.avatar,
+      this.provinceStatus,
       this.wardStatus,
       this.districtStatus,
       this.formInputStatus,
       this.submitState});
   ProfileState copyWith(
-      {ProvinceStatus? provinceStatus,
+      {File? avatar,
+      ProvinceStatus? provinceStatus,
       WardStatus? wardStatus,
       DistrictStatus? districtStatus,
       FormInputStatus? formInputStatus,
       ProfileSubmitState? submitState}) {
     return ProfileState(
+        avatar: avatar ?? this.avatar,
         provinceStatus: provinceStatus ?? this.provinceStatus,
         wardStatus: wardStatus ?? this.wardStatus,
         districtStatus: districtStatus ?? this.districtStatus,
@@ -41,7 +47,8 @@ class ProfileState extends Equatable {
         districtStatus,
         wardStatus,
         formInputStatus,
-        submitState
+        submitState,
+        avatar
       ];
 }
 

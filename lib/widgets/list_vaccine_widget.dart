@@ -68,16 +68,21 @@ class VaccineListWidget extends StatelessWidget {
                       child: ListView(
                     shrinkWrap: true,
                     children: [
-                      GridView(
+                      GridView.builder(
                         primary: false,
                         shrinkWrap: true,
+                        itemCount: vaccines.length,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                                 mainAxisExtent: 330,
                                 crossAxisCount: 2,
                                 crossAxisSpacing: 15),
-                        children: vaccines.map((e) => VaccineItem(e)).toList(),
-                      )
+                        itemBuilder: ((context, index) =>
+                            VaccineItem(vaccines[index])),
+                      ),
+                      if (!state.isEndPage)
+                        LoadingAnimationWidget.fourRotatingDots(
+                            color: ColorTheme.primary, size: 24)
                     ],
                   ));
                 } else {

@@ -6,6 +6,14 @@ class ChangePasswordEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+class OnChangeOldPasswordEvent extends ChangePasswordEvent {
+  final String passsword;
+  OnChangeOldPasswordEvent({required this.passsword});
+  @override
+  // TODO: implement props
+  List<Object?> get props => [passsword];
+}
+
 class OnChangePasswordEvent extends ChangePasswordEvent {
   final String passsword;
   OnChangePasswordEvent({required this.passsword});
@@ -25,5 +33,7 @@ class OnChangePasswordRepeatEvent extends ChangePasswordEvent {
 class OnShowPasswordEvent extends ChangePasswordEvent {}
 
 class OnShowRepeatPasswordEvent extends ChangePasswordEvent {}
+
+class OnShowOldPasswordEvent extends ChangePasswordEvent {}
 
 class OnClickChangePassEvent extends ChangePasswordEvent {}

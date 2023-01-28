@@ -26,6 +26,7 @@ class _HistoryBuyScreenState extends State<HistoryBuyScreen> {
     return FormWithSearchWidget(
         isShowAppBar: widget.isShowAppBar,
         titleBar: "Lịch sử mua",
+        hint: "Tìm theo mã, ngày",
         searchChange: () {},
         child: BlocProvider(
             create: (context) => HistoryBuyBloc()

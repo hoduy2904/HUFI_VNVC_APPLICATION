@@ -4,6 +4,7 @@ import 'package:hufi_vnvc_application/blocs/form_search_bloc/form_search_bloc.da
 import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_event.dart';
 import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_state.dart';
 import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vacicne_bloc.dart';
+import 'package:hufi_vnvc_application/utils/Debouncer/debouncer.dart';
 import 'package:hufi_vnvc_application/utils/FormWithSearchWidget/form_with_search.dart';
 import 'package:hufi_vnvc_application/widgets/list_vaccine_widget.dart';
 
@@ -13,6 +14,7 @@ class VaccinesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var debounce = Debouncer(milliseconds: 1000);
     return BlocProvider(
       create: (context) => VaccineBloc()..add(OnLoadCategoryEvent()),
       child: BlocBuilder<VaccineBloc, VaccineState>(builder: ((context, state) {
@@ -26,14 +28,25 @@ class VaccinesScreen extends StatelessWidget {
                       .add(OnLoadProductEvent(search: search))
                 },
             child: Expanded(
-                child: VaccineListWidget(
-              vaccines: state.vaccineSuccessState?.vaccines ?? [],
-              categories: state.categorySuccessState?.categories ?? [],
-              categoryId: state.categorySuccessState!.currentId ?? 0,
-              categoryChange: (value) => {
-                context.read<VaccineBloc>()
-                  ..add(OnClickCategoryEvent(id: value))
-              },
+                child: NotificationListener<ScrollEndNotification>(
+              onNotification: ((notification) {
+                if (notification.metrics.maxScrollExtent -
+                        notification.metrics.pixels <
+                    10) {
+                  debounce.run(() =>
+                      {context.read<VaccineBloc>().add(OnFetchVaccineEvent())});
+                }
+                return true;
+              }),
+              child: VaccineListWidget(
+                vaccines: state.vaccineSuccessState?.vaccines ?? [],
+                categories: state.categorySuccessState?.categories ?? [],
+                categoryId: state.categorySuccessState!.currentId ?? 0,
+                categoryChange: (value) => {
+                  context.read<VaccineBloc>()
+                    ..add(OnClickCategoryEvent(id: value))
+                },
+              ),
             )));
       })),
     );

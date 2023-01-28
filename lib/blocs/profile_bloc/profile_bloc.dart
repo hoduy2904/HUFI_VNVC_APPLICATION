@@ -119,6 +119,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           formInputStatus: state.formInputStatus
               ?.copyFrom(identityCode: event.identityCode)));
     });
+    on<OnChangeAvatarEvent>((event, emit) {
+      emit(state.copyWith(avatar: event.avatar));
+    });
 
     //Submit Form Infomation Acount
     on<OnSubmitEvent>((event, emit) async {

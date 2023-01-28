@@ -5,7 +5,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/code_verify_bloc/code_verify_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/code_verify_bloc/code_verify_event.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/code_verify_bloc/code_verify_state.dart';
-import 'package:hufi_vnvc_application/screens/Auth/create_password.dart';
 import 'package:hufi_vnvc_application/screens/Auth/login.dart';
 import 'package:hufi_vnvc_application/utils/ToastWidget/toast_widget.dart';
 import 'package:hufi_vnvc_application/widgets/otp_form_widget.dart';

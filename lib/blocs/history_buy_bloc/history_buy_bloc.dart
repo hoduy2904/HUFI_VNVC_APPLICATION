@@ -36,7 +36,7 @@ class HistoryBuyBloc extends Bloc<HistoryBuyEvent, HistoryBuyState> {
                 pageSize: 5);
         if (!state.isEndPage) {
           if (historyBuy.length < 5) emit(state.copyWith(isEndPage: true));
-          print(state.currentPage);
+
           emit(state.copyWith(
               status: HistoryBuyStatus.Success,
               currentPage: state.currentPage + 1));

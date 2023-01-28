@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:http/http.dart';
 import 'package:hufi_vnvc_application/models/auth_model.dart';
 import 'package:hufi_vnvc_application/models/register_model.dart';
 import 'package:hufi_vnvc_application/models/response_api.dart';
@@ -27,6 +28,24 @@ class AuthRepository {
           print(json);
           var result = json["data"] as bool;
           return result;
+        }));
+    return await RequestAPI().post(resource);
+  }
+
+  Future<ResponseAPI> changePassword(
+      {required String username,
+      required String oldPassword,
+      required String newPassword}) async {
+    var body = {
+      "username": username,
+      "oldPassword": oldPassword,
+      "newPassword": newPassword
+    };
+    var resource = APIServices(
+        url: "/api/Auth/changePassword",
+        body: body,
+        parse: ((json) {
+          return ResponseAPI.fromJson(json);
         }));
     return await RequestAPI().post(resource);
   }
