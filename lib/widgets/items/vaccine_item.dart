@@ -7,6 +7,7 @@ import 'package:hufi_vnvc_application/blocs/cart_bloc/cart_state.dart';
 import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_event.dart';
 import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_state.dart';
 import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vacicne_bloc.dart';
+import 'package:hufi_vnvc_application/screens/vaccine/vaccine_detail.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:hufi_vnvc_application/utils/ToastWidget/toast_widget.dart';
 import 'package:intl/intl.dart';
@@ -39,55 +40,62 @@ class VaccineItem extends StatelessWidget {
                           Border.all(width: 1.0, color: Colors.grey.shade300)),
                   child: Column(
                     children: [
-                      Stack(
-                        children: [
-                          Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(
-                                      width: 4, color: ColorTheme.primary)),
-                              child: vaccine.images.isEmpty
-                                  ? Image.asset(
-                                      "assets/image/vaccineDefault.jpg",
-                                      fit: BoxFit.fitWidth,
-                                      height: 140,
-                                      width: double.infinity,
-                                    )
-                                  : Image.network(vaccine.images,
-                                      fit: BoxFit.fitWidth,
-                                      height: 140,
-                                      width: double.infinity)),
-                          Positioned(
-                              bottom: 3,
-                              left: 2,
-                              child: Container(
-                                color: ColorTheme.primary,
-                                padding: const EdgeInsets.all(3),
-                                child: Text(
-                                  vaccine.name,
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                      decoration: TextDecoration.none),
-                                ),
-                              )),
-                          if (vaccine.price < vaccine.priceOld)
+                      InkWell(
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) =>
+                                    VaccineDetailsScreen(id: vaccine.id)))),
+                        child: Stack(
+                          children: [
+                            Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(
+                                        width: 4, color: ColorTheme.primary)),
+                                child: vaccine.images.isEmpty
+                                    ? Image.asset(
+                                        "assets/image/vaccineDefault.jpg",
+                                        fit: BoxFit.fitWidth,
+                                        height: 140,
+                                        width: double.infinity,
+                                      )
+                                    : Image.network(vaccine.images,
+                                        fit: BoxFit.fitWidth,
+                                        height: 140,
+                                        width: double.infinity)),
                             Positioned(
-                                top: 5,
+                                bottom: 3,
                                 left: 2,
                                 child: Container(
-                                  color: Colors.red,
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 5, horizontal: 10),
+                                  color: ColorTheme.primary,
+                                  padding: const EdgeInsets.all(3),
                                   child: Text(
-                                    "${((vaccine.price - vaccine.priceOld) / 100) * 100}%",
+                                    vaccine.name,
                                     style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 12,
                                         decoration: TextDecoration.none),
                                   ),
                                 )),
-                        ],
+                            if (vaccine.price < vaccine.priceOld)
+                              Positioned(
+                                  top: 5,
+                                  left: 2,
+                                  child: Container(
+                                    color: Colors.red,
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 5, horizontal: 10),
+                                    child: Text(
+                                      "${((vaccine.price - vaccine.priceOld) / 100) * 100}%",
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                          decoration: TextDecoration.none),
+                                    ),
+                                  )),
+                          ],
+                        ),
                       ),
                       Expanded(
                         child: Padding(
@@ -96,35 +104,51 @@ class VaccineItem extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Container(
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                  vaccine.name,
-                                  style: Theme.of(context).textTheme.bodyText1,
-                                ),
-                              ),
-                              Container(
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                  maxLines: 2,
-                                  "Phòng bệnh: ${vaccine.prevention}",
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                  "${NumberFormat("#,##0", "vi-VN").format(vaccine.price)}đ",
-                                  style: TextStyle(
-                                      color: ColorTheme.primary,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
+                              InkWell(
+                                onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: ((context) =>
+                                            VaccineDetailsScreen(
+                                                id: vaccine.id)))),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        vaccine.name,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1,
+                                      ),
+                                    ),
+                                    Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(
+                                        maxLines: 2,
+                                        "Phòng bệnh: ${vaccine.prevention}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(
+                                        "${NumberFormat("#,##0", "vi-VN").format(vaccine.price)}đ",
+                                        style: TextStyle(
+                                            color: ColorTheme.primary,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16),
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
                               BlocBuilder<CartBloc, CartState>(

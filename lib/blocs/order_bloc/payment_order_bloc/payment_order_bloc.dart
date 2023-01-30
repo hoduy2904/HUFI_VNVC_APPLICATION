@@ -38,6 +38,7 @@ class PaymentOrderBloc extends Bloc<PaymentOrderEvent, PaymentOrderState> {
                     address: "",
                     injectionScheduleId: insertSchedule.id!),
                 user.id);
+
         if (insertDetails.isSuccess) {
           emit(PaymentOrderResultState(true, "Đặt hàng thành công"));
         } else {

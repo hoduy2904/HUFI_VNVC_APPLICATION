@@ -14,12 +14,23 @@ import 'package:hufi_vnvc_application/screens/home/home_page.dart';
 import 'package:hufi_vnvc_application/screens/profile/personal_screen.dart';
 import 'package:hufi_vnvc_application/screens/record/record.dart';
 import 'package:hufi_vnvc_application/screens/splash_screen/splash_screen.dart';
+import 'package:hufi_vnvc_application/screens/vaccine/vaccine_detail.dart';
 import 'package:hufi_vnvc_application/screens/vaccine/vaccines.dart';
 import 'package:hufi_vnvc_application/widgets/layout/bottom_navigation_bar.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  HttpOverrides.global = MyHttpOverrides();
+
   runApp(const RunFirstApp());
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
 }
 
 class RunFirstApp extends StatelessWidget {
@@ -35,17 +46,18 @@ class RunFirstApp extends StatelessWidget {
           BlocProvider<CartBloc>(create: (context) => CartBloc())
         ],
         child: MaterialApp(
+            theme: ThemeData(fontFamily: 'Roboto'),
             home: BlocBuilder<AuthBloc, AuthState>(builder: ((context, state) {
-          if (state is AuthLoading) {
-            return const SplashScreen();
-          } else if (state is AuthenticationState) {
-            return MyApp();
-          } else if (state is UnAuthenticationState) {
-            return const LoginScreen();
-          } else {
-            return const SplashScreen();
-          }
-        }))));
+              if (state is AuthLoading) {
+                return const SplashScreen();
+              } else if (state is AuthenticationState) {
+                return MyApp();
+              } else if (state is UnAuthenticationState) {
+                return const LoginScreen();
+              } else {
+                return const SplashScreen();
+              }
+            }))));
   }
 }
 

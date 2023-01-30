@@ -39,6 +39,10 @@ class _HistoryBuyScreenState extends State<HistoryBuyScreen> {
                       color: ColorTheme.primary, size: 24),
                 );
               } else if (state.status == HistoryBuyStatus.Success) {
+                if (state.historyBuySuccessState!.histories.isEmpty) {
+                  return const Center(
+                      child: Text("Không có lịch sử mua vaccine"));
+                }
                 return NotificationListener<ScrollEndNotification>(
                   onNotification: ((notification) {
                     if (notification.metrics.maxScrollExtent -
@@ -58,7 +62,7 @@ class _HistoryBuyScreenState extends State<HistoryBuyScreen> {
                   child: Text(state.message),
                 );
               } else {
-                return Center(
+                return const Center(
                   child: Text("Vui lòng thử lại"),
                 );
               }

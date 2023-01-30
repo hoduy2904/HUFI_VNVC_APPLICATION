@@ -19,7 +19,7 @@ class ToastWidget extends StatelessWidget {
           color: status == "success"
               ? ColorTheme.primary
               : status == "error"
-                  ? Colors.red.withOpacity(0.4)
+                  ? Colors.red.withOpacity(0.8)
                   : ColorTheme.primary,
         ),
         child: Row(

@@ -9,6 +9,7 @@ class InjectionScheduleRepository {
         body: model,
         url: "/api/injectionSchedule/InsertInjectionSchedule?loginId=$loginId",
         parse: ((json) {
+          print(json);
           var response = ResponseAPI.fromJson(json);
           var ins = InjectionScheduleModel.fromJson(response.data);
           return ins;

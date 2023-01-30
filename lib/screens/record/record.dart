@@ -85,6 +85,12 @@ class RecordScreen extends StatelessWidget {
                                   return const Center(child: Text(""));
                                 } else if (state
                                     is HistoryInjectionSuccessState) {
+                                  if (state.historyInjections.isEmpty) {
+                                    return const Center(
+                                      child:
+                                          Text("Không có lịch sử tiêm chủng"),
+                                    );
+                                  }
                                   return SingleChildScrollView(
                                       child: Column(
                                           children: state.historyInjections

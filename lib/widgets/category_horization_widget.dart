@@ -24,7 +24,7 @@ class CategoryHorizationWidget extends StatelessWidget {
                       groupValue: groupValue,
                       onChange: (value) => {onTap(value)},
                       text: e.name,
-                      margin: const EdgeInsets.symmetric(horizontal: 2),
+                      margin: const EdgeInsets.symmetric(horizontal: 4),
                       isBorder: true,
                       fontSize: 12,
                       borderRadius: BorderRadius.circular(5),

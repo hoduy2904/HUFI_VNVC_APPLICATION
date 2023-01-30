@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:hufi_vnvc_application/models/injection_schedule_details.dart';
 import 'package:hufi_vnvc_application/models/response_api.dart';
 import 'package:hufi_vnvc_application/services/api_services.dart';
@@ -5,11 +7,13 @@ import 'package:hufi_vnvc_application/services/api_services.dart';
 class InjectionScheduleDetailsRepository {
   Future<ResponseAPI> insertInjectionScheduleDetails(
       InjectionScheduleDetails model, int loginId) async {
+    print(jsonEncode(model));
     var resource = APIServices(
         body: model,
         url:
             "/api/InjectionScheduleDetail/InsertInjectionScheduleDetailsFromCart?loginId=$loginId",
         parse: ((json) {
+          print(json);
           var response = ResponseAPI.fromJson(json);
           return response;
         }));

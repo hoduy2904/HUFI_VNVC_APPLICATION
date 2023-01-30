@@ -32,7 +32,7 @@ class InjectionScheduleModel {
         note = json["note"],
         priorities = json["priorities"],
         updaterId = json["updaterId"],
-        checkPay = json["checkPay"];
+        checkPay = json["checkPay"] ?? false;
 
   Map<String, dynamic> toJson() => {
         "id": id,

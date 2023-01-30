@@ -24,10 +24,10 @@ class ProductRepository {
 
   Future<VaccineModel> getVaccine(int vaccineId) async {
     var resource = APIServices(
-        url: "api/getVaccine/$vaccineId",
+        url: "/api/vaccine/getVaccine/$vaccineId",
         parse: ((json) {
           var res = ResponseAPI.fromJson(json);
-          return res.data as VaccineModel;
+          return VaccineModel.fromJson(res.data);
         }));
     var request = await RequestAPI().get(resource);
     return request;
