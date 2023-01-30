@@ -1,14 +1,18 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:animations/animations.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_event.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_state.dart';
 import 'package:hufi_vnvc_application/blocs/cart_bloc/cart_bloc.dart';
+import 'package:hufi_vnvc_application/firebase_options.dart';
 import 'package:hufi_vnvc_application/screens/Auth/login.dart';
 import 'package:hufi_vnvc_application/screens/home/home_page.dart';
 import 'package:hufi_vnvc_application/screens/profile/personal_screen.dart';
@@ -16,11 +20,26 @@ import 'package:hufi_vnvc_application/screens/record/record.dart';
 import 'package:hufi_vnvc_application/screens/splash_screen/splash_screen.dart';
 import 'package:hufi_vnvc_application/screens/vaccine/vaccine_detail.dart';
 import 'package:hufi_vnvc_application/screens/vaccine/vaccines.dart';
+import 'package:hufi_vnvc_application/services/notification_services.dart';
 import 'package:hufi_vnvc_application/widgets/layout/bottom_navigation_bar.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  await Firebase.initializeApp();
+  await NotificationServices().showNotification(
+      title: message.notification?.title ?? "Thông báo",
+      body: message.notification?.body ?? "");
+  print("Handling a background message: ${message.messageId}");
+}
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
-
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const RunFirstApp());
 }
 
@@ -33,9 +52,44 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
+Future<void> loadFirebase() async {
+  await NotificationServices().initNotification();
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  NotificationSettings settings = await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+
+  print('User granted permission: ${settings.authorizationStatus}');
+
+  //Firebase messaging
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    RemoteNotification? notification = message.notification;
+    AndroidNotification? android = message.notification?.android;
+
+    // If `onMessage` is triggered with a notification, construct our own
+    // local notification to show to users using the created channel.
+    if (notification != null && android != null) {
+      NotificationServices().showNotification(
+          title: notification.title!, body: notification.body!);
+    }
+  });
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+}
+
 class RunFirstApp extends StatelessWidget {
   const RunFirstApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -46,11 +100,13 @@ class RunFirstApp extends StatelessWidget {
           BlocProvider<CartBloc>(create: (context) => CartBloc())
         ],
         child: MaterialApp(
+            debugShowCheckedModeBanner: false,
             theme: ThemeData(fontFamily: 'Roboto'),
             home: BlocBuilder<AuthBloc, AuthState>(builder: ((context, state) {
               if (state is AuthLoading) {
                 return const SplashScreen();
               } else if (state is AuthenticationState) {
+                loadFirebase();
                 return MyApp();
               } else if (state is UnAuthenticationState) {
                 return const LoginScreen();

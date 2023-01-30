@@ -22,6 +22,12 @@ class OnChangePasswordEvent extends LoginEvent {
   List<Object?> get props => [password];
 }
 
-class OnClickLoginEvent extends LoginEvent {}
+class OnClickLoginEvent extends LoginEvent {
+  final String? fcmToken;
+  OnClickLoginEvent({this.fcmToken});
+  @override
+  // TODO: implement props
+  List<Object?> get props => [fcmToken];
+}
 
 class OnShowPasswordEvent extends LoginEvent {}

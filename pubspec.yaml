@@ -48,6 +48,9 @@ dependencies:
   fluttertoast: ^8.1.2
   age_calculator: ^1.0.0
   flutter_html: ^2.2.1
+  firebase_core: ^2.4.1
+  firebase_messaging: ^14.2.1
+  flutter_local_notifications: ^9.1.4
 
 dev_dependencies:
   flutter_test:

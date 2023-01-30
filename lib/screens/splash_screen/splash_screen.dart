@@ -7,7 +7,6 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     ImageProvider imageProvider = const AssetImage("assets/image/logo.png");
@@ -15,6 +14,7 @@ class SplashScreen extends StatelessWidget {
       image: imageProvider,
       width: 100,
     );
+
     return Container(
         color: const Color.fromARGB(255, 40, 56, 144),
         child: Column(

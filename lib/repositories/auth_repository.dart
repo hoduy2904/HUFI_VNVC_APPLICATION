@@ -8,10 +8,14 @@ import 'package:hufi_vnvc_application/models/response_api.dart';
 import 'package:hufi_vnvc_application/services/api_services.dart';
 
 class AuthRepository {
-  Future<ResponseAPI> login(String username, String password) async {
-    var body = {'username': username, 'password': password};
+  Future<ResponseAPI> login(
+      String username, String password, String? fcmToken) async {
+    var body = {
+      'username': username,
+      'password': password,
+    };
     var resource = APIServices(
-        url: "/api/auth/login",
+        url: "/api/auth/login?deviceId=$fcmToken",
         body: body,
         parse: ((json) {
           var response = ResponseAPI.fromJson(json);

@@ -132,9 +132,10 @@ class RequestAPI {
 
   Future<bool> refreshToken(String accessToken, String refreshToken) async {
     final prefs = await SharedPreferences.getInstance();
+    var deviceId = prefs.getString("deviceId");
     var body = {'accessToken': accessToken, 'refreshToken': refreshToken};
     var resource = APIServices(
-        url: "/api/auth/refreshtoken",
+        url: "/api/auth/refreshtoken?deviceId=$deviceId",
         body: body,
         parse: ((json) {
           var res = ResponseAPI.fromJson(json);
@@ -148,6 +149,7 @@ class RequestAPI {
       prefs.setString("accessToken", login.accessToken);
       prefs.setString("refreshToken", login.refreshToken);
       prefs.setString("user", jsonEncode(login.user));
+      prefs.setString("deviceId", deviceId!);
       return true;
     } else {
       prefs.clear();

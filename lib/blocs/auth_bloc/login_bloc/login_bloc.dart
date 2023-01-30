@@ -6,7 +6,6 @@ import 'package:hufi_vnvc_application/blocs/auth_bloc/login_bloc/login_event.dar
 import 'package:hufi_vnvc_application/blocs/auth_bloc/login_bloc/login_state.dart';
 import 'package:hufi_vnvc_application/models/login_model.dart';
 import 'package:hufi_vnvc_application/repositories/auth_repository.dart';
-import 'package:hufi_vnvc_application/services/api_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
@@ -21,7 +20,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               LoginResultState(status: LoginStatus.Loading, message: '')));
       try {
         var response = await AuthRepository()
-            .login("KH${state.userName!}", state.password!);
+            .login("KH${state.userName!}", state.password!, event.fcmToken!);
         if (response.isSuccess && response.statusCode == 200) {
           var login = LoginModel.fromJson(response.data);
           var prefs = await SharedPreferences.getInstance();
@@ -29,6 +28,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           prefs.setString("accessToken", login.accessToken);
           prefs.setString("refreshToken", login.refreshToken);
           prefs.setString("user", jsonEncode(login.user));
+          prefs.setString("deviceId", event.fcmToken!);
           print(jsonEncode(login.user));
           emit(state.copyWith(
               loginResultState: LoginResultState(

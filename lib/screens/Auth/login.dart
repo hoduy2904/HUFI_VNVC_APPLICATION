@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -168,9 +169,15 @@ class LoginScreen extends StatelessWidget {
                                   height: 15,
                                 ),
                                 ElevatedButton(
-                                    onPressed: () => context
-                                        .read<LoginBloc>()
-                                        .add(OnClickLoginEvent()),
+                                    onPressed: () async {
+                                      final fcmToken = await FirebaseMessaging
+                                          .instance
+                                          .getToken();
+                                      print(fcmToken);
+                                      context.read<LoginBloc>().add(
+                                          OnClickLoginEvent(
+                                              fcmToken: fcmToken));
+                                    },
                                     style: ElevatedButton.styleFrom(
                                         disabledForegroundColor: Colors.white,
                                         disabledBackgroundColor:
