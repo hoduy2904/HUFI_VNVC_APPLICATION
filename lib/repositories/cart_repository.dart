@@ -16,7 +16,7 @@ class CartRepository {
           var list = res.data as List;
           return list.map((e) => CartModel.fromJson(e)).toList();
         }));
-    return await RequestAPI().get(resource);
+    return await RequestAPI.instance.get(resource);
   }
 
   Future<ResponseAPI> insertCart({int? vaccineId, int? packageId}) async {
@@ -31,7 +31,7 @@ class CartRepository {
           var res = ResponseAPI.fromJson(json);
           return res;
         }));
-    return await RequestAPI().post(resource);
+    return await RequestAPI.instance.post(resource);
   }
 
   Future<ResponseAPI> removeCart(int cartId) async {
@@ -41,6 +41,6 @@ class CartRepository {
           var res = ResponseAPI.fromJson(json);
           return res;
         }));
-    return await RequestAPI().delete(resource);
+    return await RequestAPI.instance.delete(resource);
   }
 }

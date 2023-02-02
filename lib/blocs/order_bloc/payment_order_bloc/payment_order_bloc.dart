@@ -23,7 +23,7 @@ class PaymentOrderBloc extends Bloc<PaymentOrderEvent, PaymentOrderState> {
             .insertInjectionSchedule(
                 InjectionScheduleModel(
                     id: 0,
-                    priorities: -1,
+                    priorities: 0,
                     date: DateTime.now(),
                     created: DateTime.now(),
                     customerId: event.selectId,

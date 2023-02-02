@@ -142,15 +142,15 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
                 province: state.provinceStatus!.provinces!
                     .firstWhere((element) =>
                         element.code == state.provinceStatus?.codeSelect!)
-                    .codeName,
+                    .name,
                 district: state.districtStatus!.districts
                     .firstWhere((element) =>
                         element.code == state.districtStatus?.codeSelect!)
-                    .codeName,
+                    .name,
                 village: state.wardStatus!.wards
                     .firstWhere((element) =>
                         element.code == state.wardStatus?.codeSelect)
-                    .codeName,
+                    .name,
                 address: state.formInputStatus!.address,
                 phoneNumber: event.username!,
                 password: event.password!,

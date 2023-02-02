@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hufi_vnvc_application/blocs/cart_bloc/cart_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/cart_bloc/cart_event.dart';
 import 'package:hufi_vnvc_application/blocs/cart_bloc/cart_state.dart';
-import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_event.dart';
 import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_state.dart';
 import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vacicne_bloc.dart';
 import 'package:hufi_vnvc_application/screens/vaccine/vaccine_detail.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
-import 'package:hufi_vnvc_application/utils/ToastWidget/toast_widget.dart';
 import 'package:intl/intl.dart';
 
 import '../../models/vaccine_model.dart';
@@ -44,8 +41,8 @@ class VaccineItem extends StatelessWidget {
                         onTap: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: ((context) =>
-                                    VaccineDetailsScreen(id: vaccine.id)))),
+                                builder: ((context) => VaccineDetailsScreen(
+                                    vaccineId: vaccine.id)))),
                         child: Stack(
                           children: [
                             Container(
@@ -110,7 +107,7 @@ class VaccineItem extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: ((context) =>
                                             VaccineDetailsScreen(
-                                                id: vaccine.id)))),
+                                                vaccineId: vaccine.id)))),
                                 child: Column(
                                   children: [
                                     Container(

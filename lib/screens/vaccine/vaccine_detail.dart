@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -15,8 +13,9 @@ import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class VaccineDetailsScreen extends StatelessWidget {
-  final int id;
-  const VaccineDetailsScreen({required this.id, super.key});
+  final int? vaccineId;
+  final int? packageId;
+  const VaccineDetailsScreen({this.vaccineId, this.packageId, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,7 @@ class VaccineDetailsScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: ColorTheme.primary,
           title: Text(
-            "Chi tiết vắc xin",
+            "Chi tiết ${vaccineId == null ? "gói" : ""} vắc xin",
             style: TypographyTheme.titleBar,
           ),
           centerTitle: true,
@@ -38,7 +37,8 @@ class VaccineDetailsScreen extends StatelessWidget {
           providers: [
             BlocProvider(
                 create: (context) => VaccineDetailsBloc()
-                  ..add(OnLoadVaccineDetailsEvent(id: id))),
+                  ..add(OnLoadVaccineDetailsEvent(
+                      vaccineId: vaccineId, vaccinePackageId: packageId))),
             BlocProvider(create: (context) => CartBloc())
           ],
           child: MultiBlocListener(
@@ -76,7 +76,9 @@ class VaccineDetailsScreen extends StatelessWidget {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            child: state.vaccine.images.isEmpty
+                            child: ((vaccineId != null) &&
+                                        state.vaccine!.images.isEmpty) ||
+                                    packageId != null
                                 ? Image.asset(
                                     "assets/image/vaccineDefault.jpg",
                                     fit: BoxFit.fitWidth,
@@ -88,7 +90,7 @@ class VaccineDetailsScreen extends StatelessWidget {
                                     width: double.infinity,
                                   )
                                 : Image.network(
-                                    state.vaccine.images,
+                                    state.vaccine!.images,
                                     fit: BoxFit.fitWidth,
                                     height: isMobile
                                         ? 200
@@ -102,7 +104,10 @@ class VaccineDetailsScreen extends StatelessWidget {
                             height: 10,
                           ),
                           Text(
-                            state.vaccine.name.toUpperCase(),
+                            (vaccineId != null
+                                    ? state.vaccine!.name
+                                    : state.vaccinePackage!.name)
+                                .toUpperCase(),
                             style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700,
@@ -121,21 +126,26 @@ class VaccineDetailsScreen extends StatelessWidget {
                           const SizedBox(
                             height: 20,
                           ),
-                          RichText(
-                              text: TextSpan(children: [
-                            const TextSpan(
-                                text: "Phòng bệnh: ",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500, fontSize: 14)),
-                            TextSpan(
-                                text: state.vaccine.prevention,
-                                style: const TextStyle(fontSize: 14))
-                          ])),
-                          const SizedBox(
-                            height: 15,
-                          ),
+                          if (vaccineId != null) ...[
+                            RichText(
+                                text: TextSpan(children: [
+                              const TextSpan(
+                                  text: "Phòng bệnh: ",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14)),
+                              TextSpan(
+                                  text: state.vaccine!.prevention,
+                                  style: const TextStyle(fontSize: 14))
+                            ])),
+                            const SizedBox(
+                              height: 15,
+                            )
+                          ],
                           Text(
-                            "${NumberFormat("#,##0").format(state.vaccine.price)}đ",
+                            vaccineId != null
+                                ? "${NumberFormat("#,##0").format(state.vaccine!.price)}đ"
+                                : "Liên hệ",
                             style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w800,
@@ -146,13 +156,19 @@ class VaccineDetailsScreen extends StatelessWidget {
                           ),
                           BlocBuilder<CartBloc, CartState>(
                               builder: ((context, state) => ElevatedButton(
-                                    onPressed: () => context
-                                        .read<CartBloc>()
-                                        .add(OnAddCartEvent(idProduct: id)),
+                                    onPressed: packageId != null
+                                        ? null
+                                        : () => context
+                                            .read<CartBloc>()
+                                            .add(OnAddCartEvent(
+                                              idProduct: vaccineId!,
+                                            )),
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: ColorTheme.primary,
                                         minimumSize: const Size.fromHeight(45)),
-                                    child: const Text("Đăng ký mũi tiêm"),
+                                    child: packageId != null
+                                        ? const Text("Liên hệ")
+                                        : const Text("Đăng ký mũi tiêm"),
                                   ))),
                         ],
                       ),
@@ -163,7 +179,7 @@ class VaccineDetailsScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Mô tả thông tin vắc xin ${state.vaccine.name}",
+                            "Mô tả thông tin vắc xin ${vaccineId != null ? state.vaccine!.name : state.vaccinePackage!.name}",
                             style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -173,9 +189,10 @@ class VaccineDetailsScreen extends StatelessWidget {
                             height: 10,
                           ),
                           Html(
-                            data: "Mô tả",
-                            onLinkTap: (url, context, attributes, element) =>
-                                print(url),
+                            shrinkWrap: true,
+                            data: vaccineId != null
+                                ? state.vaccine!.content
+                                : state.vaccinePackage!.content,
                           )
                         ],
                       ),

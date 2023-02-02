@@ -12,8 +12,10 @@ class VaccineModel {
   final int price;
   final int priceOld;
   final int quantityRemain;
+  final String content;
   const VaccineModel(
-      {required this.quantityRemain,
+      {this.content = '',
+      required this.quantityRemain,
       required this.id,
       required this.categoryId,
       required this.images,
@@ -36,6 +38,7 @@ class VaccineModel {
       }
     }
     return VaccineModel(
+        content: json["content"] ?? "",
         quantityRemain: json["quantityRemain"],
         id: json["id"],
         categoryId: json["typeOfVaccineId"],

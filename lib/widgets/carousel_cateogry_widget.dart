@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hufi_vnvc_application/models/category_model.dart';
+import 'package:hufi_vnvc_application/screens/chat/chat.dart';
 import 'package:hufi_vnvc_application/screens/history_buy/history_buy.dart';
+import 'package:hufi_vnvc_application/screens/notification/notification.dart';
 import 'package:hufi_vnvc_application/screens/order/order.dart';
+import 'package:hufi_vnvc_application/screens/vaccine/vaccine_package.dart';
 import 'package:hufi_vnvc_application/screens/vaccine/vaccines.dart';
 import 'package:hufi_vnvc_application/widgets/items/category_item.dart';
 import 'package:hufi_vnvc_application/widgets/items/history_buy_item.dart';
@@ -25,7 +28,7 @@ class _CategoryCarouselWidgetState extends State<CategoryCarouselWidget> {
         },
       ),
       CategoryItem(
-        const CategoryModel(Icons.schedule_rounded, "Lịch sử mua"),
+        const CategoryModel(Icons.history_outlined, "Lịch sử mua"),
         onClick: () => {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const HistoryBuyScreen()))
@@ -41,22 +44,33 @@ class _CategoryCarouselWidgetState extends State<CategoryCarouselWidget> {
       CategoryItem(
         const CategoryModel(Icons.alarm, "Thông báo"),
         onClick: () => {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const VaccinesScreen()))
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const NotificationScreen()))
         },
       ),
       CategoryItem(
-        const CategoryModel(Icons.category, "Danh mục"),
+        const CategoryModel(Icons.list_alt_outlined, "Gói Vắc xin"),
         onClick: () => {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const VaccinesScreen()))
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const VaccinePackageScreen()))
         },
       ),
       CategoryItem(
-        const CategoryModel(Icons.person, "Trang cá nhân"),
+        const CategoryModel(Icons.message_outlined, "Trò chuyện"),
         onClick: () => {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const VaccinesScreen()))
+              MaterialPageRoute(builder: (context) => const ChatScreen()))
+        },
+      ),
+      CategoryItem(
+        const CategoryModel(Icons.schedule_outlined, "Lịch tiêm"),
+        onClick: () => {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const ChatScreen()))
         },
       ),
     ];

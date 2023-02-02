@@ -311,9 +311,10 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                     decoration: BoxDecoration(
                         border: Border.all(
                             color: (state.districtStatus?.isValidateDictrict ==
-                                    true)
-                                ? Colors.grey.shade300
-                                : Colors.red),
+                                        false &&
+                                    state.submitState?.submit == true)
+                                ? Colors.red
+                                : Colors.grey.shade300),
                         borderRadius: BorderRadius.circular(6)),
                     child: DropdownButton(
                         value: state.districtStatus?.codeSelect,

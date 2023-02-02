@@ -22,7 +22,7 @@ class AuthRepository {
           return response;
         }));
 
-    return await RequestAPI().post(resource);
+    return await RequestAPI.instance.post(resource);
   }
 
   Future<bool> checkAccountExits(String phoneNumber) async {
@@ -33,7 +33,7 @@ class AuthRepository {
           var result = json["data"] as bool;
           return result;
         }));
-    return await RequestAPI().post(resource);
+    return await RequestAPI.instance.post(resource);
   }
 
   Future<ResponseAPI> changePassword(
@@ -51,7 +51,7 @@ class AuthRepository {
         parse: ((json) {
           return ResponseAPI.fromJson(json);
         }));
-    return await RequestAPI().post(resource);
+    return await RequestAPI.instance.post(resource);
   }
 
   Future<ResponseAPI> register(RegisterModel model) async {
@@ -63,7 +63,7 @@ class AuthRepository {
           var res = ResponseAPI.fromJson(json);
           return res;
         }));
-    return await RequestAPI().post(resource);
+    return await RequestAPI.instance.post(resource);
   }
 
   Future<ResponseAPI> verifyCode(String code) async {
@@ -73,7 +73,7 @@ class AuthRepository {
           var res = ResponseAPI.fromJson(json);
           return res;
         }));
-    return await RequestAPI().post(resource);
+    return await RequestAPI.instance.post(resource);
   }
 
   Future<ResponseAPI> Logout(String accessToken, String refreshToken) async {
@@ -85,7 +85,7 @@ class AuthRepository {
           var res = ResponseAPI.fromJson(json);
           return res;
         }));
-    return await RequestAPI().post(resource);
+    return await RequestAPI.instance.post(resource);
   }
 
   Future<ResponseAPI> reSendVerifyCode(int userId) async {
@@ -95,6 +95,6 @@ class AuthRepository {
           var res = ResponseAPI.fromJson(json);
           return res;
         }));
-    return await RequestAPI().post(resource);
+    return await RequestAPI.instance.post(resource);
   }
 }

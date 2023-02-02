@@ -45,9 +45,9 @@ class HistoryInjectionItem extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           vertical: 6, horizontal: 15),
                       child: Text(
-                        model.checkPay ? "Đã thanh toán" : "Chưa thanh toán",
+                        !model.checkPay ? "Đã thanh toán" : "Chưa thanh toán",
                         style: TextStyle(
-                            color: model.checkPay
+                            color: !model.checkPay
                                 ? Colors.green.shade600
                                 : Colors.red,
                             fontSize: 14,
@@ -108,7 +108,7 @@ class HistoryInjectionItem extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    !model.checkPay
+                    model.checkPay
                         ? ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: ColorTheme.primary),

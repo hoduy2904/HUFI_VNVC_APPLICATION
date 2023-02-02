@@ -13,7 +13,7 @@ class AddressRepository {
           var list = json as List;
           return list.map((e) => ProvinceModel.fromJson(e)).toList();
         });
-    var request = RequestAPI();
+    var request = RequestAPI.instance;
     var response = await request.get(apiRequest);
     return response;
   }
@@ -27,7 +27,7 @@ class AddressRepository {
           var province = ProvinceModel.fromJson(json);
           return province.districts;
         }));
-    var request = RequestAPI();
+    var request = RequestAPI.instance;
     return await request.get(apiRequest);
   }
 
@@ -40,7 +40,7 @@ class AddressRepository {
           var province = DistrictModel.fromJson(json);
           return province.wards;
         }));
-    var request = RequestAPI();
+    var request = RequestAPI.instance;
     return await request.get(apiRequest);
   }
 }

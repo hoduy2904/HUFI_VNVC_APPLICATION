@@ -32,7 +32,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     FToast fToast = FToast();
-    fToast.init(context);
     return Scaffold(
         appBar: const TopAppBar(),
         body: MultiBlocProvider(
@@ -50,7 +49,7 @@ class _HomePageState extends State<HomePage> {
                       listener: ((context, state) {
                     if (state is AddToCartResult) {
                       if (state.isSuccess) {
-                        fToast.showToast(
+                        fToast.init(context).showToast(
                             child: ToastWidget(
                                 icon: const Icon(
                                   Icons.check_circle_outline,

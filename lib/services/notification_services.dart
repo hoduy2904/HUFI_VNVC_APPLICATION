@@ -7,7 +7,7 @@ class NotificationServices {
 
   Future<void> initNotification() async {
     var initializationSettingsAndroid =
-        const AndroidInitializationSettings('mipmap/ic_launcher');
+        const AndroidInitializationSettings('@mipmap/ic_launcher');
     const initializationSettingsIOS = IOSInitializationSettings(
         requestAlertPermission: false,
         requestBadgePermission: false,

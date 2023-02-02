@@ -18,7 +18,7 @@ class BannerRepository {
               .toList();
           return response;
         }));
-    var banners = await RequestAPI().get(request);
+    var banners = await RequestAPI.instance.get(request);
     return banners;
   }
 }

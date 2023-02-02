@@ -34,14 +34,16 @@ class _HistoryBuyScreenState extends State<HistoryBuyScreen> {
             child: BlocBuilder<HistoryBuyBloc, HistoryBuyState>(
                 builder: ((context, state) {
               if (state.status == HistoryBuyStatus.Loading) {
-                return Center(
+                return Expanded(
+                    child: Center(
                   child: LoadingAnimationWidget.fourRotatingDots(
                       color: ColorTheme.primary, size: 24),
-                );
+                ));
               } else if (state.status == HistoryBuyStatus.Success) {
                 if (state.historyBuySuccessState!.histories.isEmpty) {
-                  return const Center(
-                      child: Text("Không có lịch sử mua vaccine"));
+                  return const Expanded(
+                      child:
+                          Center(child: Text("Không có lịch sử mua vaccine")));
                 }
                 return NotificationListener<ScrollEndNotification>(
                   onNotification: ((notification) {
@@ -58,13 +60,15 @@ class _HistoryBuyScreenState extends State<HistoryBuyScreen> {
                       items: state.historyBuySuccessState?.histories ?? []),
                 );
               } else if (state.status == HistoryBuyStatus.Failed) {
-                return Center(
+                return Expanded(
+                    child: Center(
                   child: Text(state.message),
-                );
+                ));
               } else {
-                return const Center(
+                return const Expanded(
+                    child: Center(
                   child: Text("Vui lòng thử lại"),
-                );
+                ));
               }
             }))));
   }

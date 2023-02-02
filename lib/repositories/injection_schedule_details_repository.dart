@@ -15,7 +15,7 @@ class InjectionScheduleDetailsRepository {
           var response = ResponseAPI.fromJson(json);
           return response;
         }));
-    return RequestAPI().post(resource);
+    return RequestAPI.instance.post(resource);
   }
 
   Future<List<InjectionScheduleDetails>> getNextInjection(
@@ -29,7 +29,7 @@ class InjectionScheduleDetailsRepository {
               .map((e) => InjectionScheduleDetails.fromJson(e))
               .toList();
         }));
-    return await RequestAPI().get(resource);
+    return await RequestAPI.instance.get(resource);
   }
 
   Future<List<InjectionScheduleDetails>> getHistoryInjection(
@@ -44,6 +44,6 @@ class InjectionScheduleDetailsRepository {
               .map((e) => InjectionScheduleDetails.fromJson(e))
               .toList();
         }));
-    return await RequestAPI().get(resource);
+    return await RequestAPI.instance.get(resource);
   }
 }

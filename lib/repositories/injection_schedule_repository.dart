@@ -14,7 +14,7 @@ class InjectionScheduleRepository {
           var ins = InjectionScheduleModel.fromJson(response.data);
           return ins;
         }));
-    return await RequestAPI().post(resource);
+    return await RequestAPI.instance.post(resource);
   }
 
   Future<List<InjectionScheduleModel>> getHistoryInjection(
@@ -29,6 +29,6 @@ class InjectionScheduleRepository {
               .map((e) => InjectionScheduleModel.fromJson(e))
               .toList();
         }));
-    return await RequestAPI().get(resource);
+    return await RequestAPI.instance.get(resource);
   }
 }

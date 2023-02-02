@@ -1,9 +1,12 @@
+import 'dart:developer';
 import 'dart:math';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_package_bloc/vaccine_package_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_state.dart';
 import 'package:hufi_vnvc_application/models/vaccine_model.dart';
+import 'package:hufi_vnvc_application/models/vaccine_package_model.dart';
 import 'package:hufi_vnvc_application/repositories/product_repository.dart';
 
 class VaccineDetailsBloc
@@ -12,8 +15,19 @@ class VaccineDetailsBloc
     on<OnLoadVaccineDetailsEvent>((event, emit) async {
       emit(VaccineDetailsLoadingState());
       try {
-        var vaccine = await ProductRepository().getVaccine(event.id);
-        emit(VaccineDetailsSuccessState(vaccine: vaccine));
+        print(event.props);
+        if (event.vaccineId != null || event.vaccinePackageId != null) {
+          if (event.vaccineId != null) {
+            var vaccine =
+                await ProductRepository().getVaccine(event.vaccineId!);
+            emit(VaccineDetailsSuccessState(vaccine: vaccine));
+          } else {
+            var vaccinePackage = await ProductRepository()
+                .getVaccinePackage(event.vaccinePackageId!);
+            inspect(vaccinePackage);
+            emit(VaccineDetailsSuccessState(vaccinePackage: vaccinePackage));
+          }
+        }
       } catch (e) {
         emit(VaccineDetailsFailedState(error: e.toString()));
       }
@@ -29,11 +43,12 @@ class VaccineDetailsEvent extends Equatable {
 }
 
 class OnLoadVaccineDetailsEvent extends VaccineDetailsEvent {
-  final int id;
-  OnLoadVaccineDetailsEvent({required this.id});
+  final int? vaccineId;
+  final int? vaccinePackageId;
+  OnLoadVaccineDetailsEvent({this.vaccinePackageId, this.vaccineId});
   @override
   // TODO: implement props
-  List<Object?> get props => [id];
+  List<Object?> get props => [vaccineId, vaccinePackageId];
 }
 
 //State
@@ -46,11 +61,12 @@ class VaccineDetailsState extends Equatable {
 class VaccineDetailsLoadingState extends VaccineDetailsState {}
 
 class VaccineDetailsSuccessState extends VaccineDetailsState {
-  final VaccineModel vaccine;
-  VaccineDetailsSuccessState({required this.vaccine});
+  final VaccineModel? vaccine;
+  final VaccinePackageModel? vaccinePackage;
+  VaccineDetailsSuccessState({this.vaccine, this.vaccinePackage});
   @override
   // TODO: implement props
-  List<Object?> get props => [vaccine];
+  List<Object?> get props => [vaccine, vaccinePackage];
 }
 
 class VaccineDetailsFailedState extends VaccineDetailsState {

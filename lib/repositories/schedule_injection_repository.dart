@@ -9,7 +9,7 @@ class ScheduleInjectionRepostitory {
           var list = json as List;
           return list.map((e) => InjectionModel.fromJson(e)).toList();
         }));
-    var response = await RequestAPI().get(resource);
+    var response = await RequestAPI.instance.get(resource);
     return response;
   }
 }

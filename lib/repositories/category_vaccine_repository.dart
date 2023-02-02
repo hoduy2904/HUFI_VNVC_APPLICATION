@@ -14,7 +14,7 @@ class CategoryVaccineRepository {
           var list = res.data as List;
           return list.map((e) => VaccineCategoryModel.fromJson(e)).toList();
         }));
-    var response = await RequestAPI().get(resource);
+    var response = await RequestAPI.instance.get(resource);
     return response;
   }
 }

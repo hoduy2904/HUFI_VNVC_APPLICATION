@@ -13,6 +13,6 @@ class CustomerRepository {
           var customer = CustomerModel.fromJson((responseAPI.data));
           return customer;
         }));
-    return RequestAPI().get(resource);
+    return RequestAPI.instance.get(resource);
   }
 }

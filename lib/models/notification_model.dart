@@ -1,22 +1,28 @@
 class NotificationModel {
-  final bool isRead;
+  final String title;
+  final String? image;
+  final bool isSeen;
   final String content;
-  final DateTime time;
+  final DateTime created;
   final int id;
-  final int? userId;
+  final int? loginId;
   const NotificationModel(
-      {required this.isRead,
+      {this.image,
+      required this.title,
+      required this.isSeen,
       required this.content,
-      required this.time,
+      required this.created,
       required this.id,
-      this.userId});
+      this.loginId});
 
   factory NotificationModel.fromJson(Map<String, dynamic> json) {
     return NotificationModel(
-        isRead: json["isRead"],
+        title: json["title"],
+        image: json["image"],
+        isSeen: json["isSeen"],
         content: json["content"],
-        time: json[" time"],
+        created: json[" created"],
         id: json["id"],
-        userId: json["userId"]);
+        loginId: json["loginId"]);
   }
 }

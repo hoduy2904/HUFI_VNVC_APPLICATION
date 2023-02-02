@@ -12,14 +12,17 @@ import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_event.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_state.dart';
 import 'package:hufi_vnvc_application/blocs/cart_bloc/cart_bloc.dart';
+import 'package:hufi_vnvc_application/blocs/chat_bloc/chat_bloc.dart';
 import 'package:hufi_vnvc_application/firebase_options.dart';
 import 'package:hufi_vnvc_application/screens/Auth/login.dart';
+import 'package:hufi_vnvc_application/screens/chat/chat.dart';
 import 'package:hufi_vnvc_application/screens/home/home_page.dart';
 import 'package:hufi_vnvc_application/screens/profile/personal_screen.dart';
 import 'package:hufi_vnvc_application/screens/record/record.dart';
 import 'package:hufi_vnvc_application/screens/splash_screen/splash_screen.dart';
 import 'package:hufi_vnvc_application/screens/vaccine/vaccine_detail.dart';
 import 'package:hufi_vnvc_application/screens/vaccine/vaccines.dart';
+import 'package:hufi_vnvc_application/services/api_services.dart';
 import 'package:hufi_vnvc_application/services/notification_services.dart';
 import 'package:hufi_vnvc_application/widgets/layout/bottom_navigation_bar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -27,7 +30,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
-  await Firebase.initializeApp();
+
   await NotificationServices().showNotification(
       title: message.notification?.title ?? "Thông báo",
       body: message.notification?.body ?? "");
@@ -53,6 +56,7 @@ class MyHttpOverrides extends HttpOverrides {
 }
 
 Future<void> loadFirebase() async {
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await NotificationServices().initNotification();
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   NotificationSettings settings = await messaging.requestPermission(
@@ -85,19 +89,22 @@ Future<void> loadFirebase() async {
           title: notification.title!, body: notification.body!);
     }
   });
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  messaging.subscribeToTopic("all");
 }
 
 class RunFirstApp extends StatelessWidget {
   const RunFirstApp({super.key});
   @override
   Widget build(BuildContext context) {
+    RequestAPI.instance;
+
     return MultiBlocProvider(
         providers: [
           BlocProvider<AuthBloc>(
             create: (context) => AuthBloc()..add(OnCheckLoginEvent()),
           ),
-          BlocProvider<CartBloc>(create: (context) => CartBloc())
+          BlocProvider<CartBloc>(create: (context) => CartBloc()),
+          BlocProvider(create: ((context) => ChatBloc()))
         ],
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -107,7 +114,7 @@ class RunFirstApp extends StatelessWidget {
                 return const SplashScreen();
               } else if (state is AuthenticationState) {
                 loadFirebase();
-                return MyApp();
+                return const MyApp();
               } else if (state is UnAuthenticationState) {
                 return const LoginScreen();
               } else {
@@ -118,6 +125,8 @@ class RunFirstApp extends StatelessWidget {
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -154,7 +163,13 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-const Tabs = [HomePage(), VaccinesScreen(), RecordScreen(), PersonalScreen()];
+const Tabs = [
+  HomePage(),
+  VaccinesScreen(),
+  RecordScreen(),
+  ChatScreen(),
+  PersonalScreen()
+];
 
 const items = [
   BottomNavigationBarItem(
@@ -168,6 +183,10 @@ const items = [
   BottomNavigationBarItem(
     icon: Icon(Icons.schedule_outlined),
     label: "Lịch tiêm",
+  ),
+  BottomNavigationBarItem(
+    icon: Icon(Icons.message_outlined),
+    label: "Trò chuyện",
   ),
   BottomNavigationBarItem(
     icon: Icon(Icons.contacts_outlined),

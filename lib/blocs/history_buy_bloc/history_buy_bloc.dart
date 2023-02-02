@@ -7,7 +7,7 @@ import 'package:hufi_vnvc_application/repositories/injection_schedule_repository
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HistoryBuyBloc extends Bloc<HistoryBuyEvent, HistoryBuyState> {
-  HistoryBuyBloc() : super(HistoryBuyState()) {
+  HistoryBuyBloc() : super(const HistoryBuyState()) {
     on<OnLoadHistoryBuyEvent>((event, emit) async {
       emit(state.copyWith(status: HistoryBuyStatus.Loading));
       try {
@@ -29,12 +29,12 @@ class HistoryBuyBloc extends Bloc<HistoryBuyEvent, HistoryBuyState> {
       try {
         var prefs = await SharedPreferences.getInstance();
 
-        var historyBuy = await InjectionScheduleRepository()
-            .getHistoryInjection(
-                customerId: prefs.getInt("customerId")!,
-                page: state.currentPage + 1,
-                pageSize: 5);
         if (!state.isEndPage) {
+          var historyBuy = await InjectionScheduleRepository()
+              .getHistoryInjection(
+                  customerId: prefs.getInt("customerId")!,
+                  page: state.currentPage + 1,
+                  pageSize: 5);
           if (historyBuy.length < 5) emit(state.copyWith(isEndPage: true));
 
           emit(state.copyWith(
