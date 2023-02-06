@@ -168,6 +168,10 @@ class LoginScreen extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     TextButton(
+                                        style: ButtonStyle(
+                                            overlayColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.transparent)),
                                         onPressed: () => Navigator.push(
                                             context,
                                             MaterialPageRoute(
@@ -180,6 +184,10 @@ class LoginScreen extends StatelessWidget {
                                               fontSize: 13),
                                         )),
                                     TextButton(
+                                        style: ButtonStyle(
+                                            overlayColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.transparent)),
                                         onPressed: () =>
                                             Navigator.pushReplacement(
                                                 context,
