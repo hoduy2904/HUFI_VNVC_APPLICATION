@@ -1,15 +1,13 @@
-import 'dart:async';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
 import 'package:hufi_vnvc_application/blocs/auth_bloc/login_bloc/login_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/login_bloc/login_event.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/login_bloc/login_state.dart';
 import 'package:hufi_vnvc_application/main.dart';
 import 'package:hufi_vnvc_application/screens/Auth/code_verify.dart';
+import 'package:hufi_vnvc_application/screens/Auth/forgot_password.dart';
 import 'package:hufi_vnvc_application/screens/Auth/register.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:hufi_vnvc_application/utils/ToastWidget/toast_widget.dart';
@@ -165,8 +163,45 @@ class LoginScreen extends StatelessWidget {
                                     style: const TextStyle(
                                         color: Colors.red, fontSize: 13),
                                   ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    TextButton(
+                                        style: ButtonStyle(
+                                            overlayColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.transparent)),
+                                        onPressed: () => Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const ForgotPasswordScreen())),
+                                        child: const Text(
+                                          "Quên mật khẩu?",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 13),
+                                        )),
+                                    TextButton(
+                                        style: ButtonStyle(
+                                            overlayColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.transparent)),
+                                        onPressed: () =>
+                                            Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const RegisterScreen())),
+                                        child: const Text("Đăng ký tài khoản",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 13)))
+                                  ],
+                                ),
                                 const SizedBox(
-                                  height: 15,
+                                  height: 10,
                                 ),
                                 ElevatedButton(
                                     onPressed: () async {
@@ -192,23 +227,6 @@ class LoginScreen extends StatelessWidget {
                                                 color: ColorTheme.primary,
                                                 size: 24)
                                         : const Text("Đăng nhập")),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                ElevatedButton(
-                                    onPressed: () => Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const RegisterScreen())),
-                                    style: ElevatedButton.styleFrom(
-                                        disabledForegroundColor: Colors.white,
-                                        disabledBackgroundColor:
-                                            const Color.fromARGB(
-                                                255, 127, 151, 213),
-                                        backgroundColor: ColorTheme.primary,
-                                        minimumSize: const Size.fromHeight(40)),
-                                    child: const Text("Đăng ký"))
                               ],
                             ),
                           ),

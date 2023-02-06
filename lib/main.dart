@@ -109,18 +109,20 @@ class RunFirstApp extends StatelessWidget {
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(fontFamily: 'Roboto'),
-            home: BlocBuilder<AuthBloc, AuthState>(builder: ((context, state) {
-              if (state is AuthLoading) {
-                return const SplashScreen();
-              } else if (state is AuthenticationState) {
-                loadFirebase();
-                return const MyApp();
-              } else if (state is UnAuthenticationState) {
-                return const LoginScreen();
-              } else {
-                return const SplashScreen();
-              }
-            }))));
+            home: true
+                ? LoginScreen()
+                : BlocBuilder<AuthBloc, AuthState>(builder: ((context, state) {
+                    if (state is AuthLoading) {
+                      return const SplashScreen();
+                    } else if (state is AuthenticationState) {
+                      loadFirebase();
+                      return const MyApp();
+                    } else if (state is UnAuthenticationState) {
+                      return const LoginScreen();
+                    } else {
+                      return const SplashScreen();
+                    }
+                  }))));
   }
 }
 
