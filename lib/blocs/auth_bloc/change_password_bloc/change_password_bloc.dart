@@ -1,21 +1,17 @@
-import 'dart:convert';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/change_password_bloc/change_password_event.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/change_password_bloc/change_password_state.dart';
-import 'package:hufi_vnvc_application/models/user_model.dart';
 import 'package:hufi_vnvc_application/repositories/auth_repository.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ChangePasswordBloc
     extends Bloc<ChangePasswordEvent, ChangePasswordState> {
   ChangePasswordBloc() : super(ChangePasswordState.initialState()) {
-    on<OnChangeOldPasswordEvent>((event, emit) async =>
-        emit(state.copyWith(oldPassword: event.passsword)));
-    on<OnChangePasswordEvent>(
-        (event, emit) async => emit(state.copyWith(password: event.passsword)));
-    on<OnChangePasswordRepeatEvent>((event, emit) async =>
-        emit(state.copyWith(repeatPassword: event.passswordRepeat)));
+    on<OnChangeOldPasswordEvent>((event, emit) async => emit(state.copyWith(
+        oldPassword: event.passsword, passwordChangingState: null)));
+    on<OnChangePasswordEvent>((event, emit) async => emit(state.copyWith(
+        password: event.passsword, passwordChangingState: null)));
+    on<OnChangePasswordRepeatEvent>((event, emit) async => emit(state.copyWith(
+        repeatPassword: event.passswordRepeat, passwordChangingState: null)));
     on<OnClickChangePassEvent>((event, emit) async {
       if (!state.confirmValidate) {
         emit(state.copyWith(
@@ -24,13 +20,8 @@ class ChangePasswordBloc
                 isSuccess: false, message: "Password phai giong nhau")));
       } else {
         try {
-          var prefs = await SharedPreferences.getInstance();
-          var userString = prefs.getString("user");
-          var user = UserModel.fromJson(jsonDecode(userString!));
           var response = await AuthRepository().changePassword(
-              username: user.username,
-              oldPassword: state.oldPassword!,
-              newPassword: state.password!);
+              oldPassword: state.oldPassword!, newPassword: state.password!);
           if (response.isSuccess) {
             emit(state.copyWith(
                 isSubmit: true,

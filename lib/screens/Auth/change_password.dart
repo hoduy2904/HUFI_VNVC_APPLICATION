@@ -4,11 +4,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/change_password_bloc/change_password_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/change_password_bloc/change_password_event.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/change_password_bloc/change_password_state.dart';
-import 'package:hufi_vnvc_application/screens/Auth/login.dart';
-import 'package:hufi_vnvc_application/screens/profile/profile_infomation.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:hufi_vnvc_application/utils/ToastWidget/toast_widget.dart';
-import 'package:hufi_vnvc_application/widgets/layout/top_bar.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
   const ChangePasswordScreen({super.key});
@@ -24,7 +21,7 @@ class ChangePasswordScreen extends StatelessWidget {
           if (state.passwordChangingState != null) {
             if (state.passwordChangingState?.isSuccess == true) {
               Navigator.pop(context);
-            } else {
+            } else if (state.passwordChangingState!.message.isNotEmpty) {
               fToast.showToast(
                   child: ToastWidget(
                       message: state.passwordChangingState!.message,

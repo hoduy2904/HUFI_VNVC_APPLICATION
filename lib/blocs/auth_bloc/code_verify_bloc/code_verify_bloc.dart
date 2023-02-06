@@ -8,11 +8,12 @@ class CodeVerifyBloc extends Bloc<CodeVerifyEvent, CodeVerifyState> {
     on<OnClickVerifyEvent>((event, emit) async {
       emit(CodeVerifyLoadingState());
       try {
-        var response = await AuthRepository().verifyCode(event.code);
+        var response =
+            await AuthRepository().verifyCode(id: event.id, code: event.code);
         if (response.isSuccess) {
           emit(CodeVerifySuccessState());
         } else {
-          emit(CodeVerifyFailedState(error: response.messages!.first));
+          emit(CodeVerifyFailedState(error: response.messages.first));
         }
       } catch (e) {
         emit(CodeVerifyFailedState(error: e.toString()));

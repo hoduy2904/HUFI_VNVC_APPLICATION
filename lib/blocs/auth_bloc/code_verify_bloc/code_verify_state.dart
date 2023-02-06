@@ -8,6 +8,8 @@ class CodeVerifyState extends Equatable {
   List<Object?> get props => [];
 }
 
+class CodeVerifyInitState extends CodeVerifyState {}
+
 class CodeVerifyLoadingState extends CodeVerifyState {}
 
 class CodeVerifySuccessState extends CodeVerifyState {}

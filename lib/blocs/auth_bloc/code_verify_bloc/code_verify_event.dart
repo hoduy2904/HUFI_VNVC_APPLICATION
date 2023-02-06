@@ -8,7 +8,8 @@ class CodeVerifyEvent extends Equatable {
 
 class OnClickVerifyEvent extends CodeVerifyEvent {
   final String code;
-  OnClickVerifyEvent({required this.code});
+  final int id;
+  OnClickVerifyEvent({required this.id, required this.code});
   @override
   // TODO: implement props
   List<Object?> get props => [code];
