@@ -18,8 +18,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
             registerResultState: const RegisterResultState(
                 status: RegisterStatus.Loading, message: '')));
         try {
-          var checkAccount =
-              await AuthRepository().checkAccountExits(state.userName!);
+          var checkAccount = await AuthRepository()
+              .checkAccountExits(phoneNumber: state.userName!);
           if (!checkAccount) {
             emit(state.copyWith(
                 registerResultState: const RegisterResultState(

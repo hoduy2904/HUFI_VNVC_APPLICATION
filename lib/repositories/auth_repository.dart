@@ -25,9 +25,11 @@ class AuthRepository {
     return await RequestAPI.instance.post(resource);
   }
 
-  Future<bool> checkAccountExits(String phoneNumber) async {
+  Future<bool> checkAccountExits(
+      {required String phoneNumber, bool recoveryPassword = false}) async {
     var resource = APIServices(
-        url: "/api/Auth/CheckUserExits?phoneNumber=$phoneNumber",
+        url:
+            "/api/Auth/CheckUserExits?phoneNumber=$phoneNumber${recoveryPassword == true ? "&isRecovery=true" : ""}",
         parse: ((json) {
           print(json);
           var result = json["data"] as bool;
