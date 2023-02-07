@@ -4,7 +4,6 @@ import 'package:hufi_vnvc_application/blocs/cart_bloc/cart_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/cart_bloc/cart_event.dart';
 import 'package:hufi_vnvc_application/blocs/cart_bloc/cart_state.dart';
 import 'package:hufi_vnvc_application/models/cart_model.dart';
-import 'package:hufi_vnvc_application/models/vaccine_model.dart';
 import 'package:hufi_vnvc_application/screens/order/order.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:hufi_vnvc_application/themes/typography.dart';
@@ -101,8 +100,7 @@ Widget CartItem(BuildContext context, CartModel model, Function onTap) {
                 decoration: BoxDecoration(
                     image: const DecorationImage(
                         fit: BoxFit.cover,
-                        image: NetworkImage(
-                            "https://media.istockphoto.com/id/911633218/vector/abstract-geometric-medical-cross-shape-medicine-and-science-concept-background.jpg?s=612x612&w=0&k=20&c=eYz8qm5xa5wbWCWKgjOpTamavekYv8XqPTA0MC4tHGA=")),
+                        image: AssetImage("assets/image/defaultCart.jpg")),
                     color: Colors.blue.shade100,
                     borderRadius: BorderRadius.circular(5)),
                 child: Container(

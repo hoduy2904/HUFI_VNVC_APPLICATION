@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hufi_vnvc_application/blocs/form_search_bloc/form_search_bloc.dart';
-import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_event.dart';
 import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_package_bloc/vaccine_package_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_package_bloc/vaccine_package_event.dart';
 import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_package_bloc/vaccine_package_state.dart';
-import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_state.dart';
-import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vacicne_bloc.dart';
 import 'package:hufi_vnvc_application/utils/Debouncer/debouncer.dart';
 import 'package:hufi_vnvc_application/utils/FormWithSearchWidget/form_with_search.dart';
-import 'package:hufi_vnvc_application/widgets/list_vaccine_widget.dart';
 import 'package:hufi_vnvc_application/widgets/vaccine_package_list.dart';
 
 class VaccinePackageScreen extends StatelessWidget {
@@ -26,7 +21,7 @@ class VaccinePackageScreen extends StatelessWidget {
           builder: ((context, state) {
         return FormWithSearchWidget(
             isShowAppBar: isShowAppBar,
-            titleBar: "Danh mục vắc xin",
+            titleBar: "Danh mục gói vắc xin",
             hint: "Tìm theo tên, đối tượng gói vắc xin",
             searchChange: (search) => {
                   context

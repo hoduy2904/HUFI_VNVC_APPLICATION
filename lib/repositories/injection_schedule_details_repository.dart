@@ -46,4 +46,19 @@ class InjectionScheduleDetailsRepository {
         }));
     return await RequestAPI.instance.get(resource);
   }
+
+  Future<List<InjectionScheduleDetails>> getInjectionScheduleByFid(
+      int injectionScheduleId) async {
+    var resource = APIServices(
+        url:
+            "/api/InjectionScheduleDetail/GetInjectionScheduleDetails/$injectionScheduleId",
+        parse: ((json) {
+          var request = ResponseAPI.fromJson(json);
+          var listResponse = request.data as List;
+          return listResponse
+              .map((e) => InjectionScheduleDetails.fromJson(e))
+              .toList();
+        }));
+    return await RequestAPI.instance.get(resource);
+  }
 }

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/profile_bloc/form_input_status/form_input_status.dart';
 import 'package:hufi_vnvc_application/blocs/profile_bloc/profile_event.dart';
@@ -18,7 +16,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<OnLoadProvince>((event, emit) async {
       emit(state.copyWith(provinceStatus: const ProvinceStatus()));
       try {
-        print("have");
         var provinces = await AddressRepository().getProvinces();
         emit(state.copyWith(
           provinceStatus:
@@ -125,12 +122,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
     //Submit Form Infomation Acount
     on<OnSubmitEvent>((event, emit) async {
-      print(state.formInputStatus);
       //Check form validate
       if (event.isSubmit && state.formInputStatus!.isValidFormInput() == true) {
         //Create Account
         if (event.username != null && event.password != null) {
-          print("oi");
           try {
             var model = RegisterModel(
                 firstName: state.formInputStatus?.fullName ?? "",
@@ -163,7 +158,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             } else {
               emit(state.copyWith(
                   submitState: ProfileSubmitState(
-                      isValid: false, message: register.messages?.first)));
+                      isValid: false, message: register.messages.first)));
             }
           } catch (e) {
             print("failed: " + e.toString());

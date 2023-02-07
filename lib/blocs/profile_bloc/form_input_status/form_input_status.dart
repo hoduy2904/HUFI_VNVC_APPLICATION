@@ -50,8 +50,7 @@ class FormInputStatus extends ProfileState {
     return validateBirthday == null &&
         validateFullName == null &&
         validateAddress == null &&
-        validateIdentityCode == null &&
-        validateInsuranceCode == null;
+        validateIdentityCode == null;
   }
 
   @override

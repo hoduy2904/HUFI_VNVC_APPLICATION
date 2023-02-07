@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/login_bloc/login_event.dart';
@@ -29,7 +28,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           prefs.setString("refreshToken", login.refreshToken);
           prefs.setString("user", jsonEncode(login.user));
           prefs.setString("deviceId", event.fcmToken!);
-          print(jsonEncode(login.user));
           emit(state.copyWith(
               loginResultState: LoginResultState(
                   status: LoginStatus.Success, message: "login success")));
@@ -37,12 +35,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           emit(state.copyWith(
               loginResultState: LoginResultState(
                   status: LoginStatus.NotActive,
-                  message: response.messages!.first)));
+                  message: response.messages.first)));
         } else {
           emit(state.copyWith(
               loginResultState: LoginResultState(
                   status: LoginStatus.Failed,
-                  message: response.messages!.first)));
+                  message: response.messages.first)));
         }
       } catch (e) {
         emit(state.copyWith(

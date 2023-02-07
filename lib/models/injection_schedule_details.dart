@@ -14,8 +14,10 @@ class InjectionScheduleDetails {
   int? vaccinePackageId;
   int shipmentId;
   String? shipmentCode;
+  bool pay;
   InjectionScheduleDetails(
-      {this.id,
+      {this.pay = false,
+      this.id,
       this.created,
       this.injectionTime,
       this.vaccinePackageName,
@@ -33,6 +35,7 @@ class InjectionScheduleDetails {
 
   InjectionScheduleDetails.fromJson(Map<String, dynamic> json)
       : address = json["address"],
+        pay = json["pay"],
         id = json["id"],
         created = DateTime.parse(json["created"]),
         injectionTime = json["injectionTime"] == null

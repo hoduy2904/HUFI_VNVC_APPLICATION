@@ -138,7 +138,9 @@ class VaccineItem extends StatelessWidget {
                                     Container(
                                       alignment: Alignment.topLeft,
                                       child: Text(
-                                        "${NumberFormat("#,##0", "vi-VN").format(vaccine.price)}đ",
+                                        vaccine.price < 1
+                                            ? "Liên hệ"
+                                            : "${NumberFormat("#,##0", "vi-VN").format(vaccine.price)}đ",
                                         style: TextStyle(
                                             color: ColorTheme.primary,
                                             fontWeight: FontWeight.bold,

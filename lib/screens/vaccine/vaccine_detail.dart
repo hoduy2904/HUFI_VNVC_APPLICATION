@@ -124,28 +124,54 @@ class VaccineDetailsScreen extends StatelessWidget {
                                 color: Colors.black),
                           ),
                           const SizedBox(
-                            height: 20,
+                            height: 10,
                           ),
                           if (vaccineId != null) ...[
+                            RichText(
+                                text: TextSpan(children: [
+                              const TextSpan(
+                                  text: "Loại vắc xin: ",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14,
+                                      color: Colors.black)),
+                              TextSpan(
+                                  text: state.vaccine!.typeOfVaccineName,
+                                  style: const TextStyle(
+                                      fontSize: 14, color: Colors.black))
+                            ])),
+                            const SizedBox(
+                              height: 15,
+                            ),
                             RichText(
                                 text: TextSpan(children: [
                               const TextSpan(
                                   text: "Phòng bệnh: ",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w500,
-                                      fontSize: 14)),
+                                      fontSize: 14,
+                                      color: Colors.black)),
                               TextSpan(
                                   text: state.vaccine!.prevention,
-                                  style: const TextStyle(fontSize: 14))
+                                  style: const TextStyle(
+                                      fontSize: 14, color: Colors.black))
                             ])),
                             const SizedBox(
                               height: 15,
-                            )
+                            ),
                           ],
                           Text(
-                            vaccineId != null
-                                ? "${NumberFormat("#,##0").format(state.vaccine!.price)}đ"
-                                : "Liên hệ",
+                            packageId != null ||
+                                    (vaccineId != null &&
+                                        context.select((VaccineDetailsBloc
+                                                bloc) =>
+                                            (bloc.state
+                                                    as VaccineDetailsSuccessState)
+                                                .vaccine!
+                                                .price <
+                                            1))
+                                ? "Liên hệ"
+                                : "${NumberFormat("#,##0").format(state.vaccine!.price)}đ",
                             style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w800,
@@ -156,7 +182,15 @@ class VaccineDetailsScreen extends StatelessWidget {
                           ),
                           BlocBuilder<CartBloc, CartState>(
                               builder: ((context, state) => ElevatedButton(
-                                    onPressed: packageId != null
+                                    onPressed: packageId != null ||
+                                            (vaccineId != null &&
+                                                context.select((VaccineDetailsBloc
+                                                        bloc) =>
+                                                    (bloc.state
+                                                            as VaccineDetailsSuccessState)
+                                                        .vaccine!
+                                                        .price <
+                                                    1))
                                         ? null
                                         : () => context
                                             .read<CartBloc>()
@@ -166,7 +200,15 @@ class VaccineDetailsScreen extends StatelessWidget {
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: ColorTheme.primary,
                                         minimumSize: const Size.fromHeight(45)),
-                                    child: packageId != null
+                                    child: packageId != null ||
+                                            (vaccineId != null &&
+                                                context.select((VaccineDetailsBloc
+                                                        bloc) =>
+                                                    (bloc.state
+                                                            as VaccineDetailsSuccessState)
+                                                        .vaccine!
+                                                        .price <
+                                                    1))
                                         ? const Text("Liên hệ")
                                         : const Text("Đăng ký mũi tiêm"),
                                   ))),

@@ -7,13 +7,13 @@ class ChangePasswordState extends Equatable {
   bool get passwordRepeatValidate =>
       repeatPassword != null && repeatPassword!.length > 5;
   final String? oldPassword;
-  bool get oldPasswordValidate => oldPassword!.length > 5;
+  bool get oldPasswordValidate => oldPassword!.length > 3;
   final bool isSubmit;
   final bool isShowPassword;
   final bool isShowOldPassword;
   final bool isShowRepeatPassword;
   bool get confirmValidate =>
-      password == repeatPassword && oldPassword!.length > 5;
+      password == repeatPassword && oldPassword!.length > 3;
   final PasswordChangingState? passwordChangingState;
   const ChangePasswordState(
       {this.oldPassword,

@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/code_verify_bloc/code_verify_event.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/code_verify_bloc/code_verify_state.dart';
@@ -24,7 +23,7 @@ class CodeVerifyBloc extends Bloc<CodeVerifyEvent, CodeVerifyState> {
       try {
         var response = await AuthRepository().reSendVerifyCode(event.userId);
         if (!response.isSuccess) {
-          emit(CodeVerifyFailedState(error: response.messages!.first));
+          emit(CodeVerifyFailedState(error: response.messages.first));
         }
       } catch (e) {
         emit(CodeVerifyFailedState(error: e.toString()));

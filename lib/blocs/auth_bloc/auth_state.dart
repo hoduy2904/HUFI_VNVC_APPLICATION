@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:hufi_vnvc_application/models/customer_model.dart';
-import 'package:hufi_vnvc_application/models/user_model.dart';
 
 class AuthState extends Equatable {
   @override
@@ -10,10 +9,11 @@ class AuthState extends Equatable {
 
 class AuthenticationState extends AuthState {
   final CustomerModel user;
-  AuthenticationState({required this.user});
+  final int loginId;
+  AuthenticationState({required this.user, required this.loginId});
   @override
   // TODO: implement props
-  List<Object?> get props => [user];
+  List<Object?> get props => [user, loginId];
 }
 
 class UnAuthenticationState extends AuthState {}

@@ -15,6 +15,7 @@ class NotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var debounce = Debouncer(milliseconds: 1000);
+    double c_width = MediaQuery.of(context).size.width * 0.7;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: ColorTheme.primary,
@@ -81,24 +82,35 @@ class NotificationScreen extends StatelessWidget {
                                           const SizedBox(
                                             width: 20,
                                           ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                e.content,
-                                                style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14),
-                                              ),
-                                              Text(
-                                                DateFormat("dd/MM/yyyy hh:mm")
-                                                    .format(e.created),
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall,
-                                              ),
-                                            ],
+                                          Container(
+                                            width: c_width,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  e.title,
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 14),
+                                                ),
+                                                Text(
+                                                  e.content,
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                      fontSize: 14),
+                                                ),
+                                                Text(
+                                                  DateFormat("dd/MM/yyyy hh:mm")
+                                                      .format(e.created),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall,
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       ),

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_event.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_state.dart';
@@ -29,7 +29,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           var userString = prefs.getString("user");
           var userMd = UserModel.fromJson(jsonDecode(userString!));
           var customer = await CustomerRepository().getCustomerModel(userMd.id);
-          return emit(AuthenticationState(user: customer));
+          return emit(AuthenticationState(user: customer, loginId: userMd.id));
       }
     }));
 
@@ -41,7 +41,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         var userString = pref.getString("user");
         var userMd = UserModel.fromJson(jsonDecode(userString!));
         var customer = await CustomerRepository().getCustomerModel(userMd.id);
-        emit(AuthenticationState(user: customer));
+        emit(AuthenticationState(user: customer, loginId: userMd.id));
         pref.setInt("customerId", customer.id);
       } else {
         pref.clear();
@@ -50,20 +50,32 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<OnLogoutEvent>((event, emit) async {
+      emit(AuthLoading());
       var prefs = await SharedPreferences.getInstance();
-      var accessToken = prefs.getString("accessToken");
-      var refreshToken = prefs.getString("refreshToken");
-
-      try {
-        var res = await AuthRepository().Logout(accessToken!, refreshToken!);
-        if (res.isSuccess) {
-          await prefs.clear();
-          emit(UnAuthenticationState());
-        } else {
-          emit(AuthFailedState(error: res.messages.first));
+      if (!(prefs.containsKey("accessToken") &&
+          prefs.containsKey("refreshToken") &&
+          prefs.containsKey("user"))) {
+        prefs.clear();
+        emit(UnAuthenticationState());
+      } else {
+        var accessToken = prefs.getString("accessToken");
+        var refreshToken = prefs.getString("refreshToken");
+        var userString = prefs.getString("user");
+        var user = UserModel.fromJson(jsonDecode(userString!));
+        try {
+          var res = await AuthRepository().Logout(accessToken!, refreshToken!);
+          if (res.isSuccess) {
+            await FirebaseMessaging.instance
+                .unsubscribeFromTopic("device-${user.id}");
+            await FirebaseMessaging.instance.unsubscribeFromTopic("all");
+            await prefs.clear();
+            emit(UnAuthenticationState());
+          } else {
+            emit(AuthFailedState(error: res.messages.first));
+          }
+        } catch (e) {
+          emit(AuthFailedState(error: e.toString()));
         }
-      } catch (e) {
-        emit(AuthFailedState(error: e.toString()));
       }
     });
   }

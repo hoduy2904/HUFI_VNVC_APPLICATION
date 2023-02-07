@@ -100,7 +100,7 @@ class ChangePasswordScreen extends StatelessWidget {
                               child: Column(
                                 children: [
                                   TextFormField(
-                                    obscureText: !state.isShowPassword,
+                                    obscureText: !state.isShowOldPassword,
                                     style: const TextStyle(fontSize: 14),
                                     onChanged: (pwd) => {
                                       context.read<ChangePasswordBloc>().add(

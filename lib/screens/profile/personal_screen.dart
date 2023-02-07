@@ -26,16 +26,6 @@ class PersonalScreen extends StatelessWidget {
             style: TypographyTheme.titleBar,
           ),
           centerTitle: true,
-          leading: const Icon(
-            Icons.notifications,
-            color: Colors.white,
-          ),
-          actions: const [
-            Icon(
-              Icons.shopping_bag,
-              color: Colors.white,
-            )
-          ],
           bottom: PreferredSize(
               preferredSize: const Size.fromHeight(80),
               child:

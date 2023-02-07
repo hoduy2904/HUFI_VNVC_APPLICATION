@@ -1,11 +1,9 @@
 import 'dart:io';
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/profile_bloc/profile_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/profile_bloc/profile_event.dart';
 import 'package:hufi_vnvc_application/blocs/profile_bloc/profile_state.dart';
-import 'package:hufi_vnvc_application/main.dart';
 import 'package:hufi_vnvc_application/models/province_model.dart';
 import 'package:hufi_vnvc_application/screens/Auth/code_verify.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
@@ -183,39 +181,6 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                     ],
                   ),
                 )),
-            Row(
-              children: [
-                Expanded(
-                    child: FormControl(
-                        title: "Dân tộc",
-                        required: true,
-                        child: Container(
-                          padding: const EdgeInsets.all(6),
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey.shade300),
-                              borderRadius: BorderRadius.circular(6)),
-                          child: DropdownButton(
-                              isExpanded: true,
-                              style: const TextStyle(
-                                fontSize: 12,
-                              ),
-                              isDense: true,
-                              underline: Container(color: Colors.transparent),
-                              hint: const Text("Chọn dân tộc"),
-                              items: itemss
-                                  .map((e) => DropdownMenuItem(
-                                        value: e,
-                                        child: Text(
-                                          e.name,
-                                          style: const TextStyle(
-                                              color: Colors.black),
-                                        ),
-                                      ))
-                                  .toList(),
-                              onChanged: ((value) {})),
-                        ))),
-              ],
-            ),
             FormControl(
                 title: "Số CMND/CCCD/Passport",
                 required: true,
@@ -424,31 +389,6 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                         .add(OnEmailChange(email: value));
                   },
                 )),
-            FormControl(
-                title: "Nghề nghiệp",
-                child: Container(
-                    padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey.shade300),
-                        borderRadius: BorderRadius.circular(6)),
-                    child: DropdownButton(
-                        isExpanded: true,
-                        style: const TextStyle(
-                          fontSize: 12,
-                        ),
-                        isDense: true,
-                        underline: Container(color: Colors.transparent),
-                        hint: const Text("Nghề nghiệp"),
-                        items: itemss
-                            .map((e) => DropdownMenuItem(
-                                  value: e,
-                                  child: Text(
-                                    e.name,
-                                    style: const TextStyle(color: Colors.black),
-                                  ),
-                                ))
-                            .toList(),
-                        onChanged: ((value) {})))),
             ElevatedButton(
                 onPressed: (() {
                   context.read<ProfileBloc>().add(OnSubmitEvent(
@@ -495,8 +435,8 @@ class imageProfile extends StatelessWidget {
                   state.avatar == null
                       ? const CircleAvatar(
                           radius: 50.0,
-                          backgroundImage: NetworkImage(
-                              "https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2022/09/avatar-anime-1.jpg?ssl=1"),
+                          backgroundImage:
+                              AssetImage("assets/image/vaccineDefault.jpg"),
                         )
                       : CircleAvatar(
                           radius: 50.0,

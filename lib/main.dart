@@ -40,7 +40,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(const RunFirstApp());
 }
 
@@ -53,7 +54,7 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
-Future<void> loadFirebase() async {
+Future<void> loadFirebase({int? loginId}) async {
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await NotificationServices().initNotification();
   FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -87,7 +88,10 @@ Future<void> loadFirebase() async {
           title: notification.title!, body: notification.body!);
     }
   });
-  messaging.subscribeToTopic("all");
+  await messaging.subscribeToTopic("all");
+  if (loginId != null) {
+    await messaging.subscribeToTopic("device-$loginId");
+  }
 }
 
 class RunFirstApp extends StatelessWidget {
@@ -111,7 +115,7 @@ class RunFirstApp extends StatelessWidget {
               if (state is AuthLoading) {
                 return const SplashScreen();
               } else if (state is AuthenticationState) {
-                loadFirebase();
+                loadFirebase(loginId: state.loginId);
                 return const MyApp();
               } else if (state is UnAuthenticationState) {
                 return const LoginScreen();

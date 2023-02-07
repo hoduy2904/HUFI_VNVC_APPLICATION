@@ -42,7 +42,7 @@ class AuthRepository {
         parse: ((json) {
           return ResponseAPI.fromJson(json);
         }));
-    return await RequestAPI.instance.post(resource);
+    return await RequestAPI.instance.put(resource);
   }
 
   Future<ResponseAPI> register(RegisterModel model) async {

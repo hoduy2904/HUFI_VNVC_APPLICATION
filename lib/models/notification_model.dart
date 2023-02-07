@@ -17,11 +17,11 @@ class NotificationModel {
 
   factory NotificationModel.fromJson(Map<String, dynamic> json) {
     return NotificationModel(
-        title: json["title"],
-        image: json["image"],
-        isSeen: json["isSeen"],
-        content: json["content"],
-        created: json[" created"],
+        title: json["title"] ?? "",
+        image: json["image"] ?? "",
+        isSeen: json["isSeen"] ?? false,
+        content: json["content"] ?? "",
+        created: DateTime.parse(json["created"]),
         id: json["id"],
         loginId: json["loginId"]);
   }

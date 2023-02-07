@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hufi_vnvc_application/main.dart';
-import 'package:hufi_vnvc_application/models/history_buy_model.dart';
-import 'package:hufi_vnvc_application/models/injection_schedule.dart';
-import 'package:hufi_vnvc_application/screens/history_buy_details/history_buy_details.dart';
-import 'package:hufi_vnvc_application/themes/color.dart';
+import 'package:hufi_vnvc_application/models/injection_schedule_details.dart';
 import 'package:intl/intl.dart';
 
-class HistoryInjectionItem extends StatelessWidget {
-  final InjectionScheduleModel model;
-  const HistoryInjectionItem(this.model, {super.key});
+class HistoryInjectionDetailsItem extends StatelessWidget {
+  final InjectionScheduleDetails model;
+  const HistoryInjectionDetailsItem(this.model, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +28,9 @@ class HistoryInjectionItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    DateFormat("dd/MM/yyyy").format(model.date),
+                    model.injectionTime == null
+                        ? "Chưa có lịch"
+                        : DateFormat("dd/MM/yyyy").format(model.injectionTime!),
                     style: const TextStyle(
                         fontSize: 14,
                         color: Colors.white,
@@ -47,11 +45,10 @@ class HistoryInjectionItem extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           vertical: 6, horizontal: 15),
                       child: Text(
-                        !model.checkPay ? "Đã thanh toán" : "Chưa thanh toán",
+                        model.pay ? "Đã thanh toán" : "Chưa thanh toán",
                         style: TextStyle(
-                            color: !model.checkPay
-                                ? Colors.green.shade600
-                                : Colors.red,
+                            color:
+                                model.pay ? Colors.green.shade600 : Colors.red,
                             fontSize: 14,
                             decoration: TextDecoration.none),
                       ),
@@ -69,10 +66,10 @@ class HistoryInjectionItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Mã booking",
+                      "Tên vắc xin",
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
-                    Text("#${model.id}",
+                    Text("${model.vaccineName}",
                         style: const TextStyle(
                             color: Colors.black,
                             decoration: TextDecoration.none,
@@ -83,8 +80,20 @@ class HistoryInjectionItem extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                const SizedBox(
-                  height: 10,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Lô hàng",
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    Text("${model.shipmentCode}",
+                        style: const TextStyle(
+                            color: Colors.black,
+                            decoration: TextDecoration.none,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13)),
+                  ],
                 ),
                 const SizedBox(
                   height: 10,
@@ -96,7 +105,11 @@ class HistoryInjectionItem extends StatelessWidget {
                       "Ngày hẹn tiêm",
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
-                    Text(DateFormat("dd/MM/yyyy").format(model.date),
+                    Text(
+                        model.injectionTime == null
+                            ? "Chưa có"
+                            : DateFormat("dd/MM/yyyy")
+                                .format(model.injectionTime!),
                         style: const TextStyle(
                             color: Colors.black,
                             decoration: TextDecoration.none,
@@ -107,41 +120,6 @@ class HistoryInjectionItem extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    model.checkPay
-                        ? ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: ColorTheme.primary),
-                            onPressed: (() {}),
-                            child: const Text(
-                              "Thanh toán",
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            ))
-                        : const SizedBox(),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            side: BorderSide(
-                              color: ColorTheme.primary,
-                            ),
-                            backgroundColor: Colors.white),
-                        onPressed: (() => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: ((context) => HistoryBuyDetailsScreen(
-                                    injectionScheduleId: model.id!))))),
-                        child: Text(
-                          "Chi tiết",
-                          style: TextStyle(
-                              color: ColorTheme.primary,
-                              fontWeight: FontWeight.bold),
-                        ))
-                  ],
-                )
               ],
             ),
           )
