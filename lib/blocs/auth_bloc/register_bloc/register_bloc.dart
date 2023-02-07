@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/register_bloc/register_event.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/register_bloc/register_state.dart';
@@ -22,20 +21,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           var checkAccount = await AuthRepository()
               .checkAccountExits(phoneNumber: state.userName!);
           if (!checkAccount) {
-            FirebaseAuth auth = FirebaseAuth.instance;
-            await auth.verifyPhoneNumber(
-              phoneNumber: state.userName,
-              verificationCompleted: (phoneAuthCredential) async {
-                await auth
-                    .signInWithCredential(phoneAuthCredential)
-                    .then((value) => {print("logged success")});
-              },
-              codeAutoRetrievalTimeout: (String verificationId) {},
-              codeSent: (String verificationId, int? forceResendingToken) {
-                emit(state.copyWith(verificationRecived: verificationId));
-              },
-              verificationFailed: (FirebaseAuthException error) {},
-            );
             emit(state.copyWith(
                 registerResultState: const RegisterResultState(
                     status: RegisterStatus.Success, message: 'Next step')));
