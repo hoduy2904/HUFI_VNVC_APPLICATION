@@ -9,6 +9,7 @@ class RegisterState extends Equatable {
   final String? userName;
   final String? password;
   final bool isSubmit;
+  final String verificationRecived;
   bool get validatePassword => password!.length > 5;
   final String? repeatPassword;
   bool get validateRepeatPassword =>
@@ -19,6 +20,7 @@ class RegisterState extends Equatable {
   final bool isShowRepeatPassword;
   const RegisterState(
       {this.isSubmit = false,
+      this.verificationRecived = '',
       this.repeatPassword,
       this.isShowRepeatPassword = false,
       this.isShowPassword = false,
@@ -26,6 +28,7 @@ class RegisterState extends Equatable {
       this.userName,
       this.password});
   factory RegisterState.initialState() => const RegisterState(
+      verificationRecived: '',
       userName: '',
       password: '',
       isShowPassword: false,
@@ -34,6 +37,7 @@ class RegisterState extends Equatable {
 
   RegisterState copyWith(
       {bool? isSubmit,
+      String? verificationRecived,
       String? repeatPassword,
       bool? isShowRepeatPassword,
       bool? isShowPassword,
@@ -42,6 +46,7 @@ class RegisterState extends Equatable {
       String? password}) {
     return RegisterState(
         isSubmit: isSubmit ?? this.isSubmit,
+        verificationRecived: verificationRecived ?? this.verificationRecived,
         repeatPassword: repeatPassword ?? this.repeatPassword,
         isShowRepeatPassword: isShowRepeatPassword ?? this.isShowRepeatPassword,
         isShowPassword: isShowPassword ?? this.isShowPassword,
@@ -57,6 +62,7 @@ class RegisterState extends Equatable {
         userName,
         password,
         registerResultState,
+        verificationRecived,
         isShowPassword,
         isShowRepeatPassword,
         repeatPassword

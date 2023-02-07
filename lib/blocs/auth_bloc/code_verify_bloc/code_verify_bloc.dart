@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/code_verify_bloc/code_verify_event.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/code_verify_bloc/code_verify_state.dart';
@@ -29,5 +30,6 @@ class CodeVerifyBloc extends Bloc<CodeVerifyEvent, CodeVerifyState> {
         emit(CodeVerifyFailedState(error: e.toString()));
       }
     });
+    on<OnLoadRegisterEvent>((event, emit) async {});
   }
 }

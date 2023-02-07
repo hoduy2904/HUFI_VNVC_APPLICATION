@@ -40,9 +40,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp();
   runApp(const RunFirstApp());
 }
 
@@ -109,20 +107,18 @@ class RunFirstApp extends StatelessWidget {
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(fontFamily: 'Roboto'),
-            home: true
-                ? LoginScreen()
-                : BlocBuilder<AuthBloc, AuthState>(builder: ((context, state) {
-                    if (state is AuthLoading) {
-                      return const SplashScreen();
-                    } else if (state is AuthenticationState) {
-                      loadFirebase();
-                      return const MyApp();
-                    } else if (state is UnAuthenticationState) {
-                      return const LoginScreen();
-                    } else {
-                      return const SplashScreen();
-                    }
-                  }))));
+            home: BlocBuilder<AuthBloc, AuthState>(builder: ((context, state) {
+              if (state is AuthLoading) {
+                return const SplashScreen();
+              } else if (state is AuthenticationState) {
+                loadFirebase();
+                return const MyApp();
+              } else if (state is UnAuthenticationState) {
+                return const LoginScreen();
+              } else {
+                return const SplashScreen();
+              }
+            }))));
   }
 }
 

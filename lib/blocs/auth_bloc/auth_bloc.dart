@@ -37,13 +37,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoading());
       var pref = await SharedPreferences.getInstance();
       await Future.delayed(const Duration(seconds: 1));
-      if (pref.containsKey("accessToken")) {
+      if (pref.containsKey("accessToken") && pref.containsKey("user")) {
         var userString = pref.getString("user");
         var userMd = UserModel.fromJson(jsonDecode(userString!));
         var customer = await CustomerRepository().getCustomerModel(userMd.id);
         emit(AuthenticationState(user: customer));
         pref.setInt("customerId", customer.id);
       } else {
+        pref.clear();
         emit(UnAuthenticationState());
       }
     });

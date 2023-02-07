@@ -60,15 +60,21 @@ class RequestAPI {
       var accessToken = prefs.getString("accessToken");
       var accessTokenType = prefs.getString("accessToken_Type");
       resource.headers ??= {
+        "Content-type": "application/json",
         'Accept': 'application/json',
         "Authorization": "$accessTokenType $accessToken"
       };
     } else {
-      resource.headers ??= {'Accept': 'application/json'};
+      resource.headers ??= {
+        "Content-type": "application/json",
+        'Accept': 'application/json'
+      };
     }
     try {
+      print(resource.finalUrl());
       var request = await client.get(Uri.parse(resource.finalUrl()),
           headers: resource.headers);
+
       if (request.statusCode == 200) {
         var jsonDecodeUtf8 = jsonDecode(utf8.decode(request.bodyBytes));
         return resource.parse(jsonDecodeUtf8);

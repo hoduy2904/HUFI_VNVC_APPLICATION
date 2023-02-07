@@ -22,3 +22,11 @@ class OnResendCodeEvent extends CodeVerifyEvent {
   // TODO: implement props
   List<Object?> get props => [userId];
 }
+
+class OnLoadRegisterEvent extends CodeVerifyEvent {
+  final String phoneNumber;
+  OnLoadRegisterEvent({required this.phoneNumber});
+  @override
+  // TODO: implement props
+  List<Object?> get props => [phoneNumber];
+}
