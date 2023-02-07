@@ -204,15 +204,18 @@ class LoginScreen extends StatelessWidget {
                                   height: 10,
                                 ),
                                 ElevatedButton(
-                                    onPressed: () async {
-                                      final fcmToken = await FirebaseMessaging
-                                          .instance
-                                          .getToken();
-                                      print(fcmToken);
-                                      context.read<LoginBloc>().add(
-                                          OnClickLoginEvent(
-                                              fcmToken: fcmToken));
-                                    },
+                                    onPressed: state.loginResultState?.status ==
+                                            LoginStatus.Loading
+                                        ? null
+                                        : () async {
+                                            final fcmToken =
+                                                await FirebaseMessaging.instance
+                                                    .getToken();
+                                            print(fcmToken);
+                                            context.read<LoginBloc>().add(
+                                                OnClickLoginEvent(
+                                                    fcmToken: fcmToken));
+                                          },
                                     style: ElevatedButton.styleFrom(
                                         disabledForegroundColor: Colors.white,
                                         disabledBackgroundColor:

@@ -10,6 +10,7 @@ import 'package:hufi_vnvc_application/blocs/profile_bloc/address_status/ward_sta
 import 'package:hufi_vnvc_application/models/register_model.dart';
 import 'package:hufi_vnvc_application/repositories/address_repository.dart';
 import 'package:hufi_vnvc_application/repositories/auth_repository.dart';
+import 'package:hufi_vnvc_application/repositories/genarel_repostitory.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ProfileBloc()
@@ -18,7 +19,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<OnLoadProvince>((event, emit) async {
       emit(state.copyWith(provinceStatus: const ProvinceStatus()));
       try {
-        print("have");
         var provinces = await AddressRepository().getProvinces();
         emit(state.copyWith(
           provinceStatus:
@@ -125,16 +125,24 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
     //Submit Form Infomation Acount
     on<OnSubmitEvent>((event, emit) async {
-      print(state.formInputStatus);
+      String avatar = "";
+      try {
+        var response = await GeneralRepository().uploadImage(state.avatar!);
+        if (response.isSuccess) {
+          avatar = response.data.toString();
+        }
+      } catch (e) {
+        print((e.toString()));
+      }
       //Check form validate
       if (event.isSubmit && state.formInputStatus!.isValidFormInput() == true) {
         //Create Account
         if (event.username != null && event.password != null) {
-          print("oi");
           try {
             var model = RegisterModel(
                 firstName: state.formInputStatus?.fullName ?? "",
                 lastName: "",
+                avatar: avatar,
                 sex: state.formInputStatus?.sex == 0 ? false : true,
                 identityCard: state.formInputStatus?.identityCode ?? "",
                 dateOfBirth: state.formInputStatus!.birthday!,

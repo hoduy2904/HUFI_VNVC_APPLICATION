@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/code_verify_bloc/code_verify_event.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/code_verify_bloc/code_verify_state.dart';
@@ -8,11 +9,12 @@ class CodeVerifyBloc extends Bloc<CodeVerifyEvent, CodeVerifyState> {
     on<OnClickVerifyEvent>((event, emit) async {
       emit(CodeVerifyLoadingState());
       try {
-        var response = await AuthRepository().verifyCode(event.code);
+        var response =
+            await AuthRepository().verifyCode(id: event.id, code: event.code);
         if (response.isSuccess) {
           emit(CodeVerifySuccessState());
         } else {
-          emit(CodeVerifyFailedState(error: response.messages!.first));
+          emit(CodeVerifyFailedState(error: response.messages.first));
         }
       } catch (e) {
         emit(CodeVerifyFailedState(error: e.toString()));
@@ -28,5 +30,6 @@ class CodeVerifyBloc extends Bloc<CodeVerifyEvent, CodeVerifyState> {
         emit(CodeVerifyFailedState(error: e.toString()));
       }
     });
+    on<OnLoadRegisterEvent>((event, emit) async {});
   }
 }

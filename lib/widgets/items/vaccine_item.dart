@@ -84,7 +84,7 @@ class VaccineItem extends StatelessWidget {
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 5, horizontal: 10),
                                     child: Text(
-                                      "${((vaccine.price - vaccine.priceOld) / 100) * 100}%",
+                                      "${((vaccine.price - vaccine.priceOld) / vaccine.priceOld) * 100}%",
                                       style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 12,
@@ -157,7 +157,9 @@ class VaccineItem extends StatelessWidget {
                                           minimumSize:
                                               const Size.fromHeight(45),
                                           side: BorderSide(
-                                              color: ColorTheme.primary,
+                                              color: vaccine.quantityRemain < 1
+                                                  ? Colors.red
+                                                  : ColorTheme.primary,
                                               width: 1.0)),
                                       onPressed: () => {
                                             vaccine.price < 1
@@ -172,7 +174,9 @@ class VaccineItem extends StatelessWidget {
                                               color: ColorTheme.primary),
                                           vaccine.price > 1
                                               ? "Chọn mua"
-                                              : "Liên hệ")))),
+                                              : vaccine.quantityRemain < 1
+                                                  ? "Hết hàng"
+                                                  : "Liên hệ")))),
                             ],
                           ),
                         ),

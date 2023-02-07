@@ -110,6 +110,9 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                           fToast.showToast(
                               child: ToastWidget(
                                   message: state.error, status: "error"));
+                          context
+                              .read<CodeVerifyBloc>()
+                              .emit(CodeVerifyInitState());
                         }
                       },
                       builder: ((context, state) => Card(
@@ -123,9 +126,9 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                                   OTPFormWidget(
                                     onChanged: (value) => {
                                       timer?.cancel(),
-                                      context
-                                          .read<CodeVerifyBloc>()
-                                          .add(OnClickVerifyEvent(code: value))
+                                      context.read<CodeVerifyBloc>().add(
+                                          OnClickVerifyEvent(
+                                              id: widget.id!, code: value))
                                     },
                                   ),
                                   const SizedBox(
