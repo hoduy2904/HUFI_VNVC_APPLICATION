@@ -110,7 +110,7 @@ class RunFirstApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: ThemeData(fontFamily: 'Roboto'),
             home: true
-                ? LoginScreen()
+                ? ChatScreen()
                 : BlocBuilder<AuthBloc, AuthState>(builder: ((context, state) {
                     if (state is AuthLoading) {
                       return const SplashScreen();
