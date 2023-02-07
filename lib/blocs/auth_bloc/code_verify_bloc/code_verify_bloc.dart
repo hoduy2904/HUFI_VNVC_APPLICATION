@@ -6,10 +6,11 @@ import 'package:hufi_vnvc_application/repositories/auth_repository.dart';
 class CodeVerifyBloc extends Bloc<CodeVerifyEvent, CodeVerifyState> {
   CodeVerifyBloc() : super(CodeVerifyState()) {
     on<OnClickVerifyEvent>((event, emit) async {
+      print("vào");
       emit(CodeVerifyLoadingState());
       try {
-        var response =
-            await AuthRepository().verifyCode(id: event.id, code: event.code);
+        var response = await AuthRepository()
+            .verifyCode(username: event.username, code: event.code);
         if (response.isSuccess) {
           emit(CodeVerifySuccessState());
         } else {
@@ -21,7 +22,7 @@ class CodeVerifyBloc extends Bloc<CodeVerifyEvent, CodeVerifyState> {
     });
     on<OnResendCodeEvent>((event, emit) async {
       try {
-        var response = await AuthRepository().reSendVerifyCode(event.userId);
+        var response = await AuthRepository().reSendVerifyCode(event.username);
         if (!response.isSuccess) {
           emit(CodeVerifyFailedState(error: response.messages.first));
         }

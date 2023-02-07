@@ -59,8 +59,12 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
     bool isFullnameValidate = false;
     return BlocConsumer<ProfileBloc, ProfileState>(listener: (context, state) {
       if (state.submitState?.isValid == true && widget.fromRegister == true) {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const VerifyCodeScreen()));
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => VerifyCodeScreen(
+                      username: widget.username!,
+                    )));
       } else if (state.submitState?.isValid == true) {
         Navigator.pop(context);
       }

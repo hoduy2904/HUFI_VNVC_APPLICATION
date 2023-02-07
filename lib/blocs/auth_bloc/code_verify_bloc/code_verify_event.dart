@@ -8,19 +8,19 @@ class CodeVerifyEvent extends Equatable {
 
 class OnClickVerifyEvent extends CodeVerifyEvent {
   final String code;
-  final int id;
-  OnClickVerifyEvent({required this.id, required this.code});
+  final String username;
+  OnClickVerifyEvent({required this.username, required this.code});
   @override
   // TODO: implement props
   List<Object?> get props => [code];
 }
 
 class OnResendCodeEvent extends CodeVerifyEvent {
-  final int userId;
-  OnResendCodeEvent({required this.userId});
+  final String username;
+  OnResendCodeEvent({required this.username});
   @override
   // TODO: implement props
-  List<Object?> get props => [userId];
+  List<Object?> get props => [username];
 }
 
 class OnLoadRegisterEvent extends CodeVerifyEvent {

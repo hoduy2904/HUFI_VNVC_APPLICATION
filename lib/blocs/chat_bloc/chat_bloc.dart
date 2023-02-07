@@ -9,7 +9,6 @@ import 'package:hufi_vnvc_application/repositories/chat_repository.dart';
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   ChatBloc() : super(ChatState.initital()) {
     on<OnSendMessageEvent>((event, emit) async {
-      print("có vào");
       emit(state.copyWith(status: ChatStatus.Sending));
       try {
         state.chats.insert(

@@ -89,8 +89,9 @@ class LoginScreen extends StatelessWidget {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    const VerifyCodeScreen()));
+                                builder: (context) => VerifyCodeScreen(
+                                      username: state.userName!,
+                                    )));
                       } else if (state.loginResultState?.status ==
                           LoginStatus.Failed) {
                         fToast.showToast(

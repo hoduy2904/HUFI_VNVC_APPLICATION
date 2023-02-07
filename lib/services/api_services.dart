@@ -206,14 +206,13 @@ class RequestAPI {
   }
 
   Future<ResponseAPI> postFile(
-      {required List<File> files, Map<String, String>? headers}) async {
-    var request = http.MultipartRequest("POST", Uri.parse("/api/upload"));
-    for (var file in files) {
-      var pic = http.MultipartFile(
-          "file", file.readAsBytes().asStream(), file.lengthSync(),
-          filename: file.path.split("/").last);
-      request.files.add(pic);
-    }
+      {required File file, Map<String, String>? headers}) async {
+    var request = http.MultipartRequest(
+        "POST", Uri.parse("$HOST/api/Upload/UploadImage"));
+    var pic = http.MultipartFile(
+        "file", file.readAsBytes().asStream(), file.lengthSync(),
+        filename: file.path.split("/").last);
+    request.files.add(pic);
     request.headers.addAll(headers ?? {});
     var response = await request.send();
     if (response.statusCode == 200) {

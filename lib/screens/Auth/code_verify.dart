@@ -10,8 +10,8 @@ import 'package:hufi_vnvc_application/utils/ToastWidget/toast_widget.dart';
 import 'package:hufi_vnvc_application/widgets/otp_form_widget.dart';
 
 class VerifyCodeScreen extends StatefulWidget {
-  final int? id;
-  const VerifyCodeScreen({this.id, super.key});
+  final String username;
+  const VerifyCodeScreen({required this.username, super.key});
   static const String route = "/auth/verifyCode";
 
   @override
@@ -128,7 +128,8 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                                       timer?.cancel(),
                                       context.read<CodeVerifyBloc>().add(
                                           OnClickVerifyEvent(
-                                              id: widget.id!, code: value))
+                                              username: widget.username,
+                                              code: value))
                                     },
                                   ),
                                   const SizedBox(
@@ -148,7 +149,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                                           });
                                           context.read<CodeVerifyBloc>().add(
                                               OnResendCodeEvent(
-                                                  userId: widget.id!));
+                                                  username: widget.username));
                                         },
                                         child: const Text(
                                           "Gửi lại",

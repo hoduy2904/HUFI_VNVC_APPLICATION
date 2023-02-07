@@ -58,9 +58,9 @@ class AuthRepository {
   }
 
   Future<ResponseAPI> verifyCode(
-      {required int id, required String code}) async {
+      {required String username, required String code}) async {
     var resource = APIServices(
-        url: "/api/auth/verifyCode?id=$id&code=$code",
+        url: "/api/auth/verifyCode?username=$username&code=$code",
         parse: ((json) {
           var res = ResponseAPI.fromJson(json);
           return res;
@@ -80,9 +80,9 @@ class AuthRepository {
     return await RequestAPI.instance.post(resource);
   }
 
-  Future<ResponseAPI> reSendVerifyCode(int userId) async {
+  Future<ResponseAPI> reSendVerifyCode(String username) async {
     var resource = APIServices(
-        url: "/api/auth/RenewVerifyCode?id=$userId",
+        url: "/api/auth/RenewVerifyCode?username=$username",
         parse: ((json) {
           var res = ResponseAPI.fromJson(json);
           return res;
