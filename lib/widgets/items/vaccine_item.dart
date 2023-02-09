@@ -164,7 +164,8 @@ class VaccineItem extends StatelessWidget {
                                                   : ColorTheme.primary,
                                               width: 1.0)),
                                       onPressed: () => {
-                                            vaccine.price < 1
+                                            vaccine.price < 1 ||
+                                                    vaccine.quantityRemain < 1
                                                 ? null
                                                 : context.read<CartBloc>().add(
                                                     OnAddCartEvent(

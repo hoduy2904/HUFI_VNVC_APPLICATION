@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart';
 import 'package:hufi_vnvc_application/blocs/chat_bloc/chat_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/chat_bloc/chat_event.dart';
 import 'package:hufi_vnvc_application/blocs/chat_bloc/chat_state.dart';
-import 'package:hufi_vnvc_application/models/chat_model.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:hufi_vnvc_application/themes/typography.dart';
 import 'package:intl/intl.dart';

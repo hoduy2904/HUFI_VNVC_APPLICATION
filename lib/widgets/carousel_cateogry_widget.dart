@@ -60,13 +60,13 @@ class _CategoryCarouselWidgetState extends State<CategoryCarouselWidget> {
                   builder: (context) => const VaccinePackageScreen()))
         },
       ),
-      CategoryItem(
-        const CategoryModel(Icons.message_outlined, "Trò chuyện"),
-        onClick: () => {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const ChatScreen()))
-        },
-      ),
+      // CategoryItem(
+      //   const CategoryModel(Icons.message_outlined, "Trò chuyện"),
+      //   onClick: () => {
+      //     Navigator.push(context,
+      //         MaterialPageRoute(builder: (context) => const ChatScreen()))
+      //   },
+      // ),
       CategoryItem(
         const CategoryModel(Icons.schedule_outlined, "Lịch tiêm"),
         onClick: () => {

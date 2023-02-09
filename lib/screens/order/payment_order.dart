@@ -6,7 +6,8 @@ import 'package:hufi_vnvc_application/blocs/cart_bloc/cart_state.dart';
 import 'package:hufi_vnvc_application/blocs/order_bloc/payment_order_bloc/payment_order_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/order_bloc/payment_order_bloc/payment_order_event.dart';
 import 'package:hufi_vnvc_application/blocs/order_bloc/payment_order_bloc/payment_order_state.dart';
-import 'package:hufi_vnvc_application/models/vaccine_model.dart';
+import 'package:hufi_vnvc_application/main.dart';
+import 'package:hufi_vnvc_application/screens/home/home_page.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:hufi_vnvc_application/widgets/items/vaccine_cart_item.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -55,7 +56,10 @@ class PaymentOrder extends StatelessWidget {
                         backgroundColor: Colors.white,
                         textStyle: TextStyle(color: ColorTheme.primary),
                         side: BorderSide(color: ColorTheme.primaryStrong)),
-                    onPressed: () => {},
+                    onPressed: () => Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => const MyApp()))),
                     child: Text(
                       "Thêm hoặc xoá vắc xin",
                       style: TextStyle(
