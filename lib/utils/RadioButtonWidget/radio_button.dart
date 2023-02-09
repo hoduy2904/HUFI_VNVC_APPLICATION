@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:hufi_vnvc_application/themes/color.dart';
 
 class RadioButtom<T> extends StatelessWidget {
   final T value;
@@ -34,7 +35,7 @@ class RadioButtom<T> extends StatelessWidget {
         margin: margin,
         padding: padding,
         decoration: BoxDecoration(
-            border: isBorder ? Border.all(color: Colors.blue.shade800) : null,
+            border: isBorder ? Border.all(color: ColorTheme.primary) : null,
             borderRadius: borderRadius,
             color: isSelect ? Colors.blue.shade800 : Colors.white),
         child: Text(
@@ -42,7 +43,7 @@ class RadioButtom<T> extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
               fontSize: fontSize,
-              color: isSelect ? Colors.white : Colors.blue.shade800),
+              color: isSelect ? Colors.white : ColorTheme.primary),
         ),
       ),
     );

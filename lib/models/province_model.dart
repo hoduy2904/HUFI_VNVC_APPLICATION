@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter_application_1/models/base_address.dart';
-import 'package:flutter_application_1/models/district_model.dart';
+import 'package:hufi_vnvc_application/models/base_address.dart';
+import 'package:hufi_vnvc_application/models/district_model.dart';
 
 class ProvinceModel extends BaseAddress {
   final int phoneCode;
@@ -20,12 +20,18 @@ class ProvinceModel extends BaseAddress {
             divisionType: divisionType);
 
   factory ProvinceModel.fromJson(Map<String, dynamic> json) {
+    List<DistrictModel> districts = [];
+    if (json["districts"] != null) {
+      districts = (json["districts"] as List)
+          .map((e) => DistrictModel.fromJson(e))
+          .toList();
+    }
     return ProvinceModel(
         name: json["name"],
         code: json["code"],
         codeName: json["codename"],
         divisionType: json["division_type"],
         phoneCode: json["phone_code"],
-        districts: []);
+        districts: districts);
   }
 }

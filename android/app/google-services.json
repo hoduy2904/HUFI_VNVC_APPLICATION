@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "319354946505",
+    "project_id": "vnvc-notification",
+    "storage_bucket": "vnvc-notification.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319354946505:android:26c2e3ed5113c9d39f1e18",
+        "android_client_info": {
+          "package_name": "com.hufi.vnvc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "319354946505-1t6scpp026b2i071usdde6k7bao3mi0h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtoupba7no5wWzcNW5_uZ4Rk-AKFUwEug"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "319354946505-1t6scpp026b2i071usdde6k7bao3mi0h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

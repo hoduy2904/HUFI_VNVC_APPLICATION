@@ -1,5 +1,5 @@
-import 'package:flutter_application_1/models/base_address.dart';
-import 'package:flutter_application_1/models/ward_model.dart';
+import 'package:hufi_vnvc_application/models/base_address.dart';
+import 'package:hufi_vnvc_application/models/ward_model.dart';
 
 class DistrictModel extends BaseAddress {
   final int provinceCode;
@@ -19,12 +19,17 @@ class DistrictModel extends BaseAddress {
             divisionType: divisionType);
 
   factory DistrictModel.fromJson(Map<String, dynamic> json) {
+    List<WardModel> wards = [];
+    if (json["wards"] != null) {
+      wards =
+          (json["wards"] as List).map((e) => WardModel.fromJson(e)).toList();
+    }
     return DistrictModel(
         name: json["name"],
         code: json["code"],
         codeName: json["codename"],
         divisionType: json["division_type"],
         provinceCode: json["province_code"],
-        wards: json["wards"] as List<WardModel>);
+        wards: wards);
   }
 }

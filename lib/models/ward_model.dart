@@ -1,4 +1,4 @@
-import 'package:flutter_application_1/models/base_address.dart';
+import 'package:hufi_vnvc_application/models/base_address.dart';
 
 class WardModel extends BaseAddress {
   final int districtCode;
