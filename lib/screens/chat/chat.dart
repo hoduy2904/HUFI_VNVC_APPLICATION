@@ -8,6 +8,7 @@ import 'package:hufi_vnvc_application/models/chat_model.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:hufi_vnvc_application/themes/typography.dart';
 import 'package:intl/intl.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -74,51 +75,101 @@ class ChatScreen extends StatelessWidget {
                       children: [
                         if (!state.chats[index].isYou)
                           const CircleAvatar(
-                            backgroundImage: NetworkImage(
-                                "https://scontent.fsgn5-8.fna.fbcdn.net/v/t39.30808-6/316126447_1841700076168720_2777481558525569042_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=8ygkSKiOurYAX8QiXzA&tn=Nqzr_mYTj8ovTKiJ&_nc_ht=scontent.fsgn5-8.fna&oh=00_AfCANe_6sHdri1DDKcrHPjxra3636TjkAI9GvUJQOzdcKg&oe=63C43CF3"),
+                            backgroundColor: Colors.white,
+                            backgroundImage:
+                                AssetImage("assets/image/openai.png"),
                           ),
                         const SizedBox(
                           width: 10,
                         ),
                         Expanded(
-                            child: Column(
-                                crossAxisAlignment: !state.chats[index].isYou
-                                    ? CrossAxisAlignment.start
-                                    : CrossAxisAlignment.end,
-                                children: [
-                              Wrap(children: [
-                                Text(
-                                  "${state.chats[index].isYou ? "Bạn" : "BOT GPT"}, ${DateFormat("dd/MM/yyyy hh:mm").format(state.chats[index].timeSend)}",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12,
-                                      color: Colors.grey.shade700),
-                                )
-                              ]),
-                              Container(
-                                margin: EdgeInsets.only(
-                                    bottom: 5,
-                                    left: state.chats[index].isYou ? 100 : 0,
-                                    right: !state.chats[index].isYou ? 100 : 0),
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    color: state.chats[index].isYou
-                                        ? ColorTheme.secondary
-                                        : Colors.blueGrey.shade700,
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(
-                                            !state.chats[index].isYou ? 3 : 20),
-                                        topRight: Radius.circular(
-                                            state.chats[index].isYou ? 3 : 20),
-                                        bottomLeft: const Radius.circular(20),
-                                        bottomRight:
-                                            const Radius.circular(20))),
-                                child: Text(
-                                  state.chats[index].message.trim(),
-                                  style: const TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            ]))
+                            child: state.chats[index].message ==
+                                    "chatting-reciving"
+                                ? Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                        Wrap(children: [
+                                          Text(
+                                            "BOT GPT, ${DateFormat("dd/MM/yyyy HH:mm").format(DateTime.now())}",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 12,
+                                                color: Colors.grey.shade700),
+                                          )
+                                        ]),
+                                        Container(
+                                          margin: const EdgeInsets.only(
+                                              bottom: 5, left: 0, right: 100),
+                                          padding: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                              color: Colors.blueGrey.shade700,
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                      topLeft:
+                                                          Radius.circular(3),
+                                                      topRight:
+                                                          Radius.circular(20),
+                                                      bottomLeft:
+                                                          Radius.circular(20),
+                                                      bottomRight:
+                                                          Radius.circular(20))),
+                                          child:
+                                              LoadingAnimationWidget.waveDots(
+                                                  color: Colors.white,
+                                                  size: 20),
+                                        ),
+                                      ])
+                                : Column(
+                                    crossAxisAlignment:
+                                        !state.chats[index].isYou
+                                            ? CrossAxisAlignment.start
+                                            : CrossAxisAlignment.end,
+                                    children: [
+                                        Wrap(children: [
+                                          Text(
+                                            "${state.chats[index].isYou ? "Bạn" : "BOT GPT"}, ${DateFormat("dd/MM/yyyy HH:mm").format(state.chats[index].timeSend)}",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 12,
+                                                color: Colors.grey.shade700),
+                                          )
+                                        ]),
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                              bottom: 5,
+                                              left: state.chats[index].isYou
+                                                  ? 100
+                                                  : 0,
+                                              right: !state.chats[index].isYou
+                                                  ? 100
+                                                  : 0),
+                                          padding: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                              color: state.chats[index].isYou
+                                                  ? ColorTheme.secondary
+                                                  : Colors.blueGrey.shade700,
+                                              borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(
+                                                      !state.chats[index].isYou
+                                                          ? 3
+                                                          : 20),
+                                                  topRight: Radius.circular(
+                                                      state.chats[index].isYou
+                                                          ? 3
+                                                          : 20),
+                                                  bottomLeft:
+                                                      const Radius.circular(20),
+                                                  bottomRight:
+                                                      const Radius.circular(
+                                                          20))),
+                                          child: Text(
+                                            state.chats[index].message.trim(),
+                                            style: const TextStyle(
+                                                color: Colors.white),
+                                          ),
+                                        ),
+                                      ]))
                       ],
                     );
                   })))),

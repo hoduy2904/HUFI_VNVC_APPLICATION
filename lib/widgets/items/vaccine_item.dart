@@ -174,7 +174,8 @@ class VaccineItem extends StatelessWidget {
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: ColorTheme.primary),
-                                          vaccine.price > 1
+                                          vaccine.price > 0 &&
+                                                  vaccine.quantityRemain > 0
                                               ? "Chọn mua"
                                               : vaccine.quantityRemain < 1
                                                   ? "Hết hàng"

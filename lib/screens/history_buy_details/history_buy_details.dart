@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/history_buy_bloc/history_buy_details/history_buy_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/history_buy_bloc/history_buy_details/history_buy_event.dart';
@@ -47,10 +46,9 @@ class HistoryBuyDetailsScreen extends StatelessWidget {
                   child: Text(state.error),
                 );
               } else {
-                return const Expanded(
-                    child: Center(
+                return const Center(
                   child: Text("Vui lòng thử lại"),
-                ));
+                );
               }
             }))));
   }

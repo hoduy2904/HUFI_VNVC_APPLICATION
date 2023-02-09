@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:hufi_vnvc_application/models/chat_model.dart';
 
-enum ChatStatus { Sending, SendSuccess, SendFailed, Recived }
+enum ChatStatus { Reciving, SendSuccess, SendFailed, Recived }
 
 class ChatState extends Equatable {
   final List<ChatModel> chats;

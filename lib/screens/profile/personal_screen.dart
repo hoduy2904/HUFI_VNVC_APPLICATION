@@ -36,11 +36,17 @@ class PersonalScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      CircleAvatar(
-                        radius: 35.0,
-                        backgroundImage: NetworkImage(user.avatar ??
-                            "https://cdn-amz.woka.io/images/I/71yt4KT589L.jpg"),
-                      ),
+                      user.avatar == null || user.avatar!.isEmpty
+                          ? const CircleAvatar(
+                              radius: 35.0,
+                              backgroundImage:
+                                  AssetImage("assets/image/avatar.png"),
+                            )
+                          : CircleAvatar(
+                              radius: 35.0,
+                              backgroundImage: NetworkImage(user.avatar ??
+                                  "https://cdn-amz.woka.io/images/I/71yt4KT589L.jpg"),
+                            ),
                       const SizedBox(
                         width: 10,
                       ),

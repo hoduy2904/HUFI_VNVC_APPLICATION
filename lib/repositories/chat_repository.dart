@@ -1,3 +1,4 @@
+import 'package:hufi_vnvc_application/constaint.dart';
 import 'package:hufi_vnvc_application/services/api_services.dart';
 
 class ChatRepository {
@@ -16,14 +17,17 @@ class ChatRepository {
         body: body,
         headers: {
           "Content-Type": "application/json",
-          "Authorization":
-              "Bearer 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"
+          "Authorization": AuthorizationChat
         },
         fullUrl: "https://api.openai.com/v1/completions",
         parse: ((json) {
           var choices = json["choices"][0]["text"].toString();
           return choices;
         }));
-    return await RequestAPI.instance.post(resource);
+    try {
+      return await RequestAPI.instance.post(resource);
+    } catch (e) {
+      return "Hiện tại đang quá tải, vui lòng thử lại sau, xin lỗi vì sự cố này, có vấn đề gì hãy gọi hotline của trung tâm VNVC, xin cảm ơn.";
+    }
   }
 }

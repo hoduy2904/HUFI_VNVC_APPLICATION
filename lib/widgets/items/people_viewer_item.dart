@@ -25,12 +25,19 @@ class PeopleItem extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              CircleAvatar(
-                  child: ClipRRect(
-                borderRadius: BorderRadius.circular(45),
-                child: Image.network(
-                    fit: BoxFit.fill, peopleItemModel.avatar ?? ""),
-              )),
+              peopleItemModel.address.isEmpty
+                  ? CircleAvatar(
+                      child: ClipRRect(
+                      borderRadius: BorderRadius.circular(45),
+                      child: Image.asset(
+                          fit: BoxFit.fill, "assets/image/avatar.png"),
+                    ))
+                  : CircleAvatar(
+                      child: ClipRRect(
+                      borderRadius: BorderRadius.circular(45),
+                      child: Image.network(
+                          fit: BoxFit.fill, peopleItemModel.avatar ?? ""),
+                    )),
               const SizedBox(
                 width: 20,
               ),

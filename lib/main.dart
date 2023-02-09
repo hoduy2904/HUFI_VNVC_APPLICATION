@@ -1,13 +1,9 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:animations/animations.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_event.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_state.dart';
@@ -20,7 +16,6 @@ import 'package:hufi_vnvc_application/screens/home/home_page.dart';
 import 'package:hufi_vnvc_application/screens/profile/personal_screen.dart';
 import 'package:hufi_vnvc_application/screens/record/record.dart';
 import 'package:hufi_vnvc_application/screens/splash_screen/splash_screen.dart';
-import 'package:hufi_vnvc_application/screens/vaccine/vaccine_detail.dart';
 import 'package:hufi_vnvc_application/screens/vaccine/vaccines.dart';
 import 'package:hufi_vnvc_application/services/api_services.dart';
 import 'package:hufi_vnvc_application/services/notification_services.dart';
