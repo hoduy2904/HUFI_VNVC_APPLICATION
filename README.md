@@ -1,5 +1,6 @@
 <h1>ĐỒ ÁN KHOÁ LUẬN VNVC APPLICATION HUFI 2022</h1>
  Cổng thông tin tiêm chủng chính thức của VNVC – Hệ thống tiêm chủng cho trẻ em & người lớn hàng đầu Việt Nam về chất lượng chuyên môn và dịch vụ, nhằm kết nối với Khách hàng thường xuyên và thuận tiện hơn, giúp theo dõi lịch sử tiêm, đề xuất vắc xin cần thiết cho khách hàng, kịp thời nhận các thông tin quan trọng về dịch bệnh, các hướng dẫn chăm sóc sức khoẻ từ các chuyên gia đầu ngành. Ứng dụng VNVC cũng là nơi cập nhật nhanh chóng các chính sách ưu đãi dành riêng cho Khách hàng thân thiết, mang đến những trải nghiệm thú vị:
+
 - Đăng ký tài khoản dễ dàng.
 
 - Đặt mua vắc xin nhanh chóng, thuận tiện.
