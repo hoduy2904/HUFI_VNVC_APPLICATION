@@ -128,7 +128,12 @@ class PaymentOrder extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                               minimumSize: const Size.fromHeight(45)),
                           onPressed: () {
-                            (state is PaymentOrderLoadingState)
+                            (state is PaymentOrderLoadingState) ||
+                                    (context
+                                        .select((CartBloc bloc) =>
+                                            bloc.state as CartSuccessState)
+                                        .carts
+                                        .isEmpty)
                                 ? null
                                 : context
                                     .read<PaymentOrderBloc>()

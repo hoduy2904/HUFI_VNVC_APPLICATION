@@ -58,10 +58,11 @@ class VaccineListWidget extends StatelessWidget {
               BlocBuilder<VaccineBloc, VaccineState>(
                   builder: ((context, state) {
                 if (state.vaccineStatus == VaccineStatus.VaccineLoading) {
-                  return Center(
+                  return Expanded(
+                      child: Center(
                     child: LoadingAnimationWidget.fourRotatingDots(
                         color: ColorTheme.primary, size: 24),
-                  );
+                  ));
                 } else if (state.vaccineStatus ==
                     VaccineStatus.VaccineSuccess) {
                   return Expanded(
@@ -86,9 +87,10 @@ class VaccineListWidget extends StatelessWidget {
                     ],
                   ));
                 } else {
-                  return const Center(
+                  return const Expanded(
+                      child: Center(
                     child: Text("Không có vắc xin nào"),
-                  );
+                  ));
                 }
               }))
             ])));

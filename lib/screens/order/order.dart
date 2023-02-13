@@ -43,7 +43,9 @@ class _OrderScreenState extends State<OrderScreen>
             centerTitle: true,
             bottom: TabBar(
                 onTap: (value) {
-                  tab.index = tab.previousIndex;
+                  setState(() {
+                    tab.index = tab.previousIndex;
+                  });
                 },
                 controller: tab,
                 enableFeedback: false,
@@ -107,33 +109,37 @@ class _OrderScreenState extends State<OrderScreen>
                   )
                 ]),
           ),
-          body: TabBarView(controller: tab, children: [
-            PeopleOrder(
-              onSelect: (id) => {
-                setState(() {
-                  selectId = id;
-                  currentTab = 1;
-                  isChoosePeople = true;
-                }),
-              },
-            ),
-            SingleChildScrollView(
-                child: PaymentOrder(
-              selectId: selectId,
-              onPay: (isSuccess, message) {
-                if (isSuccess) {
-                  setState((() {
-                    currentTab = 2;
-                    isPayment = true;
-                  }));
-                } else {
-                  fToast.showToast(
-                      child: ToastWidget(message: message, status: "error"));
-                }
-              },
-            )),
-            const OrderComplete()
-          ]),
+          body: TabBarView(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: tab,
+              children: [
+                PeopleOrder(
+                  onSelect: (id) => {
+                    setState(() {
+                      selectId = id;
+                      currentTab = 1;
+                      isChoosePeople = true;
+                    }),
+                  },
+                ),
+                SingleChildScrollView(
+                    child: PaymentOrder(
+                  selectId: selectId,
+                  onPay: (isSuccess, message) {
+                    if (isSuccess) {
+                      setState((() {
+                        currentTab = 2;
+                        isPayment = true;
+                      }));
+                    } else {
+                      fToast.showToast(
+                          child:
+                              ToastWidget(message: message, status: "error"));
+                    }
+                  },
+                )),
+                const OrderComplete()
+              ]),
         ));
   }
 }
