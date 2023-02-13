@@ -1,10 +1,7 @@
 import 'dart:developer';
-import 'dart:math';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_package_bloc/vaccine_package_bloc.dart';
-import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_state.dart';
 import 'package:hufi_vnvc_application/models/vaccine_model.dart';
 import 'package:hufi_vnvc_application/models/vaccine_package_model.dart';
 import 'package:hufi_vnvc_application/repositories/product_repository.dart';
@@ -38,7 +35,6 @@ class VaccineDetailsBloc
 //Event
 class VaccineDetailsEvent extends Equatable {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
@@ -47,14 +43,12 @@ class OnLoadVaccineDetailsEvent extends VaccineDetailsEvent {
   final int? vaccinePackageId;
   OnLoadVaccineDetailsEvent({this.vaccinePackageId, this.vaccineId});
   @override
-  // TODO: implement props
   List<Object?> get props => [vaccineId, vaccinePackageId];
 }
 
 //State
 class VaccineDetailsState extends Equatable {
   @override
-  // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
 }
 
@@ -65,7 +59,6 @@ class VaccineDetailsSuccessState extends VaccineDetailsState {
   final VaccinePackageModel? vaccinePackage;
   VaccineDetailsSuccessState({this.vaccine, this.vaccinePackage});
   @override
-  // TODO: implement props
   List<Object?> get props => [vaccine, vaccinePackage];
 }
 
@@ -73,6 +66,5 @@ class VaccineDetailsFailedState extends VaccineDetailsState {
   final String error;
   VaccineDetailsFailedState({required this.error});
   @override
-  // TODO: implement props
   List<Object?> get props => [error];
 }

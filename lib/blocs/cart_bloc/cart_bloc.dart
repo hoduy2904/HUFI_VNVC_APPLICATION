@@ -29,15 +29,14 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
     on<OnRemoveCartItem>((event, emit) async {
       try {
-        print("have 1");
         var removeCartResult =
             await CartRepository().removeCart(event.idProduct);
-        print("have 2");
         if (removeCartResult.isSuccess) {
           var carts = await CartRepository().getCarts();
           emit(CartSuccessState(carts: carts));
         }
       } catch (e) {
+        // ignore: avoid_print
         print(e.toString());
       }
     });

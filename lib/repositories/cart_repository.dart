@@ -1,10 +1,6 @@
-import 'dart:convert';
-
 import 'package:hufi_vnvc_application/models/cart_model.dart';
 import 'package:hufi_vnvc_application/models/response_api.dart';
-import 'package:hufi_vnvc_application/models/user_model.dart';
 import 'package:hufi_vnvc_application/services/api_services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class CartRepository {
   Future<List<CartModel>> getCarts() async {

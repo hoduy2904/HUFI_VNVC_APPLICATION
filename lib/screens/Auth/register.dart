@@ -76,13 +76,13 @@ class RegisterScreen extends StatelessWidget {
                 child: BlocConsumer<RegisterBloc, RegisterState>(
                     listener: (context, state) {
                       if (state.registerResultState?.status ==
-                          RegisterStatus.Exits) {
+                          RegisterStatus.exits) {
                         fToast.showToast(
                             child: const ToastWidget(
                                 message: "Số điện thoại này đã được đăng ký",
                                 status: "error"));
                       } else if (state.registerResultState?.status ==
-                          RegisterStatus.Success) {
+                          RegisterStatus.success) {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
@@ -92,7 +92,7 @@ class RegisterScreen extends StatelessWidget {
                                       fromRegister: true,
                                     ))));
                       } else if (state.registerResultState?.status ==
-                          RegisterStatus.Failed) {
+                          RegisterStatus.failed) {
                         fToast.showToast(
                             child: ToastWidget(
                                 message: state.registerResultState!.message,
@@ -161,7 +161,7 @@ class RegisterScreen extends StatelessWidget {
                                               BorderRadius.circular(8))),
                                 ),
                                 if (state.registerResultState?.status ==
-                                    RegisterStatus.Failed)
+                                    RegisterStatus.failed)
                                   Text(
                                     state.registerResultState!.message,
                                     style: const TextStyle(
@@ -204,7 +204,7 @@ class RegisterScreen extends StatelessWidget {
                                               BorderRadius.circular(8))),
                                 ),
                                 if (state.registerResultState?.status ==
-                                    RegisterStatus.Failed)
+                                    RegisterStatus.failed)
                                   Text(
                                     state.registerResultState!.message,
                                     style: const TextStyle(
@@ -216,7 +216,7 @@ class RegisterScreen extends StatelessWidget {
                                 ElevatedButton(
                                     onPressed:
                                         (state.registerResultState?.status ==
-                                                RegisterStatus.Loading)
+                                                RegisterStatus.loading)
                                             ? null
                                             : () => context
                                                 .read<RegisterBloc>()
@@ -229,7 +229,7 @@ class RegisterScreen extends StatelessWidget {
                                         backgroundColor: ColorTheme.primary,
                                         minimumSize: const Size.fromHeight(40)),
                                     child: (state.registerResultState?.status ==
-                                            RegisterStatus.Loading)
+                                            RegisterStatus.loading)
                                         ? LoadingAnimationWidget
                                             .fourRotatingDots(
                                                 color: ColorTheme.primary,

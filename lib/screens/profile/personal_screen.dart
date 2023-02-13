@@ -65,8 +65,8 @@ class PersonalScreen extends StatelessWidget {
                           ),
                           Text(
                               "${user.phoneNumber} - ${user.sex ? "Nam" : "Nữ"}, ${DateFormat("dd/MM/yyyy").format(user.dateOfBirth)}",
-                              style:
-                                  TextStyle(fontSize: 12, color: Colors.white))
+                              style: const TextStyle(
+                                  fontSize: 12, color: Colors.white))
                         ],
                       )
                     ],

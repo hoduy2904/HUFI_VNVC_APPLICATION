@@ -79,13 +79,13 @@ class LoginScreen extends StatelessWidget {
                 child: BlocConsumer<LoginBloc, LoginState>(
                     listener: (context, state) {
                       if (state.loginResultState?.status ==
-                          LoginStatus.Success) {
+                          LoginStatus.success) {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: ((context) => const RunFirstApp())));
                       } else if (state.loginResultState?.status ==
-                          LoginStatus.NotActive) {
+                          LoginStatus.notActive) {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
@@ -93,7 +93,7 @@ class LoginScreen extends StatelessWidget {
                                       username: state.userName!,
                                     )));
                       } else if (state.loginResultState?.status ==
-                          LoginStatus.Failed) {
+                          LoginStatus.failed) {
                         fToast.showToast(
                             child: ToastWidget(
                                 message: state.loginResultState!.message,
@@ -158,7 +158,7 @@ class LoginScreen extends StatelessWidget {
                                               BorderRadius.circular(8))),
                                 ),
                                 if (state.loginResultState?.status ==
-                                    LoginStatus.Failed)
+                                    LoginStatus.failed)
                                   Text(
                                     state.loginResultState!.message,
                                     style: const TextStyle(
@@ -206,13 +206,14 @@ class LoginScreen extends StatelessWidget {
                                 ),
                                 ElevatedButton(
                                     onPressed: state.loginResultState?.status ==
-                                            LoginStatus.Loading
+                                            LoginStatus.loading
                                         ? null
                                         : () async {
                                             final fcmToken =
                                                 await FirebaseMessaging.instance
                                                     .getToken();
                                             print(fcmToken);
+                                            // ignore: use_build_context_synchronously
                                             context.read<LoginBloc>().add(
                                                 OnClickLoginEvent(
                                                     fcmToken: fcmToken));
@@ -225,7 +226,7 @@ class LoginScreen extends StatelessWidget {
                                         backgroundColor: ColorTheme.primary,
                                         minimumSize: const Size.fromHeight(40)),
                                     child: (state.loginResultState?.status ==
-                                            LoginStatus.Loading)
+                                            LoginStatus.loading)
                                         ? LoadingAnimationWidget
                                             .fourRotatingDots(
                                                 color: ColorTheme.primary,

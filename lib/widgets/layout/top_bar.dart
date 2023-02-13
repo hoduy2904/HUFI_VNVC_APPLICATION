@@ -95,13 +95,13 @@ class TopAppBar extends StatelessWidget with PreferredSizeWidget {
                         borderRadius: BorderRadius.circular(50),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.all(2.0),
+                        padding: const EdgeInsets.all(2.0),
                         child: Text(
                           textAlign: TextAlign.center,
                           (state is CartSuccessState)
                               ? state.carts.length.toString()
                               : "0",
-                          style: TextStyle(fontSize: 10),
+                          style: const TextStyle(fontSize: 10),
                         ),
                       ),
                     ),
@@ -114,6 +114,5 @@ class TopAppBar extends StatelessWidget with PreferredSizeWidget {
   }
 
   @override
-  // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

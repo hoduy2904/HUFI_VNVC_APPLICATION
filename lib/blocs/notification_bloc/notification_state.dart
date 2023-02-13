@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:hufi_vnvc_application/models/notification_model.dart';
 
 enum NotificationStatus { Loading, Success, Failed }

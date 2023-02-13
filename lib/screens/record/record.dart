@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/record_bloc/history_injection_bloc/history_injection_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/record_bloc/history_injection_bloc/history_injection_event.dart';
 import 'package:hufi_vnvc_application/blocs/record_bloc/history_injection_bloc/history_injection_state.dart';
-import 'package:hufi_vnvc_application/models/injection_model.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:hufi_vnvc_application/themes/typography.dart';
 import 'package:hufi_vnvc_application/widgets/items/injection_item.dart';

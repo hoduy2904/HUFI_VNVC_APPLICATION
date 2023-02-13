@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hufi_vnvc_application/main.dart';
-import 'package:hufi_vnvc_application/models/history_buy_model.dart';
 import 'package:hufi_vnvc_application/models/injection_schedule.dart';
 import 'package:hufi_vnvc_application/screens/history_buy_details/history_buy_details.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:hufi_vnvc_application/models/base_address.dart';
 import 'package:hufi_vnvc_application/models/district_model.dart';
 

@@ -7,7 +7,6 @@ import 'package:equatable/equatable.dart';
 class ProfileEvent extends Equatable {
   @override
   // ignore: todo
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
@@ -115,6 +114,5 @@ class OnChangeAvatarEvent extends ProfileEvent {
   final File? avatar;
   OnChangeAvatarEvent({required this.avatar});
   @override
-  // TODO: implement props
   List<Object?> get props => [avatar];
 }

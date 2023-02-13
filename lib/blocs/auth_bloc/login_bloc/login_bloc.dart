@@ -15,8 +15,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         (event, emit) => emit(state.copyWith(userName: event.phoneNumber)));
     on<OnClickLoginEvent>((event, emit) async {
       emit(state.copyWith(
-          loginResultState:
-              LoginResultState(status: LoginStatus.Loading, message: '')));
+          loginResultState: const LoginResultState(
+              status: LoginStatus.loading, message: '')));
       try {
         var response = await AuthRepository()
             .login("KH${state.userName!}", state.password!, event.fcmToken!);
@@ -29,23 +29,23 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           prefs.setString("user", jsonEncode(login.user));
           prefs.setString("deviceId", event.fcmToken!);
           emit(state.copyWith(
-              loginResultState: LoginResultState(
-                  status: LoginStatus.Success, message: "login success")));
+              loginResultState: const LoginResultState(
+                  status: LoginStatus.success, message: "login success")));
         } else if (response.statusCode == 423) {
           emit(state.copyWith(
               loginResultState: LoginResultState(
-                  status: LoginStatus.NotActive,
+                  status: LoginStatus.notActive,
                   message: response.messages.first)));
         } else {
           emit(state.copyWith(
               loginResultState: LoginResultState(
-                  status: LoginStatus.Failed,
+                  status: LoginStatus.failed,
                   message: response.messages.first)));
         }
       } catch (e) {
         emit(state.copyWith(
             loginResultState: LoginResultState(
-                status: LoginStatus.Failed, message: e.toString())));
+                status: LoginStatus.failed, message: e.toString())));
       }
     });
     on<OnShowPasswordEvent>((event, emit) =>

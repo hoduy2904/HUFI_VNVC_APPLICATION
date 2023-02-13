@@ -14,7 +14,7 @@ class APIServices<T> {
   final String url;
   final String fullUrl;
   Map<String, String>? headers;
-  final dynamic? body;
+  final dynamic body;
   T Function(dynamic json) parse;
   String finalUrl() => url.isEmpty ? fullUrl : HOST + url;
   APIServices(
@@ -71,7 +71,6 @@ class RequestAPI {
       };
     }
     try {
-      print(resource.finalUrl());
       var request = await client.get(Uri.parse(resource.finalUrl()),
           headers: resource.headers);
 

@@ -1,0 +1,2 @@
+flutter.compileSdkVersion=33
+flutter.minSdkVersion=19
