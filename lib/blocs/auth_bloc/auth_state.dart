@@ -9,7 +9,9 @@ class AuthState extends Equatable {
 class AuthenticationState extends AuthState {
   final CustomerModel user;
   final int loginId;
-  AuthenticationState({required this.user, required this.loginId});
+  final String openAIToken;
+  AuthenticationState(
+      {required this.user, required this.loginId, this.openAIToken = ""});
   @override
   List<Object?> get props => [user, loginId];
 }

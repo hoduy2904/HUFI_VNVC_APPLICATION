@@ -21,7 +21,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
                 isYou: false,
                 timeSend: DateTime.now()));
         emit(state.copyWith(status: ChatStatus.Reciving));
-        var response = await ChatRepository().sendChat(event.chat);
+        var response = await ChatRepository()
+            .sendChat(message: event.chat, token: event.chatAPI);
         state.chats.removeAt(0);
         state.chats.insert(
             0,

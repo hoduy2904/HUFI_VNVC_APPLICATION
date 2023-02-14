@@ -7,7 +7,9 @@ import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_event.dart';
 import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_state.dart';
 import 'package:hufi_vnvc_application/models/user_model.dart';
 import 'package:hufi_vnvc_application/repositories/auth_repository.dart';
+import 'package:hufi_vnvc_application/repositories/chat_repository.dart';
 import 'package:hufi_vnvc_application/repositories/customer_repository.dart';
+import 'package:hufi_vnvc_application/repositories/genarel_repostitory.dart';
 import 'package:hufi_vnvc_application/services/api_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -41,7 +43,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         var userString = pref.getString("user");
         var userMd = UserModel.fromJson(jsonDecode(userString!));
         var customer = await CustomerRepository().getCustomerModel(userMd.id);
-        emit(AuthenticationState(user: customer, loginId: userMd.id));
+        String chatAPI = "";
+        try {
+          var responseChat = await ChatRepository().getChatToken();
+          chatAPI = responseChat.data.toString();
+        } catch (e) {}
+        emit(AuthenticationState(
+            user: customer, loginId: userMd.id, openAIToken: chatAPI));
         pref.setInt("customerId", customer.id);
       } else {
         pref.clear();

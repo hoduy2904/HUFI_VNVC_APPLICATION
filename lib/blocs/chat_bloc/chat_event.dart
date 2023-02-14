@@ -7,7 +7,8 @@ class ChatEvent extends Equatable {
 
 class OnSendMessageEvent extends ChatEvent {
   final String chat;
-  OnSendMessageEvent({required this.chat});
+  final String chatAPI;
+  OnSendMessageEvent({required this.chat, this.chatAPI = ""});
   @override
   List<Object?> get props => [chat];
 }

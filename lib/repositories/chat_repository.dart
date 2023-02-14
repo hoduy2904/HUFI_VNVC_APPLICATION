@@ -1,8 +1,9 @@
 import 'package:hufi_vnvc_application/constaint.dart';
+import 'package:hufi_vnvc_application/models/response_api.dart';
 import 'package:hufi_vnvc_application/services/api_services.dart';
 
 class ChatRepository {
-  Future<String> sendChat(String message) async {
+  Future<String> sendChat({required String message, String? token}) async {
     var body = {
       "model": "text-davinci-003",
       "prompt": "$message\nAI:",
@@ -17,7 +18,7 @@ class ChatRepository {
         body: body,
         headers: {
           "Content-Type": "application/json",
-          "Authorization": AuthorizationChat
+          "Authorization": token ?? AuthorizationChat
         },
         fullUrl: "https://api.openai.com/v1/completions",
         parse: ((json) {
@@ -29,5 +30,15 @@ class ChatRepository {
     } catch (e) {
       return "Hiện tại đang quá tải, vui lòng thử lại sau, xin lỗi vì sự cố này, có vấn đề gì hãy gọi hotline của trung tâm VNVC, xin cảm ơn.";
     }
+  }
+
+  Future<ResponseAPI> getChatToken() async {
+    var resource = APIServices(
+        url: "/auth/getChatToken",
+        parse: ((json) {
+          var response = ResponseAPI.fromJson(json);
+          return response;
+        }));
+    return await RequestAPI().get(resource);
   }
 }

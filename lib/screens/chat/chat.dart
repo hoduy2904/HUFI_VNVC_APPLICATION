@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_bloc.dart';
+import 'package:hufi_vnvc_application/blocs/auth_bloc/auth_state.dart';
 import 'package:hufi_vnvc_application/blocs/chat_bloc/chat_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/chat_bloc/chat_event.dart';
 import 'package:hufi_vnvc_application/blocs/chat_bloc/chat_state.dart';
@@ -13,6 +15,9 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String token = context
+        .select((AuthBloc bloc) => bloc.state as AuthenticationState)
+        .openAIToken;
     TextEditingController message = TextEditingController();
     return GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -48,9 +53,8 @@ class ChatScreen extends StatelessWidget {
                     suffixIcon: IconButton(
                         hoverColor: Colors.transparent,
                         onPressed: () => {
-                              context
-                                  .read<ChatBloc>()
-                                  .add(OnSendMessageEvent(chat: message.text)),
+                              context.read<ChatBloc>().add(OnSendMessageEvent(
+                                  chat: message.text, chatAPI: token)),
                               message.text = "",
                             },
                         icon: Icon(
