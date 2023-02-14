@@ -50,7 +50,6 @@ class AuthRepository {
         url: "/api/auth/register",
         body: model,
         parse: ((json) {
-          print(json);
           var res = ResponseAPI.fromJson(json);
           return res;
         }));

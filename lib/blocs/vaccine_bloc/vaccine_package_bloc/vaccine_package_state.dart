@@ -1,6 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:hufi_vnvc_application/models/vaccine_category_model.dart';
-import 'package:hufi_vnvc_application/models/vaccine_model.dart';
 import 'package:hufi_vnvc_application/models/vaccine_package_model.dart';
 
 enum VaccinePackageStatus {
@@ -31,7 +29,7 @@ class VaccinePackageState extends Equatable {
       search: '',
       isEndPage: false,
       status: VaccinePackageStatus.Loading,
-      vaccinePackages: const [],
+      vaccinePackages: [],
       currentPage: 1);
 
   VaccinePackageState copyWith(

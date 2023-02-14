@@ -1,8 +1,6 @@
-import 'dart:math';
-
 import 'package:equatable/equatable.dart';
 
-enum LoginStatus { Loading, Success, Failed, NotActive }
+enum LoginStatus { loading, success, failed, notActive }
 
 class LoginState extends Equatable {
   final LoginResultState? loginResultState;
@@ -30,7 +28,6 @@ class LoginState extends Equatable {
   }
 
   @override
-  // TODO: implement props
   List<Object?> get props =>
       [userName, password, loginResultState, isShowPassword];
 }
@@ -38,8 +35,7 @@ class LoginState extends Equatable {
 class LoginResultState extends LoginState {
   final LoginStatus status;
   final String message;
-  LoginResultState({required this.status, required this.message});
+  const LoginResultState({required this.status, required this.message});
   @override
-  // TODO: implement props
   List<Object?> get props => [status, message];
 }

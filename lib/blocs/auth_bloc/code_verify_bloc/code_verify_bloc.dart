@@ -6,7 +6,6 @@ import 'package:hufi_vnvc_application/repositories/auth_repository.dart';
 class CodeVerifyBloc extends Bloc<CodeVerifyEvent, CodeVerifyState> {
   CodeVerifyBloc() : super(CodeVerifyState()) {
     on<OnClickVerifyEvent>((event, emit) async {
-      print("vào");
       emit(CodeVerifyLoadingState());
       try {
         var response = await AuthRepository()

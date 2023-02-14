@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:hufi_vnvc_application/models/response_api.dart';
 import 'package:hufi_vnvc_application/models/vaccine_model.dart';
 import 'package:hufi_vnvc_application/models/vaccine_package_model.dart';

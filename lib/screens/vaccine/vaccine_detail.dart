@@ -184,13 +184,20 @@ class VaccineDetailsScreen extends StatelessWidget {
                               builder: ((context, state) => ElevatedButton(
                                     onPressed: packageId != null ||
                                             (vaccineId != null &&
-                                                context.select((VaccineDetailsBloc
-                                                        bloc) =>
-                                                    (bloc.state
-                                                            as VaccineDetailsSuccessState)
-                                                        .vaccine!
-                                                        .price <
-                                                    1))
+                                                (context.select((VaccineDetailsBloc
+                                                            bloc) =>
+                                                        (bloc.state
+                                                                as VaccineDetailsSuccessState)
+                                                            .vaccine!
+                                                            .price <
+                                                        1) ||
+                                                    context.select(
+                                                        (VaccineDetailsBloc bloc) =>
+                                                            (bloc.state
+                                                                    as VaccineDetailsSuccessState)
+                                                                .vaccine!
+                                                                .quantityRemain <
+                                                            1)))
                                         ? null
                                         : () => context
                                             .read<CartBloc>()
@@ -202,13 +209,21 @@ class VaccineDetailsScreen extends StatelessWidget {
                                         minimumSize: const Size.fromHeight(45)),
                                     child: packageId != null ||
                                             (vaccineId != null &&
-                                                context.select((VaccineDetailsBloc
-                                                        bloc) =>
-                                                    (bloc.state
-                                                            as VaccineDetailsSuccessState)
-                                                        .vaccine!
-                                                        .price <
-                                                    1))
+                                                (context.select((VaccineDetailsBloc
+                                                            bloc) =>
+                                                        (bloc.state
+                                                                as VaccineDetailsSuccessState)
+                                                            .vaccine!
+                                                            .price <
+                                                        1) ||
+                                                    context.select(
+                                                        (VaccineDetailsBloc
+                                                                bloc) =>
+                                                            (bloc.state
+                                                                    as VaccineDetailsSuccessState)
+                                                                .vaccine!
+                                                                .quantityRemain <
+                                                            1)))
                                         ? const Text("Liên hệ")
                                         : const Text("Đăng ký mũi tiêm"),
                                   ))),

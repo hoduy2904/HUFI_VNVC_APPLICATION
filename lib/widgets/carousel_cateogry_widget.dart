@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hufi_vnvc_application/models/category_model.dart';
-import 'package:hufi_vnvc_application/screens/chat/chat.dart';
 import 'package:hufi_vnvc_application/screens/history_buy/history_buy.dart';
 import 'package:hufi_vnvc_application/screens/notification/notification.dart';
 import 'package:hufi_vnvc_application/screens/order/order.dart';
@@ -8,7 +7,6 @@ import 'package:hufi_vnvc_application/screens/record/record.dart';
 import 'package:hufi_vnvc_application/screens/vaccine/vaccine_package.dart';
 import 'package:hufi_vnvc_application/screens/vaccine/vaccines.dart';
 import 'package:hufi_vnvc_application/widgets/items/category_item.dart';
-import 'package:hufi_vnvc_application/widgets/items/history_buy_item.dart';
 
 class CategoryCarouselWidget extends StatefulWidget {
   const CategoryCarouselWidget({super.key});

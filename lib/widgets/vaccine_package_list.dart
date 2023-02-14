@@ -3,12 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_package_bloc/vaccine_package_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_package_bloc/vaccine_package_state.dart';
-import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_state.dart';
-import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vacicne_bloc.dart';
 import 'package:hufi_vnvc_application/models/vaccine_package_model.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
-import 'package:hufi_vnvc_application/widgets/category_horization_widget.dart';
-import 'package:hufi_vnvc_application/widgets/items/vaccine_item.dart';
 import 'package:hufi_vnvc_application/widgets/items/vaccine_package_item.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 

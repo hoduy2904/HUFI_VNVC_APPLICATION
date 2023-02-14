@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hufi_vnvc_application/models/injection_model.dart';
 import 'package:hufi_vnvc_application/models/injection_schedule_details.dart';
 import 'package:intl/intl.dart';
 

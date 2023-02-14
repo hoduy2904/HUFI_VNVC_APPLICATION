@@ -19,33 +19,35 @@ class FormWithSearchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: isShowAppBar
-          ? AppBar(
-              elevation: 0,
-              backgroundColor: ColorTheme.primary,
-              title: Text(
-                titleBar,
-                style: TypographyTheme.titleBar,
+    return GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Scaffold(
+          appBar: isShowAppBar
+              ? AppBar(
+                  elevation: 0,
+                  backgroundColor: ColorTheme.primary,
+                  title: Text(
+                    titleBar,
+                    style: TypographyTheme.titleBar,
+                  ),
+                  centerTitle: true,
+                )
+              : null,
+          body: Center(
+              child: Column(
+            children: [
+              Container(
+                color: Colors.blue.shade800,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: SearchBarWidget(
+                    hint: hint, onChange: (value) => searchChange(value)),
               ),
-              centerTitle: true,
-            )
-          : null,
-      body: Center(
-          child: Column(
-        children: [
-          Container(
-            color: Colors.blue.shade800,
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: SearchBarWidget(
-                hint: hint, onChange: (value) => searchChange(value)),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          child
-        ],
-      )),
-    );
+              const SizedBox(
+                height: 10,
+              ),
+              child
+            ],
+          )),
+        ));
   }
 }

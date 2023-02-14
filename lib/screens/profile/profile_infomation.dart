@@ -45,7 +45,7 @@ class _ProfileInfomationScreenState extends State<ProfileInfomationScreen> {
                 create: (context) => ProfileBloc()..add(OnLoadProvince()),
                 child: Column(
                   children: [
-                    imageProfile(),
+                    const imageProfile(),
                     const SizedBox(
                       height: 30,
                     ),

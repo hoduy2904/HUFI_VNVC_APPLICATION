@@ -4,7 +4,7 @@ import 'package:hufi_vnvc_application/blocs/auth_bloc/forgot_password_bloc/forgo
 import 'package:hufi_vnvc_application/repositories/auth_repository.dart';
 
 class ForgotBloc extends Bloc<ForgotPasswordEvent, ForgotPasswordState> {
-  ForgotBloc() : super(ForgotPasswordState()) {
+  ForgotBloc() : super(const ForgotPasswordState()) {
     on<OnChangePhoneNumber>((event, emit) async {
       emit(state.copyWith(
           phoneNumber: event.phoneNumber,

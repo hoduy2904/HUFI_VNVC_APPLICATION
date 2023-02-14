@@ -7,7 +7,6 @@ import 'package:hufi_vnvc_application/blocs/order_bloc/payment_order_bloc/paymen
 import 'package:hufi_vnvc_application/blocs/order_bloc/payment_order_bloc/payment_order_event.dart';
 import 'package:hufi_vnvc_application/blocs/order_bloc/payment_order_bloc/payment_order_state.dart';
 import 'package:hufi_vnvc_application/main.dart';
-import 'package:hufi_vnvc_application/screens/home/home_page.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:hufi_vnvc_application/widgets/items/vaccine_cart_item.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -129,7 +128,12 @@ class PaymentOrder extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                               minimumSize: const Size.fromHeight(45)),
                           onPressed: () {
-                            (state is PaymentOrderLoadingState)
+                            (state is PaymentOrderLoadingState) ||
+                                    (context
+                                        .select((CartBloc bloc) =>
+                                            bloc.state as CartSuccessState)
+                                        .carts
+                                        .isEmpty)
                                 ? null
                                 : context
                                     .read<PaymentOrderBloc>()

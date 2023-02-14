@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_package_bloc/vaccine_package_event.dart';
 import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_package_bloc/vaccine_package_state.dart';
@@ -16,7 +14,6 @@ class VaccinePackageBloc
       try {
         var vaccinePackage = await ProductRepository()
             .getVaccinesPackages(page: 1, size: pageSize, q: event.search);
-        print(inspect(vaccinePackage));
         emit(state.copyWith(
             search: event.search,
             currentPage: 1,

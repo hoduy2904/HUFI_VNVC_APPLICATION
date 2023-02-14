@@ -16,24 +16,24 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       if (state.validateForm) {
         emit(state.copyWith(
             registerResultState: const RegisterResultState(
-                status: RegisterStatus.Loading, message: '')));
+                status: RegisterStatus.loading, message: '')));
         try {
           var checkAccount = await AuthRepository()
               .checkAccountExits(phoneNumber: state.userName!);
           if (!checkAccount) {
             emit(state.copyWith(
                 registerResultState: const RegisterResultState(
-                    status: RegisterStatus.Success, message: 'Next step')));
+                    status: RegisterStatus.success, message: 'Next step')));
           } else {
             emit(state.copyWith(
                 registerResultState: const RegisterResultState(
-                    status: RegisterStatus.Failed,
+                    status: RegisterStatus.failed,
                     message: 'Tài khoản đã tồn tại')));
           }
         } catch (e) {
           emit(state.copyWith(
               registerResultState: RegisterResultState(
-                  status: RegisterStatus.Failed, message: e.toString())));
+                  status: RegisterStatus.failed, message: e.toString())));
         }
       }
     });

@@ -12,13 +12,11 @@ class FormSearchState extends Equatable {
   final String? search;
   const FormSearchState({this.search});
   @override
-  // TODO: implement props
   List<Object?> get props => [search];
 }
 
 class FromSearchEvent extends Equatable {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
@@ -26,6 +24,5 @@ class OnSearchChangeEvent extends FromSearchEvent {
   final String? search;
   OnSearchChangeEvent({required this.search});
   @override
-  // TODO: implement props
   List<Object?> get props => [search];
 }

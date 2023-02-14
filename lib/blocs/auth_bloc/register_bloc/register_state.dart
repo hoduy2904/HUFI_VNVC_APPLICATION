@@ -1,8 +1,6 @@
-import 'dart:math';
-
 import 'package:equatable/equatable.dart';
 
-enum RegisterStatus { Loading, Success, Failed, Exits }
+enum RegisterStatus { loading, success, failed, exits }
 
 class RegisterState extends Equatable {
   final RegisterResultState? registerResultState;
@@ -56,7 +54,6 @@ class RegisterState extends Equatable {
   }
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
         isSubmit,
         userName,
@@ -74,6 +71,5 @@ class RegisterResultState extends RegisterState {
   final String message;
   const RegisterResultState({required this.status, required this.message});
   @override
-  // TODO: implement props
   List<Object?> get props => [status, message];
 }

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_event.dart';
 import 'package:hufi_vnvc_application/blocs/vaccine_bloc/vaccine_state.dart';

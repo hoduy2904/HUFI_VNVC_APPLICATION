@@ -1,7 +1,6 @@
 import 'package:age_calculator/age_calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:hufi_vnvc_application/models/customer_model.dart';
-import 'package:hufi_vnvc_application/models/people_item_model.dart';
 
 class PeopleItem extends StatelessWidget {
   final CustomerModel peopleItemModel;
@@ -49,7 +48,7 @@ class PeopleItem extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                   Text(
-                    "Tuổi: ${stringAge}",
+                    "Tuổi: $stringAge",
                     style: Theme.of(context).textTheme.bodySmall,
                   )
                 ],

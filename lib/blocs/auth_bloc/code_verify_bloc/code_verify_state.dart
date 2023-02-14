@@ -1,10 +1,7 @@
-import 'dart:math';
-
 import 'package:equatable/equatable.dart';
 
 class CodeVerifyState extends Equatable {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
@@ -18,6 +15,5 @@ class CodeVerifyFailedState extends CodeVerifyState {
   final String error;
   CodeVerifyFailedState({required this.error});
   @override
-  // TODO: implement props
   List<Object?> get props => [error];
 }

@@ -23,6 +23,5 @@ class ForgotPasswordState extends Equatable {
   }
 
   @override
-  // TODO: implement props
   List<Object?> get props => [phoneNumber, status, message];
 }

@@ -32,12 +32,17 @@ class _CartScreenState extends State<CartScreen> {
         bottomNavigationBar: ElevatedButton(
             style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(45)),
-            onPressed: () => {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const OrderScreen()))
-                },
+            onPressed: context
+                    .select((CartBloc bloc) => bloc.state as CartSuccessState)
+                    .carts
+                    .isEmpty
+                ? null
+                : () => {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const OrderScreen()))
+                    },
             child: const Text("Đặt mua")),
         body: BlocProvider(
             create: (context) => CartBloc()..add(OnLoadCartEvent()),

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:hufi_vnvc_application/models/user_model.dart';
 
 class LoginModel {

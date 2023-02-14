@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/history_buy_bloc/history_buy_bloc.dart';
 import 'package:hufi_vnvc_application/blocs/history_buy_bloc/history_buy_state.dart';
-import 'package:hufi_vnvc_application/models/history_buy_model.dart';
 import 'package:hufi_vnvc_application/models/injection_schedule.dart';
 import 'package:hufi_vnvc_application/themes/color.dart';
 import 'package:hufi_vnvc_application/widgets/items/history_buy_item.dart';
