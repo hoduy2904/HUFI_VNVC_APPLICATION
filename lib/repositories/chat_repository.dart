@@ -34,7 +34,7 @@ class ChatRepository {
 
   Future<ResponseAPI> getChatToken() async {
     var resource = APIServices(
-        url: "/auth/getChatToken",
+        url: "/api/auth/getChatToken",
         parse: ((json) {
           var response = ResponseAPI.fromJson(json);
           return response;
